@@ -1,0 +1,23 @@
+# Loggers, handlers and formatters keys
+
+[loggers]
+keys = root
+
+[handlers]
+keys = console
+
+[formatters]
+keys = full
+
+[logger_root]
+level = DEBUG
+handlers = console
+
+[handler_console]
+class = StreamHandler
+level = INFO
+args = (sys.stdout,)
+formatter = full
+
+[formatter_full]
+format = %(asctime)s - %(levelname)s: %(message)s
