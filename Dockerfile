@@ -1,24 +1,21 @@
-FROM debian:jessie
+FROM python:3-alpine
 MAINTAINER Thomas Queste <tom@tomsquest.com>
 
-ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update \
-    && apt-get install -y \
-        python2.7 \
-        python-pip \
-    && rm -rf /var/lib/apt/lists/*
+RUN apk add --update tini su-exec
 
-RUN pip install radicale dumb-init
+RUN pip install radicale
 
-RUN useradd -m radicale
-ENV HOME /home/radicale
-WORKDIR /home/radicale
-USER radicale
+# User with no home, no password
+RUN adduser -s /bin/false -D -H radicale
+
 COPY config /radicale
-WORKDIR /radicale
+RUN mkdir /data && chown radicale /data
+WORKDIR /data
 
+VOLUME /data
 EXPOSE 5232
-VOLUME ["/home/radicale"]
 
-ENTRYPOINT ["/usr/local/bin/dumb-init", "--"]
+# Tiny starts our entrypoint which starts Radicale
+COPY docker-entrypoint.sh /
+ENTRYPOINT ["/sbin/tini", "--", "/docker-entrypoint.sh"]
 CMD ["radicale", "--config", "/radicale/config"]

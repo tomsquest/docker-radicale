@@ -1,5 +1,3 @@
-# Loggers, handlers and formatters keys
-
 [loggers]
 keys = root
 
