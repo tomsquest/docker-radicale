@@ -11,10 +11,16 @@ Special points:
 
 ## Build & Run
 
-Build:
+Build or Pull (see below) the image:
 
 ```
 docker build -t radicale .
+```
+
+Or Pull:
+
+```
+docker pull tomsquest/radicale
 ```
 
 Run:
