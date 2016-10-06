@@ -16,6 +16,6 @@ VOLUME /data
 EXPOSE 5232
 
 # Tiny starts our entrypoint which starts Radicale
-COPY docker-entrypoint.sh /
-ENTRYPOINT ["/sbin/tini", "--", "/docker-entrypoint.sh"]
+COPY docker-entrypoint.sh /usr/local/bin
+ENTRYPOINT ["/sbin/tini", "--", "docker-entrypoint.sh"]
 CMD ["radicale", "--config", "/radicale/config"]
