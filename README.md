@@ -26,7 +26,7 @@ docker pull tomsquest/docker-radicale
 Run:
 
 ```
-docker run -d --name radicale -p 5232:5232
+docker run -d --name radicale -p 5232:5232 radicale
 ```
 
 Run with persistent data:
