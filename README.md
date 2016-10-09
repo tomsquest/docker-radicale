@@ -20,7 +20,7 @@ docker build -t radicale .
 Or Pull:
 
 ```
-docker pull tomsquest/radicale
+docker pull tomsquest/docker-radicale
 ```
 
 Run:
