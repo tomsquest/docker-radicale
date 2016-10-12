@@ -5,7 +5,7 @@ Docker image for [Radicale](http//radicale.org/), the CalDAV/CardDAV server.
 Special points:
 * Security: run as normal user (not root!) with the help of [su-exec](https://github.com/ncopa/su-exec) ([gosu](https://github.com/tianon/gosu) in C)
 * Safe: use [Tini](https://github.com/krallin/tini) to handle init
-* Persistent volume: `/data` can be mounted by your user or root and will still be readable by the `radicale` user inside the container
+* Persistent volume: `/radicale/data` can be mounted by your user or root and will still be readable by the `radicale` user inside the container
 * Small size: run on [python:3-alpine](https://hub.docker.com/_/python/)
 * Configurable: [Radicale's config](config/config) can be modified before building this image
 
@@ -32,7 +32,7 @@ docker run -d --name radicale -p 5232:5232 radicale
 Run with persistent data:
 
 ```
-docker run -d --name radicale -p 5232:5232 -v ~/radicale:/data radicale
+docker run -d --name radicale -p 5232:5232 -v ~/radicale:/radicale/data radicale
 ```
 
 ## Radicale authentication
@@ -54,6 +54,6 @@ Either, set `debug = True` in [Radicale's config](config/config) and rebuild the
 Or, run the container with the debug flag, without omitting the configuration:
 
 ```
-docker run -d --name radicale -p 5232:5232 -v ~/radicale:/data radicale \
+docker run -d --name radicale -p 5232:5232 -v ~/radicale:/radicale/data radicale \
     radicale --debug --config /radicale/config
 ```

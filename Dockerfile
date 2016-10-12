@@ -9,10 +9,10 @@ RUN pip install radicale
 RUN adduser -s /bin/false -D -H radicale
 
 COPY config /radicale
-RUN mkdir /data && chown radicale /data
-WORKDIR /data
+RUN mkdir -p /radicale/data && chown radicale /radicale/data
+WORKDIR /radicale/data
 
-VOLUME /data
+VOLUME /radicale/data
 EXPOSE 5232
 
 # Tiny starts our entrypoint which starts Radicale

@@ -152,7 +152,7 @@
 #custom_handler =
 
 # Folder for storing local collections, created if not present
-filesystem_folder = /data
+filesystem_folder = /radicale/data/collections
 
 # Database URL for SQLAlchemy
 # dialect+driver://user:password@host/dbname[?key=value..]
