@@ -32,7 +32,7 @@ docker run -d --name radicale -p 5232:5232 radicale
 Run with persistent data:
 
 ```
-docker run -d --name radicale -p 5232:5232 -v ~/radicale:/home/radicale radicale
+docker run -d --name radicale -p 5232:5232 -v ~/radicale:/data radicale
 ```
 
 ## Radicale authentication
@@ -54,6 +54,6 @@ Either, set `debug = True` in [Radicale's config](config/config) and rebuild the
 Or, run the container with the debug flag, without omitting the configuration:
 
 ```
-docker run -d --name radicale -p 5232:5232 -v ~/radicale:/home/radicale radicale \
+docker run -d --name radicale -p 5232:5232 -v ~/radicale:/data radicale \
     radicale --debug --config /radicale/config
 ```
