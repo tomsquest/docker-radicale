@@ -5,7 +5,7 @@ set -e
 # This avoids permission denied if the data volume is mounted by root
 if [ "$1" = 'radicale' -a "$(id -u)" = '0' ]; then
     chown -R radicale .
-    exec su-exec radicale "$0" "$@"
+    exec su-exec radicale "$@"
 fi
 
 exec "$@"
