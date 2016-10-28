@@ -11,13 +11,7 @@ Special points:
 
 ## Build & Run
 
-Build or Pull (see below) the image:
-
-```
-docker build -t radicale .
-```
-
-Or Pull:
+Pull from Docker HUB:
 
 ```
 docker pull tomsquest/docker-radicale
