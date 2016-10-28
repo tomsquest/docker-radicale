@@ -23,10 +23,10 @@ Run:
 docker run -d --name radicale -p 5232:5232 radicale
 ```
 
-Run with persistent data:
+Run with persistent data and readonly container:
 
 ```
-docker run -d --name radicale -p 5232:5232 -v ~/radicale:/radicale/data radicale
+docker run -d --read-only --name radicale -p 5232:5232 -v ~/radicale:/radicale/data radicale
 ```
 
 ## Radicale authentication
