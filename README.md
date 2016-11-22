@@ -23,16 +23,22 @@ Pull from Docker HUB:
 docker pull tomsquest/docker-radicale
 ```
 
-Run:
+Or build the container locally:
+
+```
+docker build -t radicale .
+```
+
+Then, run the container:
 
 ```
 docker run -d --name radicale -p 5232:5232 radicale
 ```
 
-Run with persistent data and readonly container:
+Or, better run it with persistent data and readonly filesystem:
 
 ```
-docker run -d --read-only --name radicale -p 5232:5232 -v ~/radicale:/radicale/data radicale
+docker run -d --name radicale -p 5232:5232 -v ~/radicale:/radicale/data --read-only radicale
 ```
 
 ## Radicale authentication
