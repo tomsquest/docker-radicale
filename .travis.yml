@@ -7,5 +7,5 @@ before_install:
 
 script:
   - docker ps | grep -q radicale
-  - wait 10
+  - sleep 10
   - curl -sSL http://127.0.0.1:5232 | grep -q "Radicale works"
