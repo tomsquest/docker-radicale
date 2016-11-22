@@ -1,11 +1,10 @@
-language: python
-python:
-  - 3.5
 services:
   - docker
-install:
+
+before_install:
   - docker build -t radicale .
   - docker run -d --name radicale -p 127.0.0.1:5232:5232 radicale
+
 script:
   - docker ps | grep -q radicale
-  
+  - curl -sSL http://127.0.0.1:5232 | grep -q "Radicale works"
