@@ -1,7 +1,10 @@
 # Docker-Radicale
 
-[![](https://images.microbadger.com/badges/image/tomsquest/docker-radicale.svg)](https://microbadger.com/images/tomsquest/docker-radicale)
 [![](https://images.microbadger.com/badges/version/tomsquest/docker-radicale.svg)](https://microbadger.com/images/tomsquest/docker-radicale)
+[![](https://images.microbadger.com/badges/image/tomsquest/docker-radicale.svg)](https://microbadger.com/images/tomsquest/docker-radicale)
+[![](https://images.microbadger.com/pulls/version/tomsquest/docker-radicale.svg)](https://hub.docker.com/r/tomsquest/docker-radicale/)
+[![](https://images.microbadger.com/stars/version/tomsquest/docker-radicale.svg)](https://hub.docker.com/r/tomsquest/docker-radicale/)
+[![](https://img.shields.io/docker/automated/tomsquest/docker-radicale.svg)](https://hub.docker.com/r/tomsquest/docker-radicale/)
 
 Docker image for [Radicale](http//radicale.org/), the CalDAV/CardDAV server.
 
