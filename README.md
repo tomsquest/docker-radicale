@@ -7,7 +7,7 @@
 [![](https://img.shields.io/docker/stars/tomsquest/docker-radicale.svg)](https://hub.docker.com/r/tomsquest/docker-radicale/)
 [![](https://img.shields.io/docker/automated/tomsquest/docker-radicale.svg)](https://hub.docker.com/r/tomsquest/docker-radicale/)
 
-Docker image for [Radicale](http//radicale.org/), the CalDAV/CardDAV server.
+Docker image for [Radicale](http://radicale.org), the CalDAV/CardDAV server.
 
 Special points:
 * Security: run as normal user (not root!) with the help of [su-exec](https://github.com/ncopa/su-exec) ([gosu](https://github.com/tianon/gosu) in C)
@@ -46,10 +46,10 @@ docker run -d --name radicale -p 5232:5232 -v ~/radicale:/radicale/data --read-o
 
 As per the documentation, authentication is better handled by your reverse-proxy (Nginx, Caddy...):
 
-> Please note that these modules have not been verified by security experts. 
-> If you need a really secure way to handle authentication, you should put 
-> Radicale behind a real HTTP server and use its authentication and rights 
-> management methods.  
+> Please note that these modules have not been verified by security experts.
+> If you need a really secure way to handle authentication, you should put
+> Radicale behind a real HTTP server and use its authentication and rights
+> management methods.
 > See: http://radicale.org/user_documentation/#idid48
 
 If you wish to do otherwise, edit [Radicale's config](config/config)
