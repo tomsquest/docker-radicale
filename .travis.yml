@@ -8,4 +8,4 @@ before_install:
 script:
   - docker ps | grep -q radicale
   - sleep 10
-  - curl -sSL http://127.0.0.1:5232 | grep -q "Login"
+  - curl -sSL http://127.0.0.1:5232 | grep -q "Radicale works"

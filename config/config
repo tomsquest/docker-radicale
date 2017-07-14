@@ -92,6 +92,7 @@ hosts = 0.0.0.0:5232
 # Rights backend
 # Value: none | authenticated | owner_only | owner_write | from_file
 #type = owner_only
+type = none
 
 # File for rights management from_file
 #file = /etc/radicale/rights
@@ -134,7 +135,7 @@ filesystem_folder = /radicale/data/collections
 # Web interface backend
 # Value: none | internal
 #type = internal
-
+type = none
 
 [logging]
 
