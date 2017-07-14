@@ -7,7 +7,8 @@
 [![](https://img.shields.io/docker/stars/tomsquest/docker-radicale.svg)](https://hub.docker.com/r/tomsquest/docker-radicale/)
 [![](https://img.shields.io/docker/automated/tomsquest/docker-radicale.svg)](https://hub.docker.com/r/tomsquest/docker-radicale/)
 
-Docker image for [Radicale](http://radicale.org), the CalDAV/CardDAV server.
+Docker image for [Radicale](http://radicale.org), the CalDAV/CardDAV server.  
+This container is for Radicale version 2.x, as of 2017.07.
 
 Special points:
 * Security: run as normal user (not root!) with the help of [su-exec](https://github.com/ncopa/su-exec) ([gosu](https://github.com/tianon/gosu) in C)
@@ -42,25 +43,10 @@ Or, better run it with persistent data and readonly filesystem:
 docker run -d --name radicale -p 5232:5232 -v ~/radicale:/radicale/data --read-only radicale
 ```
 
-## Radicale authentication
+## Radicale configuration
 
-As per the documentation, authentication is better handled by your reverse-proxy (Nginx, Caddy...):
+To customize Radicale configuration, clone this repository, edit [Radicale's config](config/config) and build it locally.
 
-> Please note that these modules have not been verified by security experts.
-> If you need a really secure way to handle authentication, you should put
-> Radicale behind a real HTTP server and use its authentication and rights
-> management methods.
-> See: http://radicale.org/user_documentation/#idid48
-
-If you wish to do otherwise, edit [Radicale's config](config/config)
-
-## Enable Radicale logging
-
-Either, set `debug = True` in [Radicale's config](config/config) and rebuild the image.
-
-Or, run the container with the debug flag, without omitting the configuration:
-
-```
-docker run -d --name radicale -p 5232:5232 -v ~/radicale:/radicale/data radicale \
-    radicale --debug --config /radicale/config
-```
+The [config/config](config/config) and [config/logging](config/logging) files comes from Radicale repo:
+* https://raw.githubusercontent.com/Kozea/Radicale/master/config
+* https://raw.githubusercontent.com/Kozea/Radicale/master/logging
