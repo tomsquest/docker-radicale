@@ -17,9 +17,17 @@ Special points:
 * Small size: run on [python:3-alpine](https://hub.docker.com/_/python/)
 * Configurable: [Radicale's config](config/config) can be modified before building this image
 
+## Version/Tags
+
+Github tags are automatically build as image's tags.
+
+`Latest` is branch `master`.  
+`2.x` is Radicale `v2.x`.  
+`1.x` is Radicale `v1.x`.  
+
 ## Build & Run
 
-Pull from Docker HUB:
+Pull latest from [Docker HUB](https://hub.docker.com/r/tomsquest/docker-radicale):
 
 ```
 docker pull tomsquest/docker-radicale
