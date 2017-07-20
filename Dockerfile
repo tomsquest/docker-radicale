@@ -1,9 +1,17 @@
 FROM python:3-alpine
 MAINTAINER Thomas Queste <tom@tomsquest.com>
 
-RUN apk add --update tini su-exec
-
-RUN pip install radicale
+RUN apk add --no-cache \
+    tini \
+    su-exec \
+    gcc \
+    libffi-dev \
+    musl-dev \
+    && pip install radicale passlib[bcrypt] \
+    && apk del \
+    gcc \
+    libffi-dev \
+    musl-dev
 
 # User with no home, no password
 RUN adduser -s /bin/false -D -H radicale
