@@ -16,14 +16,15 @@ RUN apk add --no-cache --virtual=build-dependencies \
 # User with no home, no password
 RUN adduser -s /bin/false -D -H radicale
 
-COPY config /radicale
-RUN mkdir -p /radicale/data && chown radicale /radicale/data
-WORKDIR /radicale/data
+WORKDIR /radicale
+RUN mkdir -p /radicale/config /radicale/data && chown -R radicale /radicale
+COPY config /radicale/config
 
+VOLUME /radicale/config
 VOLUME /radicale/data
 EXPOSE 5232
 
-# Tini starts our entrypoint which starts Radicale
+# Tini starts our entrypoint which then starts Radicale
 COPY docker-entrypoint.sh /usr/local/bin
 ENTRYPOINT ["/sbin/tini", "--", "docker-entrypoint.sh"]
-CMD ["radicale", "--config", "/radicale/config"]
+CMD ["radicale", "--config", "/radicale/config/config"]

@@ -11,51 +11,71 @@ Docker image for [Radicale](http://radicale.org), the CalDAV/CardDAV server.
 This container is for Radicale version 2.x, as of 2017.07.
 
 Special points:
-* Security: run as normal user (not root!) with the help of [su-exec](https://github.com/ncopa/su-exec) ([gosu](https://github.com/tianon/gosu) in C)
-* Safe: use [Tini](https://github.com/krallin/tini) to handle init
-* Persistent volume: `/radicale/data` can be mounted by your user or root and will still be readable by the `radicale` user inside the container
+* Security: run as a normal user (not root!) with the help of [su-exec](https://github.com/ncopa/su-exec) (ie. [gosu](https://github.com/tianon/gosu) in C)
+* Process management: use [Tini](https://github.com/krallin/tini) to handle init (pid 0)
+* Safe volume permissions: `/radicale/config` and `/radicale/data` can be mounted by your user or root and they will still be readable by the `radicale` user inside the container
 * Small size: run on [python:3-alpine](https://hub.docker.com/_/python/)
-* Configurable: [Radicale's config](config/config) can be modified before building this image
 * Git and Bcrypt included for [versioning](http://radicale.org/versioning/) and [authentication](http://radicale.org/setup/#authentication)
 
 ## Version/Tags
 
-Github tags are automatically build as image's tags.
+Github tags are automatically build as image's tags on [Docker HUB](https://hub.docker.com/r/tomsquest/docker-radicale).
 
 `Latest` is branch `master`.  
 `2.x` is Radicale `v2.x`.  
 `1.x` is Radicale `v1.x`.  
 
-## Build & Run
+## Running
 
-Pull latest from [Docker HUB](https://hub.docker.com/r/tomsquest/docker-radicale):
+Run latest:
 
 ```
-docker pull tomsquest/docker-radicale
+docker run -d --name radicale \
+    -p 5232:5232 \
+    tomsquest/docker-radicale
 ```
 
-Or build the container locally:
+Run latest and keeps the stored data:
+
+```
+docker run -d --name radicale \
+    -p 5232:5232 \
+     --read-only 
+     -v ~/radicale/data:/radicale/data \
+    tomsquest/docker-radicale
+```
+
+Run latest, keeps the stored data and a custom config:
+
+```
+docker run -d --name radicale \
+    -p 5232:5232 \
+     --read-only \
+     -v ~/radicale/data:/radicale/data \
+     -v ~/radicale/config:/radicale/config:ro \
+    tomsquest/docker-radicale
+```
+
+## Building
+
+Build the image:
 
 ```
 docker build -t radicale .
 ```
 
-Then, run the container:
+Then run the container:
 
 ```
 docker run -d --name radicale -p 5232:5232 radicale
 ```
 
-Or, better run it with persistent data and readonly filesystem:
-
-```
-docker run -d --name radicale -p 5232:5232 -v ~/radicale:/radicale/data --read-only radicale
-```
-
 ## Radicale configuration
 
-To customize Radicale configuration, clone this repository, edit [Radicale's config](config/config) and build it locally.
+Radicale configuration is in one file `config` with an optional `logging` file.
 
-The [config/config](config/config) and [config/logging](config/logging) files comes from Radicale repo:
-* https://raw.githubusercontent.com/Kozea/Radicale/master/config
-* https://raw.githubusercontent.com/Kozea/Radicale/master/logging
+To customize Radicale configuration: 
+* Recommended: use this repository config files ([config](config/config), [logging](config/logging)),
+* Or, get the ones from Radicale repository ([config](https://raw.githubusercontent.com/Kozea/Radicale/master/config), [logging](https://raw.githubusercontent.com/Kozea/Radicale/master/logging)) and tweaks them (changes `hosts` to be accessible from the Docker host, `filesystem_folder` to point to the data volume...)
+
+Then puts these two files in a directory and use the config volume `-v /my_custom_config_directory:/radicale/config` when running the container.
