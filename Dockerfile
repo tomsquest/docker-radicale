@@ -1,17 +1,17 @@
 FROM python:3-alpine
 MAINTAINER Thomas Queste <tom@tomsquest.com>
 
-RUN apk add --no-cache \
-    tini \
-    su-exec \
-    gcc \
-    libffi-dev \
-    musl-dev \
+RUN apk add --no-cache --virtual=build-dependencies \
+        gcc \
+        libffi-dev \
+        musl-dev \
+    && apk add --no-cache \
+        git \
+        su-exec \
+        tini \
     && pip install radicale passlib[bcrypt] \
-    && apk del \
-    gcc \
-    libffi-dev \
-    musl-dev
+    && apk del --purge build-dependencies
+
 
 # User with no home, no password
 RUN adduser -s /bin/false -D -H radicale
