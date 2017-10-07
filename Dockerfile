@@ -1,6 +1,8 @@
 FROM python:3-alpine
 MAINTAINER Thomas Queste <tom@tomsquest.com>
 
+ENV VERSION=2.1.8
+
 RUN apk add --no-cache --virtual=build-dependencies \
         gcc \
         libffi-dev \
@@ -9,12 +11,12 @@ RUN apk add --no-cache --virtual=build-dependencies \
         git \
         su-exec \
         tini \
-    && pip install radicale passlib[bcrypt] \
+    && pip install radicale==$VERSION passlib[bcrypt] \
     && apk del --purge build-dependencies
 
 
 # User with no home, no password
-RUN adduser -s /bin/false -D -H radicale
+RUN adduser -s /bin/false -D -H -u 799 radicale
 
 COPY config /radicale
 RUN mkdir -p /radicale/data && chown radicale /radicale/data
