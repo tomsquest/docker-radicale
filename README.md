@@ -16,6 +16,7 @@ Special points:
 * Persistent volume: `/radicale/data` can be mounted by your user or root and will still be readable by the `radicale` user inside the container
 * Small size: run on [python:3-alpine](https://hub.docker.com/_/python/)
 * Configurable: [Radicale's config](config/config) can be modified before building this image
+* Git and Bcrypt included for [versioning](http://radicale.org/versioning/) and [authentication](http://radicale.org/setup/#authentication)
 
 ## Version/Tags
 
