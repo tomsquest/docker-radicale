@@ -23,7 +23,7 @@ WORKDIR /radicale/data
 VOLUME /radicale/data
 EXPOSE 5232
 
-# Tiny starts our entrypoint which starts Radicale
+# Tini starts our entrypoint which starts Radicale
 COPY docker-entrypoint.sh /usr/local/bin
 ENTRYPOINT ["/sbin/tini", "--", "docker-entrypoint.sh"]
 CMD ["radicale", "--config", "/radicale/config"]
