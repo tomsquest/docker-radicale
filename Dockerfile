@@ -14,7 +14,7 @@ RUN apk add --no-cache --virtual=build-dependencies \
 
 
 # User with no home, no password
-RUN adduser -s /bin/false -D -H radicale
+RUN adduser -s /bin/false -D -H -u 2999 radicale
 
 COPY config /radicale
 RUN mkdir -p /radicale/data && chown radicale /radicale/data
