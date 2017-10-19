@@ -13,8 +13,8 @@ RUN apk add --no-cache --virtual=build-dependencies \
     && apk del --purge build-dependencies
 
 # Create user and its group, with no home and no password
-ARG UID=1000
-ARG GID=1000
+ARG UID=2999
+ARG GID=2999
 RUN addgroup -g $GID radicale
 RUN adduser -D -s /bin/false -H -u $UID -G radicale radicale
 
