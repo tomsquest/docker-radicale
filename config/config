@@ -144,7 +144,6 @@ type = none
 # For more information about the syntax of the configuration file, see:
 # http://docs.python.org/library/logging.config.html
 #config =
-config = /config/logging
 
 # Set the default logging level to debug
 #debug = False

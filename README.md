@@ -72,10 +72,10 @@ docker run -d --name radicale -p 5232:5232 radicale
 
 ## Radicale configuration
 
-Radicale configuration is in one file `config` with an optional `logging` file.
+Radicale configuration is in one file `config`.
 
-To customize Radicale configuration: 
-* Recommended: use this repository config files ([config](config/config), [logging](config/logging)),
-* Or, get the ones from Radicale repository ([config](https://raw.githubusercontent.com/Kozea/Radicale/master/config), [logging](https://raw.githubusercontent.com/Kozea/Radicale/master/logging)) and tweaks them (changes `hosts` to be accessible from the Docker host, `filesystem_folder` to point to the data volume...)
+To customize Radicale configuration, either: 
+* (recommended): use this repository preconfigured [config file](config/config),
+* Or, get the [config file](https://raw.githubusercontent.com/Kozea/Radicale/master/config) from Radicale repository and tweak it (change `hosts` to be accessible from the Docker host, `filesystem_folder` to point to the data volume...)
 
 Then puts these two files in a directory and use the config volume `-v /my_custom_config_directory:/config` when running the container.
