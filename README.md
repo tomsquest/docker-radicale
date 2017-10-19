@@ -56,6 +56,15 @@ docker run -d --name radicale \
     tomsquest/docker-radicale
 ```
 
+## User/Group ID
+
+If you want another user to run the docker container and so "share" files with fixed permission between the host and the container, two options:
+1. Create a user on your host with ID `2999` (hardcoded in the built image): `useradd --uid 2999 radicale`
+1. Or build the image yourself and specify the user ID you want: `docker build -t radicale --build-arg=UID=5000 --build-arg=GID=5001 .` (see the [Building](#Building) section below)
+
+The first option is far easier. [Robert Beal](https://github.com/tomsquest/docker-radicale/pull/9#issuecomment-337834890) said it simply:
+> The main problem with **building** is that you either have to do so on your own environment (and push the image to your own registry so that prod can access it) or you build on your production environment (which isn't ideal either). It means dealing with source code and git pulls etc... and you have to manage updating it all so more responsibility is put on the consumer.
+
 ## Building
 
 Build the image:
@@ -68,6 +77,20 @@ Then run the container:
 
 ```
 docker run -d --name radicale -p 5232:5232 radicale
+```
+
+When building, you can specify the user ID and group ID of the `radicale` user created in the container. 
+This is useful because files created by the `radicale` user can then match one of your user on your host.  
+This is an optional feature of this image.  
+By default, the `radicale` user has a user ID of `2999` and a group ID of `2999`.
+By the way, we could have "change" the IDs when the container is run, but this would prevent us from running the container readonly (with the `--read-only` flag).
+
+```
+# Let's create a user/group 5000/5001 on your host
+sudo addgroup --gid 5001 radicale
+sudo adduser --gid 5001 --uid 5000 --shell /bin/false --disabled-password --no-create-home radicale
+# Then build the image with these IDs
+docker build -t radicale --build-arg=UID=5000 --build-arg=GID=5001 .
 ```
 
 ## Radicale configuration
