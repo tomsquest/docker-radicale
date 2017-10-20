@@ -1,8 +1,8 @@
 # Docker-Radicale
 
 [![Build Status](https://travis-ci.org/tomsquest/docker-radicale.svg?branch=master)](https://travis-ci.org/tomsquest/docker-radicale)
-[![](https://images.microbadger.com/badges/version/tomsquest/docker-radicale.svg)](https://microbadger.com/images/tomsquest/docker-radicale)
-[![](https://images.microbadger.com/badges/image/tomsquest/docker-radicale.svg)](https://microbadger.com/images/tomsquest/docker-radicale)
+[![Docker Build Status](https://img.shields.io/docker/build/tomsquest/docker-radicale.svg)](https://hub.docker.com/r/tomsquest/docker-radicale/)
+[![GitHub tag](https://img.shields.io/github/tag/tomsquest/docker-radicale.svg)](https://github.com/tomsquest/docker-radicale/tags)
 [![](https://img.shields.io/docker/pulls/tomsquest/docker-radicale.svg)](https://hub.docker.com/r/tomsquest/docker-radicale/)
 [![](https://img.shields.io/docker/stars/tomsquest/docker-radicale.svg)](https://hub.docker.com/r/tomsquest/docker-radicale/)
 [![](https://img.shields.io/docker/automated/tomsquest/docker-radicale.svg)](https://hub.docker.com/r/tomsquest/docker-radicale/)
