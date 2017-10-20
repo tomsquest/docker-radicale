@@ -104,3 +104,9 @@ To customize Radicale configuration:
 * Or, get the ones from Radicale repository ([config](https://raw.githubusercontent.com/Kozea/Radicale/master/config), [logging](https://raw.githubusercontent.com/Kozea/Radicale/master/logging)) and tweaks them (changes `hosts` to be accessible from the Docker host, `filesystem_folder` to point to the data volume...)
 
 Then puts these two files in a directory and use the config volume `-v /my_custom_config_directory:/config` when running the container.
+
+## Contributors
+
+* [Robert Beal](https://github.com/robertbeal): fixed userId, versionning...
+* [Loader23](https://github.com/Loader23): config volume idea
+* [Thomas Queste](https://github.com/tomsquest): initial image
