@@ -1,4 +1,4 @@
-FROM python:3-alpine
+FROM python:3.6.3-alpine3.6
 MAINTAINER Thomas Queste <tom@tomsquest.com>
 
 ENV VERSION=2.1.8
@@ -9,6 +9,7 @@ RUN apk add --no-cache --virtual=build-dependencies \
         musl-dev \
     && apk add --no-cache \
         git \
+        shadow \
         su-exec \
         tini \
     && pip install radicale==$VERSION passlib[bcrypt] \

@@ -57,12 +57,25 @@ docker run -d --name radicale \
      -v ~/radicale/config:/config:ro \
     tomsquest/docker-radicale
 ```
+Run latest, using custom UID and GID (`--read-only` is not possible with this method):
+
+```
+docker run -d --name radicale \
+    -p 5232:5232 \
+     --read-only \
+     -e UID=1111 \
+     -e GID=2222 \
+     -v ~/radicale/data:/data \
+     -v ~/radicale/config:/config:ro \
+    tomsquest/docker-radicale
+```
 
 ## User/Group ID
 
 If you want another user to run the docker container and so "share" files with fixed permission between the host and the container, two options:
 1. Create a user on your host with ID `2999` (hardcoded in the built image): `useradd --uid 2999 radicale`
-1. Or build the image yourself and specify the user ID you want: `docker build -t radicale --build-arg=UID=5000 --build-arg=GID=5001 .` (see the [Building](#Building) section below)
+2. Specify `-e UID=123` and `-e GID=456` for user and group Id's. `--read-only` is not possible with this method as it modifes the filesystem at runtime.
+3. Or build the image yourself and specify the user ID you want: `docker build -t radicale --build-arg=UID=5000 --build-arg=GID=5001 .` (see the [Building](#Building) section below)
 
 The first option is far easier. [Robert Beal](https://github.com/tomsquest/docker-radicale/pull/9#issuecomment-337834890) said it simply:
 > The main problem with **building** is that you either have to do so on your own environment (and push the image to your own registry so that prod can access it) or you build on your production environment (which isn't ideal either). It means dealing with source code and git pulls etc... and you have to manage updating it all so more responsibility is put on the consumer.
