@@ -74,7 +74,7 @@ docker run -d --name radicale \
 
 If you want another user to run the docker container and so "share" files with fixed permission between the host and the container, two options:
 1. Create a user on your host with ID `2999` (hardcoded in the built image): `useradd --uid 2999 radicale`
-2. Specify `-e UID=123` and `-e GID=456` for user and group Id's. `--read-only` is not possible with this method as it modifes the filesystem at runtime.
+2. Specify `-e UID=123` and `-e GID=456` for user and group Id's. `--read-only` is not possible with this method as it modifies the filesystem at runtime.
 3. Or build the image yourself and specify the user ID you want: `docker build -t radicale --build-arg=UID=5000 --build-arg=GID=5001 .` (see the [Building](#Building) section below)
 
 The first option is far easier. [Robert Beal](https://github.com/tomsquest/docker-radicale/pull/9#issuecomment-337834890) said it simply:
