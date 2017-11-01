@@ -17,10 +17,10 @@ RUN apk add --no-cache --virtual=build-dependencies \
 # Create user and its group, with no home and no password
 ARG UID=2999
 ARG GID=2999
-RUN addgroup -g $GID radicale
-RUN adduser -D -s /bin/false -H -u $UID -G radicale radicale
+RUN addgroup -g $GID radicale && \
+ adduser -D -s /bin/false -H -u $UID -G radicale radicale && \
+ mkdir -p /config /data && chown -R radicale /config /data
 
-RUN mkdir -p /config /data && chown -R radicale /config /data
 COPY config /config
 
 VOLUME /config /data
