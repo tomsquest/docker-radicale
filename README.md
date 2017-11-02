@@ -120,6 +120,7 @@ Then puts these two files in a directory and use the config volume `-v /my_custo
 
 ## Contributors
 
-* [Robert Beal](https://github.com/robertbeal): fixed userId, versionning...
+* [Robert Beal](https://github.com/robertbeal): fixed/configurable userId, versionning...
 * [Loader23](https://github.com/Loader23): config volume idea
+* [Waja](https://github.com/waja): less layers is more
 * [Thomas Queste](https://github.com/tomsquest): initial image
