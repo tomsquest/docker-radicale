@@ -6,14 +6,14 @@ ENV VERSION=2.1.8
 RUN apk add --no-cache --virtual=build-dependencies \
         gcc \
         libffi-dev \
-        musl-dev \
-    && apk add --no-cache \
+        musl-dev && \
+    apk add --no-cache \
         git \
         shadow \
         su-exec \
-        tini \
-    && pip install radicale==$VERSION passlib[bcrypt] \
-    && apk del --purge build-dependencies
+        tini && \
+    pip install radicale==$VERSION passlib[bcrypt] && \
+    apk del --purge build-dependencies
 
 # Create user and its group, with no home and no password
 ARG UID=2999
