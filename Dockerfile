@@ -19,8 +19,9 @@ RUN apk add --no-cache --virtual=build-dependencies \
 ARG UID=2999
 ARG GID=2999
 RUN addgroup -g $GID radicale && \
- adduser -D -s /bin/false -H -u $UID -G radicale radicale && \
- mkdir -p /config /data && chown -R radicale /config /data
+    adduser -D -s /bin/false -H -u $UID -G radicale radicale && \
+    mkdir -p /config /data && \
+    chown -R radicale /config /data
 
 COPY config /config
 
