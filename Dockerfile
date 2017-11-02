@@ -13,6 +13,7 @@ RUN apk add --no-cache --virtual=build-dependencies \
         su-exec \
         tini && \
     pip install radicale==$VERSION passlib[bcrypt] && \
+    pip install --upgrade git+https://github.com/Unrud/RadicaleInfCloud && \
     apk del --purge build-dependencies
 
 # Create user and its group, with no home and no password
