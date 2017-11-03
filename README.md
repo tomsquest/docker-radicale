@@ -15,7 +15,7 @@ Special points:
 * Process management: use [Tini](https://github.com/krallin/tini) to handle init (pid 0)
 * Safe volume permissions: `/config` and `/data` can be mounted by your user or root and they will still be readable by the `radicale` user inside the container
 * Small size: run on [python:3-alpine](https://hub.docker.com/_/python/)
-* Git and Bcrypt included for [versioning](http://radicale.org/versioning/) and [authentication](http://radicale.org/setup/#authentication)
+* Git and Bcrypt included for [versioning](http://radicale.org/versioning/) and [authentication](http://radicale.org/setup/#authentication) and [InfCloud](https://www.inf-it.com/open-source/clients/infcloud/) if you need an UI
 
 ## Radicale Version & Image Tag
 
@@ -122,5 +122,5 @@ Then puts these two files in a directory and use the config volume `-v /my_custo
 
 * [Robert Beal](https://github.com/robertbeal): fixed/configurable userId, versionning...
 * [Loader23](https://github.com/Loader23): config volume idea
-* [Waja](https://github.com/waja): less layers is more
+* [Waja](https://github.com/waja): less layers is more, InfClound integration (UI for Radicale) 
 * [Thomas Queste](https://github.com/tomsquest): initial image
