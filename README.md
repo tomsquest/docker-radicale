@@ -69,6 +69,9 @@ docker run -d --name radicale \
      -v ~/radicale/config:/config:ro \
     tomsquest/docker-radicale
 ```
+### Docker compose
+
+There is a simple [Docker compose file](docker-compose.yml) included. It can be [extended](https://docs.docker.com/compose/production/#modify-your-compose-file-for-production) with an additional compose file to overwrite or add more options (for example adding a custom config volume mount). 
 
 ## User/Group ID
 
