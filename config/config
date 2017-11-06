@@ -132,7 +132,8 @@ filesystem_folder = /data/collections
 [web]
 
 # Web interface backend
-# Value: none | internal
+# Value: none | internal | radicale_infcloud
+# (See also https://github.com/Unrud/RadicaleInfCloud)
 #type = internal
 
 
