@@ -1,0 +1,16 @@
+# Can be enhanced with additional compose file 
+# See also https://docs.docker.com/compose/production/#modify-your-compose-file-for-production
+
+version: '3.3'
+
+services:
+  radicale:
+    image: tomsquest/docker-radicale
+    ports:
+      - "5232:5232"
+    read_only: true
+    volumes:
+      - data-radicale:/data
+
+volumes:
+  data-radicale:
