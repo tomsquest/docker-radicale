@@ -34,6 +34,9 @@ Run latest:
 ```
 docker run -d --name radicale \
     -p 5232:5232 \
+    --health-cmd="curl --fail http://localhost:5232 || exit 1" \
+    --health-interval=30s \
+    --health-retries=3 \
     tomsquest/docker-radicale
 ```
 
@@ -44,6 +47,9 @@ docker run -d --name radicale \
     -p 5232:5232 \
      --read-only 
      -v ~/radicale/data:/data \
+    --health-cmd="curl --fail http://localhost:5232 || exit 1" \
+    --health-interval=30s \
+    --health-retries=3 \
     tomsquest/docker-radicale
 ```
 
@@ -55,6 +61,9 @@ docker run -d --name radicale \
      --read-only \
      -v ~/radicale/data:/data \
      -v ~/radicale/config:/config:ro \
+    --health-cmd="curl --fail http://localhost:5232 || exit 1" \
+    --health-interval=30s \
+    --health-retries=3 \
     tomsquest/docker-radicale
 ```
 Run latest, using custom UID and GID (`--read-only` is not possible with this method):
