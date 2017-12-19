@@ -8,6 +8,7 @@ RUN apk add --no-cache --virtual=build-dependencies \
         libffi-dev \
         musl-dev && \
     apk add --no-cache \
+        curl \
         git \
         shadow \
         su-exec \
@@ -26,6 +27,7 @@ RUN addgroup -g $GID radicale && \
 
 COPY config /config
 
+HEALTHCHECK --interval=30s --retries=3 CMD curl --fail http://localhost:5232 || exit 1
 VOLUME /config /data
 EXPOSE 5232
 
