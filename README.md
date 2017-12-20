@@ -45,8 +45,8 @@ Run latest and keeps the stored data:
 ```
 docker run -d --name radicale \
     -p 5232:5232 \
-     --read-only 
-     -v ~/radicale/data:/data \
+    --read-only \
+    -v ~/radicale/data:/data \
     --health-cmd="curl --fail http://localhost:5232 || exit 1" \
     --health-interval=30s \
     --health-retries=3 \
@@ -58,26 +58,43 @@ Run latest, keeps the stored data and a custom config:
 ```
 docker run -d --name radicale \
     -p 5232:5232 \
-     --read-only \
-     -v ~/radicale/data:/data \
-     -v ~/radicale/config:/config:ro \
+    --read-only \
+    -v ~/radicale/data:/data \
+    -v ~/radicale/config:/config:ro \
     --health-cmd="curl --fail http://localhost:5232 || exit 1" \
     --health-interval=30s \
     --health-retries=3 \
     tomsquest/docker-radicale
 ```
+
 Run latest, using custom UID and GID (`--read-only` is not possible with this method):
 
 ```
 docker run -d --name radicale \
     -p 5232:5232 \
-     --read-only \
-     -e UID=1111 \
-     -e GID=2222 \
-     -v ~/radicale/data:/data \
-     -v ~/radicale/config:/config:ro \
+    --read-only \
+    -e UID=1111 \
+    -e GID=2222 \
+    -v ~/radicale/data:/data \
+    -v ~/radicale/config:/config:ro \
     tomsquest/docker-radicale
 ```
+A fully formed production-grade docker run command with additional security parameters:
+
+```
+docker run -d --name radicale \
+    -p 127.0.0.1:5232:5232 \
+    --read-only \
+    --pids-limit 50 \
+    --security-opt="no-new-privileges:true" \
+    --health-cmd="curl --fail http://localhost:5232 || exit 1" \
+    --health-interval=30s \
+    --health-retries=3 \
+    -v ~/radicale/data:/data \
+    -v ~/radicale/config:/config:ro \
+    tomsquest/docker-radicale
+```
+
 ### Docker compose
 
 There is a simple [Docker compose file](docker-compose.yml) included. It can be [extended](https://docs.docker.com/compose/production/#modify-your-compose-file-for-production) with an additional compose file to overwrite or add more options (for example adding a custom config volume mount). 
