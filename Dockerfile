@@ -8,20 +8,20 @@ ARG GID=2999
 RUN apk add --no-cache --virtual=build-dependencies \
         gcc \
         libffi-dev \
-        musl-dev && \
-    apk add --no-cache \
+        musl-dev \
+    && apk add --no-cache \
         curl \
         git \
         shadow \
         su-exec \
-        tini && \
-    pip install radicale==$VERSION passlib[bcrypt] && \
-    pip install --upgrade git+https://github.com/Unrud/RadicaleInfCloud && \
-    apk del --purge build-dependencies && \
-    addgroup -g $GID radicale && \
-    adduser -D -s /bin/false -H -u $UID -G radicale radicale && \
-    mkdir -p /config /data && \
-    chown -R radicale /config /data
+        tini \
+    && pip install radicale==$VERSION passlib[bcrypt] \
+    && pip install --upgrade git+https://github.com/Unrud/RadicaleInfCloud \
+    && apk del --purge build-dependencies \
+    && addgroup -g $GID radicale \
+    && adduser -D -s /bin/false -H -u $UID -G radicale radicale \
+    && mkdir -p /config /data \
+    && chown -R radicale /config /data
 
 COPY config /config
 
