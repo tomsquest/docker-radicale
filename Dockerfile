@@ -2,6 +2,8 @@ FROM python:3.6.4-alpine3.7
 MAINTAINER Thomas Queste <tom@tomsquest.com>
 
 ENV VERSION=2.1.8
+ARG UID=2999
+ARG GID=2999
 
 RUN apk add --no-cache --virtual=build-dependencies \
         gcc \
@@ -15,12 +17,8 @@ RUN apk add --no-cache --virtual=build-dependencies \
         tini && \
     pip install radicale==$VERSION passlib[bcrypt] && \
     pip install --upgrade git+https://github.com/Unrud/RadicaleInfCloud && \
-    apk del --purge build-dependencies
-
-# Create user and its group, with no home and no password
-ARG UID=2999
-ARG GID=2999
-RUN addgroup -g $GID radicale && \
+    apk del --purge build-dependencies && \
+    addgroup -g $GID radicale && \
     adduser -D -s /bin/false -H -u $UID -G radicale radicale && \
     mkdir -p /config /data && \
     chown -R radicale /config /data
