@@ -1,5 +1,4 @@
-
-FROM python:3.6.3-alpine3.6
+FROM python:3.6.4-alpine3.7
 MAINTAINER Thomas Queste <tom@tomsquest.com>
 
 ENV VERSION=2.1.8
