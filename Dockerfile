@@ -14,7 +14,6 @@ RUN apk add --no-cache --virtual=build-dependencies \
         git \
         shadow \
         su-exec \
-        tini \
     && pip install radicale==$VERSION passlib[bcrypt] \
     && pip install --upgrade git+https://github.com/Unrud/RadicaleInfCloud \
     && apk del --purge build-dependencies \
@@ -29,7 +28,6 @@ HEALTHCHECK --interval=30s --retries=3 CMD curl --fail http://localhost:5232 || 
 VOLUME /config /data
 EXPOSE 5232
 
-# Tini starts our entrypoint which then starts Radicale
 COPY docker-entrypoint.sh /usr/local/bin
-ENTRYPOINT ["/sbin/tini", "--", "docker-entrypoint.sh"]
+ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["radicale", "--config", "/config/config"]
