@@ -25,22 +25,19 @@ For example, given Radicale releases version `2.1.8`, we update the `VERSION` in
 This will automatically produce a corresponding Docker image version on [Docker HUB](https://hub.docker.com/r/tomsquest/docker-radicale) to be pulled, eg. `docker pull tomsquest/docker-radicale:2.1.8.0`.  
 The last number (x.y.z.LASTNUMBER) is our image revision. We increment it when we change something in the image without updating the version of Radicale.
 
-At all time, the `master` branch is released as version `latest` on Docker HUB. You can pull latest with: `docker pull tomsquest/docker-radicale:latest` or simply `docker pull tomsquest/docker-radicale`
+At all time, the `master` branch is released as version `latest` on Docker HUB. You can pull latest with: `docker pull tomsquest/docker-radicale:latest`.
 
 ## Running
 
-Minimal instruction:
+**Minimal** instruction:
 
 ```
 docker run -d --name radicale \
     -p 5232:5232 \
-    --read-only \
-    -v ~/radicale/data:/data \
-    -v ~/radicale/config:/config:ro \
     tomsquest/docker-radicale
 ```
 
-A fully formed **production-grade** docker run command with additional security parameters:
+**Production-grade** run:
 
 ```
 docker run -d --name radicale \
@@ -56,62 +53,61 @@ docker run -d --name radicale \
     tomsquest/docker-radicale
 ```
 
-## User/Group ID
-
-If you need to "share" files between the host and the container, you can:
-
-1. Create a user (and optionally a group) on your host with ID `2999` (hardcoded in the built image): `useradd --uid 2999 radicale`
-1. Or, specify these two environment variable when running the container: `-e UID=123` and `-e GID=456` (for user and group Id's). But the `--read-only` option is then not possible with this method as custom UID/GID modifies the filesystem when the container is run and the modification are impossible due to `--read-only`.
-1. Or, build the image with custom `build-arg`s: `docker build -t radicale --build-arg=UID=5000 --build-arg=GID=5001 .` (see the [Building](#Building) section below)
-
-The first option is far easier. [Robert Beal](https://github.com/tomsquest/docker-radicale/pull/9#issuecomment-337834890) said it simply:
-> The main problem with **building** is that you either have to do so on your own environment (and push the image to your own registry so that prod can access it) or you build on your production environment (which isn't ideal either). It means dealing with source code and git pulls etc... and you have to manage updating it all so more responsibility is put on the consumer.
-
 ### Docker compose
 
-There is a simple [Docker compose file](docker-compose.yml) included. It can be [extended](https://docs.docker.com/compose/production/#modify-your-compose-file-for-production) with an additional compose file to overwrite or add more options (for example adding a custom config volume mount). 
+A [Docker compose file](docker-compose.yml) is included. It can be [extended](https://docs.docker.com/compose/production/#modify-your-compose-file-for-production). 
 
-## Building
+## User/Group ID
 
-Build the image:
+Sharing files from the host and the container can be problematic: 
+the `radicale` user **in** the container does not match the user running the container **on** the host.
 
+To solve this, this image offers three options:
+
+- Use a user/group with id `2999` on the host
+- Specify a custom user/group id on run
+- Build the image with a custom user/group
+
+#### User/Group 2999
+
+The image creates a user and a group with Id `2999`.  
+You can create an user/group on your host matching this Id.
+
+Example:
+
+```bash
+sudo addgroup --gid 2999 radicale
+sudo adduser --gid 2999 --uid 2999 --shell /bin/false --disabled-password --no-create-home radicale
 ```
-docker build -t radicale .
-```
 
-Then run the container:
+#### Custom User/Group at run
 
-```
-docker run -d --name radicale -p 5232:5232 radicale
-```
+The user and group Ids used in the image can be overridden when the container is run.  
+This is done with the `UID` and `GID` env variables, eg. `docker run -e UID=123 -e GID=456 tomsquest/docker-radicale`.
 
-When building, you can specify the user ID and group ID of the `radicale` user created in the container. 
-This is useful because files created by the `radicale` user can then match one of your user on your host.  
-This is an optional feature of this image.  
-By default, the `radicale` user has a user ID of `2999` and a group ID of `2999`.
-By the way, we could have "change" the IDs when the container is run, but this would prevent us from running the container readonly (with the `--read-only` flag).
+**Beware**, the `--read-only` run flag cannot be used in this case. Using custom UID/GID at runtime modifies the filesystem and the modification is made impossible with the `--read-only` flag.
 
-```
-# Let's create a user/group 5000/5001 on your host
-sudo addgroup --gid 5001 radicale
-sudo adduser --gid 5001 --uid 5000 --shell /bin/false --disabled-password --no-create-home radicale
-# Then build the image with these IDs
-docker build -t radicale --build-arg=UID=5000 --build-arg=GID=5001 .
-```
+#### Custom User/Group at build
+
+You can build the image with custom user and group Ids and still use the `--read-only` flag.  
+But, you will have to keep up-do-date with this image.
+
+Usage: `docker build --build-arg=UID=5000 --build-arg=GID=5001 .` 
 
 ## Radicale configuration
 
-Radicale configuration is in one file `config`.
-
 To customize Radicale configuration, either: 
 * (recommended): use this repository preconfigured [config file](config/config),
-* Or, get the [config file](https://raw.githubusercontent.com/Kozea/Radicale/master/config) from Radicale repository and tweak it (change `hosts` to be accessible from the Docker host, `filesystem_folder` to point to the data volume...)
+* Or, use a custom config file
+  1. get the [config file](https://raw.githubusercontent.com/Kozea/Radicale/master/config) from Radicale repository
+  1. Change `hosts` to be accessible from the Docker host (thus, set `hosts = 0.0.0.0:5232`)
+  1. Mount the config in the container `-v /my_custom_config_directory:/config`
 
 Then puts these two files in a directory and use the config volume `-v /my_custom_config_directory:/config` when running the container.
 
 ## Contributors
 
-* [Robert Beal](https://github.com/robertbeal): fixed/configurable userId, versionning...
+* [Robert Beal](https://github.com/robertbeal): fixed/configurable userId, versioning...
 * [Loader23](https://github.com/Loader23): config volume idea
-* [Waja](https://github.com/waja): less layers is more, InfClound integration (UI for Radicale) 
+* [Waja](https://github.com/waja): less layers is more, InfCloud integration (UI for Radicale) 
 * [Thomas Queste](https://github.com/tomsquest): initial image
