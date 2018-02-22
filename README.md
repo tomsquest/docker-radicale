@@ -12,7 +12,6 @@ This container is for Radicale version 2.x, as of 2017.07.
 
 Special points:
 * Security: run as a normal user (not root!) with the help of [su-exec](https://github.com/ncopa/su-exec) (ie. [gosu](https://github.com/tianon/gosu) in C)
-* Process management: use [Tini](https://github.com/krallin/tini) to handle init (pid 0)
 * Safe volume permissions: `/config` and `/data` can be mounted by your user or root and they will still be readable by the `radicale` user inside the container
 * Small size: run on [python:3-alpine](https://hub.docker.com/_/python/)
 * Git and Bcrypt included for [versioning](http://radicale.org/versioning/) and [authentication](http://radicale.org/setup/#authentication) and [InfCloud](https://www.inf-it.com/open-source/clients/infcloud/) if you need an UI
@@ -43,6 +42,7 @@ docker run -d --name radicale \
 docker run -d --name radicale \
     -p 127.0.0.1:5232:5232 \
     --read-only \
+    --init \
     --pids-limit 50 \
     --security-opt="no-new-privileges:true" \
     --health-cmd="curl --fail http://localhost:5232 || exit 1" \
