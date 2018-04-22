@@ -1,7 +1,7 @@
 FROM python:3.6.4-alpine3.7
 MAINTAINER Thomas Queste <tom@tomsquest.com>
 
-ENV VERSION=2.1.8
+ENV VERSION=2.1.9
 ARG UID=2999
 ARG GID=2999
 
