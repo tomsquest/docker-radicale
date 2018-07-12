@@ -1,7 +1,7 @@
-FROM python:3.6.4-alpine3.7
-MAINTAINER Thomas Queste <tom@tomsquest.com>
+FROM alpine:3.7
+LABEL maintainer="tom@tomsquest.com"
 
-ENV VERSION=2.1.9
+ARG VERSION=2.1.9
 ARG UID=2999
 ARG GID=2999
 
@@ -9,13 +9,15 @@ RUN apk add --no-cache --virtual=build-dependencies \
         gcc \
         libffi-dev \
         musl-dev \
+        python3-dev \
     && apk add --no-cache \
         curl \
         git \
+        python3 \
         shadow \
         su-exec \
-    && pip install radicale==$VERSION passlib[bcrypt] \
-    && pip install --upgrade git+https://github.com/Unrud/RadicaleInfCloud \
+    && python3 -m pip install radicale==$VERSION passlib[bcrypt] \
+    && python3 -m pip install --upgrade git+https://github.com/Unrud/RadicaleInfCloud \
     && apk del --purge build-dependencies \
     && addgroup -g $GID radicale \
     && adduser -D -s /bin/false -H -u $UID -G radicale radicale \
