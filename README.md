@@ -105,6 +105,16 @@ To customize Radicale configuration, either:
 
 Then puts these two files in a directory and use the config volume `-v /my_custom_config_directory:/config` when running the container.
 
+## Contributing
+
+First install the test dependencies
+
+`pip install --user -r requirements.txt`
+
+To run the tests
+
+`pytest -v test.py`
+
 ## Contributors
 
 * [Robert Beal](https://github.com/robertbeal): fixed/configurable userId, versioning...
