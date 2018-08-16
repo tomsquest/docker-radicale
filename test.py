@@ -26,8 +26,11 @@ def test_radicale_user(host):
     assert host.user('radicale').uid == 2999
     assert host.user('radicale').gid == 2999
 
-def test_installed_dependencies(host):
-    assert host.package('curl').is_installed
-    assert host.package('git').is_installed
-    assert host.package('shadow').is_installed
-    assert host.package('su-exec').is_installed
+@pytest.mark.parametrize('package', [
+    ('curl'),
+    ('git'),
+    ('shadow'),
+    ('su-exec'),
+])
+def test_installed_dependencies(host, package):
+    assert host.package(package).is_installed
