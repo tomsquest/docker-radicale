@@ -13,6 +13,11 @@ def host(request):
     # teardown
     subprocess.check_call(['docker', 'rm', '-f', docker_id])
 
+def test_entrypoint(host):
+    entrypoint = '/usr/local/bin/docker-entrypoint.sh'
+    assert host.file(entrypoint).exists
+    assert oct(host.file(entrypoint).mode) == '0o755'
+
 def test_radicale_process(host):
     assert host.file('/proc/1/cmdline').content_string.replace('\x00','') == '/usr/bin/python3/usr/bin/radicale--config/config/config'
 
