@@ -5,7 +5,7 @@ python:
 
 env:
   global:
-    - VERSION=2.1.10
+    - VERSION=2.1.9
   matrix:
     - ARCH=i386
     - ARCH=amd64
