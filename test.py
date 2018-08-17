@@ -22,7 +22,7 @@ def test_radicale_process(host):
     assert host.file('/proc/1/cmdline').content_string.replace('\x00','') == '/usr/bin/python3/usr/bin/radicale--config/config/config'
 
 def test_radicale_version(host):
-    assert host.run("/usr/bin/pip3 --disable-pip-version-check show radicale | grep Version | awk -F ' ' '{print $2}' | tr -d '\n'").stdout == os.environ.get('VERSION','2.1.9')
+    assert host.run("/usr/bin/pip3 --disable-pip-version-check show radicale | grep Version | awk -F ' ' '{print $2}' | tr -d '\n'").stdout == os.environ.get('VERSION','2.1.10')
 
 def test_radicale_port(host):
     assert host.socket("tcp://0.0.0.0:5232").is_listening
