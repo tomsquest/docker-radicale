@@ -111,7 +111,7 @@ First install the test dependencies
 
 `pip install --user -r requirements.txt`
 
-To run the tests
+To run the tests (your user will need to be a member of the `docker` group)
 
 `pytest -v test.py`
 
