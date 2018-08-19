@@ -1,4 +1,4 @@
-FROM alpine:3.7
+FROM alpine:3.8
 LABEL maintainer="tom@tomsquest.com"
 
 ARG VERSION=2.1.9
