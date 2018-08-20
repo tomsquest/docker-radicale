@@ -32,8 +32,13 @@ def test_radicale_version(host):
     assert host.check_output("/usr/bin/pip3 --disable-pip-version-check show radicale | grep Version | awk -F ' ' '{print $2}' | tr -d '\n'") == os.environ.get('VERSION','2.1.9')
 
 def test_radicale_user(host):
-    assert host.user('radicale').uid == 2999
-    assert host.user('radicale').gid == 2999
+    user = 'radicale'
+    assert host.user(user).uid == 2999
+    assert host.user(user).gid == 2999
+    assert host.user(user).shell == '/bin/false'
+
+def test_user_is_locked(host):
+    assert 'radicale L ' in host.check_output('passwd --status radicale')
 
 def test_config_folder(host):
     folder = '/config'
