@@ -22,8 +22,11 @@ def test_entrypoint(host):
     assert host.file(entrypoint).exists
     assert oct(host.file(entrypoint).mode) == '0o555'
 
-def test_pid1(host):
-    assert host.file('/proc/1/cmdline').content_string.replace('\x00','') == '/usr/bin/python3/usr/bin/radicale--config/config/config'
+def test_process(host):
+    process = host.process.get(comm='radicale')
+    assert process.pid == 1
+    assert process.user == 'radicale'
+    assert '/usr/bin/radicale --config /config/config' in process.args
 
 def test_port(host):
     assert host.socket("tcp://0.0.0.0:5232").is_listening
