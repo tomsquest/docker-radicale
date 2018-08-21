@@ -15,7 +15,7 @@ def host(request):
 
 def test_system(host):
     assert host.system_info.distribution == 'alpine'
-    assert host.system_info.release == '3.7.0'
+    assert host.system_info.release == '3.8.0'
 
 def test_process(host):
     process = host.process.get(comm='radicale')
