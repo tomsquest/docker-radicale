@@ -13,15 +13,6 @@ def host(request):
     # teardown
     subprocess.check_call(['docker', 'rm', '-f', docker_id])
 
-def test_system(host):
-    assert host.system_info.distribution == 'alpine'
-    assert host.system_info.release == '3.7.0'
-
-def test_entrypoint(host):
-    entrypoint = '/usr/local/bin/docker-entrypoint.sh'
-    assert host.file(entrypoint).exists
-    assert oct(host.file(entrypoint).mode) == '0o555'
-
 def test_process(host):
     process = host.process.get(comm='radicale')
     assert process.pid == 1
