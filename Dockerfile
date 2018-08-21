@@ -32,6 +32,5 @@ VOLUME /config /data
 EXPOSE 5232
 
 COPY docker-entrypoint.sh /usr/local/bin
-RUN chmod 555 /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["radicale", "--config", "/config/config"]
