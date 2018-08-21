@@ -109,7 +109,7 @@ Then puts these two files in a directory and use the config volume `-v /my_custo
 
 First install the test dependencies
 
-`pip install --user -r requirements.txt`
+`pip install --user -r requirements-test.txt`
 
 To run the tests (your user will need to be a member of the `docker` group)
 
