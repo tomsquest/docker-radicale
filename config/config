@@ -28,10 +28,10 @@ hosts = 0.0.0.0:5232
 #max_connections = 20
 
 # Max size of request body (bytes)
-#max_content_length = 10000000
+#max_content_length = 100000000
 
 # Socket timeout (seconds)
-#timeout = 10
+#timeout = 30
 
 # SSL flag, enable HTTPS protocol
 #ssl = False
@@ -139,13 +139,7 @@ filesystem_folder = /data/collections
 
 [logging]
 
-# Logging configuration file
-# If no config is given, simple information is printed on the standard output
-# For more information about the syntax of the configuration file, see:
-# http://docs.python.org/library/logging.config.html
-#config =
-
-# Set the default logging level to debug
+# Set the logging level to debug
 #debug = False
 
 # Store all environment variables (including those set in the shell)
