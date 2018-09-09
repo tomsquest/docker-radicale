@@ -1,7 +1,7 @@
 FROM alpine:3.8
 LABEL maintainer="tom@tomsquest.com"
 
-ARG VERSION=2.1.9
+ARG VERSION=2.1.10
 ARG UID=2999
 ARG GID=2999
 
