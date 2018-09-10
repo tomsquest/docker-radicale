@@ -12,13 +12,15 @@ env:
     - ARCH=arm
     - ARCH=aarch64
 
+install:
+  - pip install pipenv
+  - pipenv sync --dev
+
 before_script:
   - ./build.sh $ARCH
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
 
 script:
-  - pip install pipenv
-  - pipenv sync --dev
   - pipenv check
   - pipenv run pytest -v
   - docker build -t tomsquest/docker-radicale:$ARCH -t tomsquest/docker-radicale:$ARCH.$VERSION --build-arg=VERSION=$VERSION --file Dockerfile.$ARCH .
