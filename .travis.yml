@@ -12,15 +12,15 @@ env:
     - ARCH=arm
     - ARCH=aarch64
 
-install:
-  - pip install -r requirements-test.txt
-
 before_script:
   - ./build.sh $ARCH
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
 
-script:  
-  - pytest -v test.py
+script:
+  - pip install pipenv
+  - pipenv sync --dev
+  - pipenv check
+  - pipenv run pytest
   - docker build -t tomsquest/docker-radicale:$ARCH -t tomsquest/docker-radicale:$ARCH.$VERSION --build-arg=VERSION=$VERSION --file Dockerfile.$ARCH .
   - docker run -d --name=radicale-$ARCH --health-cmd="curl --fail http://localhost:5232 || exit 1" --health-interval=5s --health-retries=3 tomsquest/docker-radicale:$ARCH
   - sleep 10
