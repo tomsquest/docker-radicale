@@ -22,8 +22,8 @@ RUN apk add --no-cache --virtual=build-dependencies \
     && addgroup -g $GID radicale \
     && adduser -D -s /bin/false -H -u $UID -G radicale radicale \
     && mkdir -p /config /data \
-    && chmod -R 700 /config /data \
-    && chown -R radicale /config /data
+    && chmod -R 770 /data \
+    && chown -R radicale:radicale /data
 
 COPY config /config
 
