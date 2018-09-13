@@ -24,9 +24,6 @@ script:
   - pipenv check
   - pipenv run pytest -v
   - docker build -t tomsquest/docker-radicale:$ARCH -t tomsquest/docker-radicale:$ARCH.$VERSION --build-arg=VERSION=$VERSION --file Dockerfile.$ARCH .
-  - docker run -d --name=radicale-$ARCH --health-cmd="curl --fail http://localhost:5232 || exit 1" --health-interval=5s --health-retries=3 tomsquest/docker-radicale:$ARCH
-  - sleep 10
-  - if [[ -z 'docker ps --filter="name=radicale-$ARCH" --filter="health=healthy" -q' ]]; then exit 1; fi
 
 deploy:
   provider: script
