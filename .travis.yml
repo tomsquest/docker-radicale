@@ -31,5 +31,6 @@ deploy:
     docker build -t tomsquest/docker-radicale:$ARCH -t tomsquest/docker-radicale:$ARCH.$TRAVIS_TAG --build-arg=VERSION=$VERSION --file Dockerfile.$ARCH . &&
     docker push tomsquest/docker-radicale:$ARCH &&
     docker push tomsquest/docker-radicale:$ARCH.$TRAVIS_TAG;
+  skip_cleanup: true
   on:
     tags: true
