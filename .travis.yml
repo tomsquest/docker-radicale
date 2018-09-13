@@ -23,13 +23,13 @@ before_script:
 script:
   - pipenv check
   - pipenv run pytest -v
-  - docker build -t tomsquest/docker-radicale:$ARCH -t tomsquest/docker-radicale:$ARCH.$VERSION --build-arg=VERSION=$VERSION --file Dockerfile.$ARCH .
 
 deploy:
   provider: script
   script:
     echo "$DOCKER_PWD" | docker login -u "$DOCKER_USER" --password-stdin &&
+    docker build -t tomsquest/docker-radicale:$ARCH -t tomsquest/docker-radicale:$ARCH.$TRAVIS_TAG --build-arg=VERSION=$VERSION --file Dockerfile.$ARCH . &&
     docker push tomsquest/docker-radicale:$ARCH &&
-    docker push tomsquest/docker-radicale:$ARCH.$VERSION;
+    docker push tomsquest/docker-radicale:$ARCH.$TRAVIS_TAG;
   on:
-    branch: master
+    tags: true
