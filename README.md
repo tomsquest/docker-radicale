@@ -16,15 +16,19 @@ Special points:
 * Small size: run on [python:3-alpine](https://hub.docker.com/_/python/)
 * Git and Bcrypt included for [versioning](http://radicale.org/versioning/) and [authentication](http://radicale.org/setup/#authentication) and [InfCloud](https://www.inf-it.com/open-source/clients/infcloud/) if you need an UI
 
-## Radicale Version & Image Tag
+## Version, Tags and Multi-architecture
 
-This image aims to be tagged along Radicale.  
+This image aims to be tagged along Radicale, with:
+- an additional number is appended corresponding to the version of our Dockerfile
+- one build per architecture: i386, amd64, arm, aarch64
 
-For example, given Radicale releases version `2.1.8`, we update the `VERSION` in the Dockerfile, then push a Git tag `2.1.8.0`.  
-This will automatically produce a corresponding Docker image version on [Docker HUB](https://hub.docker.com/r/tomsquest/docker-radicale) to be pulled, eg. `docker pull tomsquest/docker-radicale:2.1.8.0`.  
-The last number (x.y.z.LASTNUMBER) is our image revision. We increment it when we change something in the image without updating the version of Radicale.
+Example:
 
-At all time, the `master` branch is released as version `latest` on Docker HUB. You can pull latest with: `docker pull tomsquest/docker-radicale:latest`.
+For Radicale version 2.1.10, those tags are created:
+- `tomsquest/docker-radicale:i386.2.1.10.0`
+- `tomsquest/docker-radicale:amd64.2.1.10.0`
+- `tomsquest/docker-radicale:arm.2.1.10.0`
+- `tomsquest/docker-radicale:aarch64.2.1.10.0`
 
 ## Running
 
