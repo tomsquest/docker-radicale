@@ -25,7 +25,7 @@ RUN apk add --no-cache --virtual=build-dependencies \
     && chmod -R 770 /data \
     && chown -R radicale:radicale /data
 
-COPY config /config
+COPY config /config/config
 
 HEALTHCHECK --interval=30s --retries=3 CMD curl --fail http://localhost:5232 || exit 1
 VOLUME /config /data

@@ -105,7 +105,7 @@ Usage: `docker build --build-arg=UID=5000 --build-arg=GID=5001 .`
 
 To customize Radicale configuration, either: 
 
-* (recommended): use this repository preconfigured [config file](config/config),
+* (recommended): use this repository preconfigured [config file](config),
 * Or, use the original [config file](https://raw.githubusercontent.com/Kozea/Radicale/master/config) and:
   1. set `hosts = 0.0.0.0:5232`
   1. set `filesystem_folder = /data/collections`
