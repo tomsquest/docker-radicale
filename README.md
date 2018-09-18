@@ -17,6 +17,7 @@ Enhanced Docker image for <a href="http://radicale.org">Radicale</a>, the CalDAV
 
 * **Secured**: run as a normal user, not root
 * **Enhanced**: add Git for [versioning](http://radicale.org/versioning/), Bcrypt for [authentication](http://radicale.org/setup/#authentication) and [InfCloud](https://www.inf-it.com/open-source/clients/infcloud/) as an alternative UI
+* **Multi-architecture**: run on amd64, arm (RaspberryPI...) and others 
 
 ## Version, Tags and Multi-architecture
 
