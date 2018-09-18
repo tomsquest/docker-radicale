@@ -18,14 +18,8 @@
 #hosts = 127.0.0.1:5232
 hosts = 0.0.0.0:5232
 
-# Daemon flag
-#daemon = False
-
-# File storing the PID in daemon mode
-#pid =
-
 # Max parallel connections
-#max_connections = 20
+#max_connections = 8
 
 # Max size of request body (bytes)
 #max_content_length = 100000000
@@ -55,9 +49,6 @@ hosts = 0.0.0.0:5232
 # Reverse DNS to resolve client address in logs
 #dns_lookup = True
 
-# Message displayed in the client when a password is needed
-#realm = Radicale - Password Required
-
 
 [encoding]
 
@@ -86,6 +77,9 @@ hosts = 0.0.0.0:5232
 # Incorrect authentication delay (seconds)
 #delay = 1
 
+# Message displayed in the client when a password is needed
+#realm = Radicale - Password Required
+
 
 [rights]
 
@@ -107,22 +101,8 @@ hosts = 0.0.0.0:5232
 #filesystem_folder = /var/lib/radicale/collections
 filesystem_folder = /data/collections
 
-# Lock the storage. Never start multiple instances of Radicale or edit the
-# storage externally while Radicale is running if disabled.
-#filesystem_locking = True
-
-# Sync all changes to disk during requests. (This can impair performance.)
-# Disabling it increases the risk of data loss, when the system crashes or
-# power fails!
-#filesystem_fsync = True
-
 # Delete sync token that are older (seconds)
 #max_sync_token_age = 2592000
-
-# Close the lock file when no more clients are waiting.
-# This option is not very useful in general, but on Windows files that are
-# opened cannot be deleted.
-#filesystem_close_lock_file = False
 
 # Command that is run after changes to storage
 # Example: ([ -d .git ] || git init) && git add -A && (git diff --cached --quiet || git commit -m "Changes by "%(user)s)
@@ -139,11 +119,9 @@ filesystem_folder = /data/collections
 
 [logging]
 
-# Set the logging level to debug
-#debug = False
-
-# Store all environment variables (including those set in the shell)
-#full_environment = False
+# Threshold for the logger
+# Value: debug | info | warning | error | critical
+#level = warning
 
 # Don't include passwords in logs
 #mask_passwords = True
