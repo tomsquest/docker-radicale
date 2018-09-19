@@ -1,3 +1,7 @@
+<p align="center">
+<img src="logo.png" alt="Logo" />
+</p>
+
 <h1 align="center">Docker-Radicale</h1>
 
 <p align="center">
