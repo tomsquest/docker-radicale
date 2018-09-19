@@ -23,7 +23,7 @@ Enhanced Docker image for <a href="http://radicale.org">Radicale</a>, the CalDAV
 
 **Latest tag**: ![latest tag](https://img.shields.io/github/tag/tomsquest/docker-radicale.svg)
 
-Version number = Radicale version + architecture + increment number
+Version number = Architecture + '.' + Radicale version + '.' + increment number
 
 Example: those tags were created for Radicale 2.1.10:
 - `tomsquest/docker-radicale:i386.2.1.10.0`
@@ -31,7 +31,9 @@ Example: those tags were created for Radicale 2.1.10:
 - `tomsquest/docker-radicale:arm.2.1.10.0`
 - `tomsquest/docker-radicale:aarch64.2.1.10.0`
 
-The last number is our, incremented on changes. For example, 2.1.10.**2** made the /config readonly (this is specific to this image).
+The last number is ours, incremented on changes. For example, 2.1.10.**2** made the /config readonly (this is specific to this image).
+
+Additionally, Docker Hub automatically build and publish this image as `tomsquest/docker-radicale` (which by default is `amd64`).
 
 ## Running
 
