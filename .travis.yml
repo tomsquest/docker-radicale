@@ -26,7 +26,7 @@ deploy:
   provider: script
   script:
     echo "$DOCKER_PWD" | docker login -u "$DOCKER_USER" --password-stdin &&
-    docker build -t tomsquest/docker-radicale:$ARCH.$TRAVIS_TAG --file Dockerfile.$ARCH . &&
+    docker build --build-arg COMMIT_ID=$TRAVIS_COMMIT -t tomsquest/docker-radicale:$ARCH.$TRAVIS_TAG --file Dockerfile.$ARCH . &&
     docker push tomsquest/docker-radicale:$ARCH.$TRAVIS_TAG;
   skip_cleanup: true
   on:
