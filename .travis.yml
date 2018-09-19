@@ -11,6 +11,7 @@ env:
     - ARCH=aarch64
 
 install:
+  - echo "$DOCKER_PWD" | docker login -u "$DOCKER_USER" --password-stdin
   - pip install pipenv
   - pipenv sync --dev
 
@@ -23,11 +24,19 @@ script:
   - pipenv run pytest -v
 
 deploy:
-  provider: script
-  script:
-    echo "$DOCKER_PWD" | docker login -u "$DOCKER_USER" --password-stdin &&
-    docker build --build-arg COMMIT_ID=$TRAVIS_COMMIT -t tomsquest/docker-radicale:$ARCH.$TRAVIS_TAG --file Dockerfile.$ARCH . &&
-    docker push tomsquest/docker-radicale:$ARCH.$TRAVIS_TAG;
-  skip_cleanup: true
-  on:
-    tags: true
+  # Deploy tag
+  - provider: script
+    script:
+      docker build --build-arg COMMIT_ID=$TRAVIS_COMMIT -t tomsquest/docker-radicale:$ARCH.$TRAVIS_TAG --file Dockerfile.$ARCH . &&
+      docker push tomsquest/docker-radicale:$ARCH.$TRAVIS_TAG;
+    skip_cleanup: true
+    on:
+      tags: true
+  # Deploy latest
+  - provider: script
+    script:
+      docker build --build-arg COMMIT_ID=$TRAVIS_COMMIT -t tomsquest/docker-radicale:$ARCH --file Dockerfile.$ARCH . &&
+      docker push tomsquest/docker-radicale:$ARCH;
+    skip_cleanup: true
+    on:
+      branch: master
