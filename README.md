@@ -64,18 +64,28 @@ docker run -d --name radicale \
 
 A [Docker compose file](docker-compose.yml) is included. It can be [extended](https://docs.docker.com/compose/production/#modify-your-compose-file-for-production). 
 
-## User/Group ID
+## Custom User/Group ID for the data volume
 
-Sharing files from the host and the container can be problematic because 
-the `radicale` user **in** the container does not match the user running the container **on** the host.
+You will certainly mount a volume to keep Radicale data between restart/upgrade of the container.
+But sharing files from the host and the container can be problematic.
+The reason is that `radicale` user **in** the container does not match the user running the container **on** the host.
 
-To solve this, this image offers three options (see below for details):
+To solve this, this image offers four options (see below for details):
 
-- Create a user/group with id `2999` on the host
-- Specify a custom user/group id on `docker run`
-- Build the image with a custom user/group
+- Option 0. Do nothing, permission will be fixed by the container itself
+- Option 1. Create a user/group with id `2999` on the host
+- Option 2. Specify a custom user/group id on `docker run`
+- Option 3. Build the image with a custom user/group
 
-#### Option 1. User/Group 2999
+#### Option 0. Do nothing, the container will fix the permission itself
+
+When running the container with a /data volume (eg. `-v /mydata/radicale:/data`), the container entrypoint will automatically fix the permissions on `/data`. 
+
+This option is OK but not optimal:
+- Ok for the container, as inside it the radicale user can read and write its data
+- But on the host, the data directory will then be owned by the user/group 2999:2999
+
+#### Option 1. User/Group 2999 on the host
 
 The image creates a user and a group with Id `2999`.  
 You can create an user/group on your host matching this Id.
@@ -90,27 +100,27 @@ sudo adduser --gid 2999 --uid 2999 --shell /bin/false --disabled-password --no-c
 #### Option 2. Custom User/Group at run
 
 The user and group Ids used in the image can be overridden when the container is run.  
-This is done with the `UID` and `GID` env variables, eg. `docker run -e UID=123 -e GID=456 tomsquest/docker-radicale`.
+This is done with the `UID` and `GID` env variables, eg. `docker run -e UID=123 -e GID=456 ...`.
 
-**Beware**, the `--read-only` run flag cannot be used in this case. Using custom UID/GID at runtime modifies the filesystem and the modification is made impossible with the `--read-only` flag.
+But **beware**, the `--read-only` run flag cannot be used in this case. Using custom UID/GID tries to modify the filesystem at runtime but this is made impossible by the `--read-only` flag.
 
 #### Option 3. Custom User/Group at build
 
 You can build the image with custom user and group Ids and still use the `--read-only` flag.  
-But, you will have to keep up-do-date with this image.
+But, you will have to clone this repo, do a local build and keep up with changes of this image.
 
-Usage: `docker build --build-arg=UID=5000 --build-arg=GID=5001 .` 
+Usage: `docker build --build-arg=UID=5000 --build-arg=GID=5001 ...` 
 
 ## Custom configuration
 
 To customize Radicale configuration, either: 
 
-* (recommended): use this repository preconfigured [config file](config),
-* Or, use the original [config file](https://raw.githubusercontent.com/Kozea/Radicale/master/config) and:
+* Recommended: use this repository preconfigured [config file](config),
+* Use the original [config file](https://raw.githubusercontent.com/Kozea/Radicale/master/config) and:
   1. set `hosts = 0.0.0.0:5232`
   1. set `filesystem_folder = /data/collections`
 
-Then use a config volume when running the container: `-v /my_custom_config_directory:/config`.
+Then mount your custom config volume when running the container: `-v /my_custom_config_directory:/config`.
 
 ## Contributing
 
@@ -118,7 +128,7 @@ To run the tests (your user will need to be a member of the `docker` group)
 
 1. `pip install pipenv`
 1. `pipenv install -d`
-1. `pytest -v test.py`
+1. `pytest -v`
 
 ## Releasing
 
