@@ -20,6 +20,7 @@ before_script:
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
 
 script:
+  - export PIPENV_IGNORE_VIRTUALENVS=1
   - pipenv check
   - pipenv run pytest -v
 
