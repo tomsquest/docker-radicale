@@ -5,8 +5,8 @@ python:
 
 env:
   matrix:
-    - ARCH=i386
     - ARCH=amd64
+    - ARCH=i386
     - ARCH=arm
     - ARCH=aarch64
 

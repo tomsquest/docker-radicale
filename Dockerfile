@@ -1,4 +1,4 @@
-FROM alpine:3.9.4
+FROM alpine:3.9
 
 ARG COMMIT_ID
 ARG VERSION=2.1.11
