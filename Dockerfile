@@ -20,6 +20,7 @@ RUN apk add --no-cache --virtual=build-dependencies \
         musl-dev \
         python3-dev \
     && apk add --no-cache \
+        wget \
         curl \
         git \
         python3 \
