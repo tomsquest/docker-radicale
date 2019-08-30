@@ -1,16 +1,23 @@
 # Can be enhanced with additional compose file 
 # See also https://docs.docker.com/compose/production/#modify-your-compose-file-for-production
 
-version: '3.3'
+version: '3.7'
 
 services:
   radicale:
     image: tomsquest/docker-radicale
+    container_name: radicale
     ports:
       - "5232:5232"
     read_only: true
+    init: true
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: curl -f http://localhost:5232 || exit 1
+      interval: 30s
+      retries: 3
+    restart: unless-stopped
     volumes:
-      - data-radicale:/data
-
-volumes:
-  data-radicale:
+      - ~/radicale/data:/data
+      - ~/radicale/config:/config:ro
