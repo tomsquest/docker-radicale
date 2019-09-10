@@ -49,15 +49,20 @@ docker run -d --name radicale \
     tomsquest/docker-radicale
 ```
 
-**Production-grade** run:
+**Production-grade** instruction:
 
 ```
 docker run -d --name radicale \
     -p 127.0.0.1:5232:5232 \
     --read-only \
     --init \
-    --pids-limit 50 \
     --security-opt="no-new-privileges:true" \
+    --cap-drop ALL \
+    --cap-add CHOWN \
+    --cap-add SETUID \
+    --cap-add SETGID \
+    --pids-limit 50 \
+    --memory 256M \
     --health-cmd="curl --fail http://localhost:5232 || exit 1" \
     --health-interval=30s \
     --health-retries=3 \
