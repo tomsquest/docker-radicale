@@ -61,6 +61,7 @@ docker run -d --name radicale \
     --cap-add CHOWN \
     --cap-add SETUID \
     --cap-add SETGID \
+    --cap-add KILL \
     --pids-limit 50 \
     --memory 256M \
     --health-cmd="curl --fail http://localhost:5232 || exit 1" \
@@ -70,6 +71,8 @@ docker run -d --name radicale \
     -v ~/radicale/config:/config:ro \
     tomsquest/docker-radicale
 ```
+  
+Note: On the Linux Kernel capabilities, `CHOWN`, `SETUID` and `SETGID` are for fixing the permission of the mounted volume. `KILL` is to allow Radicale to exit.
 
 ### Docker compose
 
