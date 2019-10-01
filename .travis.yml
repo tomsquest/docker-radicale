@@ -27,17 +27,17 @@ script:
 deploy:
   # Deploy tag
   - provider: script
+    on:
+      tags: true
     script:
       docker build --build-arg COMMIT_ID=$TRAVIS_COMMIT -t tomsquest/docker-radicale:$ARCH.$TRAVIS_TAG --file Dockerfile.$ARCH . &&
       docker push tomsquest/docker-radicale:$ARCH.$TRAVIS_TAG;
     skip_cleanup: true
-    on:
-      tags: true
   # Deploy latest
   - provider: script
+    on:
+      branch: master
     script:
       docker build --build-arg COMMIT_ID=$TRAVIS_COMMIT -t tomsquest/docker-radicale:$ARCH --file Dockerfile.$ARCH . &&
       docker push tomsquest/docker-radicale:$ARCH;
     skip_cleanup: true
-    on:
-      branch: master
