@@ -78,6 +78,10 @@ Note: On the Linux Kernel capabilities, `CHOWN`, `SETUID` and `SETGID` are for f
 
 A [Docker compose file](docker-compose.yml) is included. It can be [extended](https://docs.docker.com/compose/production/#modify-your-compose-file-for-production). 
 
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md)
+
 ## Custom User/Group ID for the data volume
 
 You will certainly mount a volume to keep Radicale data between restart/upgrade of the container.
