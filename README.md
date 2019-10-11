@@ -74,9 +74,31 @@ docker run -d --name radicale \
   
 Note: On the Linux Kernel capabilities, `CHOWN`, `SETUID` and `SETGID` are for fixing the permission of the mounted volume. `KILL` is to allow Radicale to exit.
 
-### Docker compose
+## Running with Docker compose
 
 A [Docker compose file](docker-compose.yml) is included. It can be [extended](https://docs.docker.com/compose/production/#modify-your-compose-file-for-production). 
+
+## Extending the image
+
+The image is extendable, as per Docker image architecture. You need to create your own `Dockerfile`.
+
+For example, here is how to add `radicale-imap` and `RadicaleInfCloud` to the image.
+
+First, create a `Dockerfile.extended` (pick the name you want) with this content:
+
+```dockerfile
+FROM tomsquest/docker-radicale
+
+RUN python3 -m pip install radicale-imap
+RUN python3 -m pip install git+https://github.com/Unrud/RadicaleInfCloud
+```
+
+Then, build and run it:
+
+```bash
+docker build -t radicale-extended -f Dockerfile.extended .
+docker run --name radicale-extended -p 5232:5232 radicale-extended
+```
 
 ## Changelog
 
