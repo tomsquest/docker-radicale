@@ -153,4 +153,5 @@ Create a Git tag, eg. 2.1.10.0, push it and Travis will build the images and pub
 * [Robert Beal](https://github.com/robertbeal): fixed/configurable userId, versioning...
 * [Loader23](https://github.com/Loader23): config volume idea
 * [Waja](https://github.com/waja): less layers is more, InfCloud integration (UI for Radicale) 
+* [Christian Burmeister](https://github.com/christianbur): add tzdata to be able to specify timezone 
 * [Thomas Queste](https://github.com/tomsquest): initial image
