@@ -29,7 +29,6 @@ RUN apk add --no-cache --virtual=build-dependencies \
         tzdata \
     && python3 -m pip install --upgrade pip \
     && python3 -m pip install radicale==$VERSION passlib[bcrypt] \
-    && python3 -m pip install --upgrade git+https://github.com/Unrud/RadicaleInfCloud \
     && apk del --purge build-dependencies \
     && addgroup -g $GID radicale \
     && adduser -D -s /bin/false -H -u $UID -G radicale radicale \
