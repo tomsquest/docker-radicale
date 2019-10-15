@@ -1,23 +1,19 @@
 services: docker
+
 language: python
+
 python:
   - '3.6'
 
-env:
-  matrix:
-    - ARCH=amd64
-    - ARCH=i386
-    - ARCH=arm
-    - ARCH=aarch64
+addons:
+  apt:
+    packages:
+      - docker-ce
 
 install:
   - echo "$DOCKER_PWD" | docker login -u "$DOCKER_USER" --password-stdin
   - pip install pipenv
   - pipenv sync --dev
-
-before_script:
-  - ./build.sh $ARCH
-  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
 
 script:
   - export PIPENV_IGNORE_VIRTUALENVS=1
@@ -29,15 +25,11 @@ deploy:
   - provider: script
     on:
       tags: true
-    script:
-      docker build --build-arg COMMIT_ID=$TRAVIS_COMMIT -t tomsquest/docker-radicale:$ARCH.$TRAVIS_TAG --file Dockerfile.$ARCH . &&
-      docker push tomsquest/docker-radicale:$ARCH.$TRAVIS_TAG;
+    script: ci/build-push.sh
     skip_cleanup: true
   # Deploy latest
   - provider: script
     on:
       branch: master
-    script:
-      docker build --build-arg COMMIT_ID=$TRAVIS_COMMIT -t tomsquest/docker-radicale:$ARCH --file Dockerfile.$ARCH . &&
-      docker push tomsquest/docker-radicale:$ARCH;
+    script: ci/build-push.sh
     skip_cleanup: true
