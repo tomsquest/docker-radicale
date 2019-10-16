@@ -27,17 +27,24 @@ Enhanced Docker image for <a href="http://radicale.org">Radicale</a>, the CalDAV
 
 **Latest tag**: ![latest tag](https://img.shields.io/github/tag/tomsquest/docker-radicale.svg)
 
+Starting from 2.1.11.3, this image has a manifest which allow you to just pull the image without supplying the
+ architecture. The command `docker pull tomsquest/docker-radicale` should pull the correct image.
+
+Else, the image is also tagged with this scheme:
+
 Version number = Architecture + '.' + Radicale version + '.' + increment number
 
-Example: those tags were created for Radicale 2.1.10:
-- `tomsquest/docker-radicale:i386.2.1.10.0`
-- `tomsquest/docker-radicale:amd64.2.1.10.0`
-- `tomsquest/docker-radicale:arm.2.1.10.0`
-- `tomsquest/docker-radicale:aarch64.2.1.10.0`
+Example: those tags were created for Radicale 2.1.11:
+- `tomsquest/docker-radicale:386.2.1.11.0`
+- `tomsquest/docker-radicale:amd64.2.1.11.0`
+- `tomsquest/docker-radicale:arm.2.1.11.0`
+- `tomsquest/docker-radicale:arm64.2.1.11.0`
 
-The last number is ours, incremented on changes. For example, 2.1.10.**2** made the /config readonly (this is specific to this image).
+The last number is ours, incremented on changes. For example, 2.1.11.**2** made the /config readonly (this is
+ specific to
+ this image).
 
-Additionally, Docker Hub automatically build and publish this image as `tomsquest/docker-radicale` (which by default is `amd64`).
+Additionally, Docker Hub automatically build and publish this image as `tomsquest/docker-radicale`.
 
 ## Running
 
@@ -172,7 +179,7 @@ To run the tests (your user will need to be a member of the `docker` group)
 
 ## Releasing
 
-Create a Git tag, eg. 2.1.10.0, push it and Travis will build the images and publish them on Docker hub.
+Create a Git tag, eg. 2.1.11.0, push it and Travis will build the images and publish them on Docker hub.
 
 ## Contributors
 

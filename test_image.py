@@ -6,7 +6,7 @@ import testinfra
 @pytest.fixture(scope='session')
 def host(request):
     subprocess.check_call(
-        ['docker', 'build', '-t', 'radicale-under-test', '--build-arg', 'VERSION=2.1.0', '--build-arg', 'UID=6666',
+        ['docker', 'build', '-t', 'radicale-under-test', '--build-arg', 'VERSION=2.1.11', '--build-arg', 'UID=6666',
          '--build-arg', 'GID=7777', '.'])
     docker_id = subprocess.check_output(['docker', 'run', '-d', 'radicale-under-test']).decode().strip()
 
@@ -25,7 +25,7 @@ def test_port(host):
     assert host.socket('tcp://0.0.0.0:5232').is_listening
 
 def test_version(host):
-    assert host.check_output('radicale --version') == '2.1.0'
+    assert host.check_output('radicale --version') == '2.1.11'
 
 def test_user(host):
     user = 'radicale'
