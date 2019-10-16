@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2.1.11.4] - 2019-10-16
+
+### Added
+- Docker manifest is published for `latest` and each tag
+
+### Changed
+- Architecture tag for `aarch64` is now `arm64` (conform to GOARCH value)
+- Architecture tag for `i386` is now `386` (conform to GOARCH value)
+
+### Removed
+
 ## [2.1.11.3] - 2019-10-11
 
 ### Added
