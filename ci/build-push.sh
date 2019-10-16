@@ -5,7 +5,7 @@ set -eo pipefail
 # Require to build docker image of other architectures
 docker run --rm --privileged multiarch/qemu-user-static:register --reset
 
-archs=(amd64 i386 arm arm64)
+archs=(amd64 386 arm arm64)
 
 if [ -z "$TRAVIS_TAG" ]
 then
@@ -40,14 +40,14 @@ export DOCKER_CLI_EXPERIMENTAL=enabled
 
 docker manifest create tomsquest/docker-radicale:$DOCKER_TAG \
   tomsquest/docker-radicale:amd64$DOCKERFILE_SUFFIX \
-  tomsquest/docker-radicale:i386$DOCKERFILE_SUFFIX \
+  tomsquest/docker-radicale:386$DOCKERFILE_SUFFIX \
   tomsquest/docker-radicale:arm$DOCKERFILE_SUFFIX \
   tomsquest/docker-radicale:arm64$DOCKERFILE_SUFFIX
 
 docker manifest annotate tomsquest/docker-radicale:$DOCKER_TAG \
   tomsquest/docker-radicale:amd64$DOCKERFILE_SUFFIX   --arch amd64
 docker manifest annotate tomsquest/docker-radicale:$DOCKER_TAG \
-  tomsquest/docker-radicale:i386$DOCKERFILE_SUFFIX    --arch 386
+  tomsquest/docker-radicale:386$DOCKERFILE_SUFFIX    --arch 386
 docker manifest annotate tomsquest/docker-radicale:$DOCKER_TAG \
   tomsquest/docker-radicale:arm$DOCKERFILE_SUFFIX     --arch arm
 docker manifest annotate tomsquest/docker-radicale:$DOCKER_TAG \
