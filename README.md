@@ -33,7 +33,7 @@ Example: those tags were created for Radicale 2.1.10:
 - `tomsquest/docker-radicale:i386.2.1.10.0`
 - `tomsquest/docker-radicale:amd64.2.1.10.0`
 - `tomsquest/docker-radicale:arm.2.1.10.0`
-- `tomsquest/docker-radicale:aarch64.2.1.10.0`
+- `tomsquest/docker-radicale:arm64.2.1.10.0`
 
 The last number is ours, incremented on changes. For example, 2.1.10.**2** made the /config readonly (this is specific to this image).
 
