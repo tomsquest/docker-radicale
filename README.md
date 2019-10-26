@@ -20,7 +20,7 @@ Enhanced Docker image for <a href="http://radicale.org">Radicale</a>, the CalDAV
 ## Features
 
 * :closed_lock_with_key: **Secured**: run as a normal user, not root
-* :sparkles: **Enhanced**: add Git for [versioning](http://radicale.org/versioning/), Bcrypt for [authentication](http://radicale.org/setup/#authentication) and [InfCloud](https://www.inf-it.com/open-source/clients/infcloud/) as an alternative UI
+* :sparkles: **Enhanced**: add Git for [versioning](http://radicale.org/versioning/), Bcrypt for [authentication](http://radicale.org/setup/#authentication)
 * :building_construction: **Multi-architecture**: run on amd64, arm (RaspberryPI...) and others 
 
 ## Version, Tags and Multi-architecture
@@ -89,7 +89,7 @@ A [Docker compose file](docker-compose.yml) is included. It can be [extended](ht
 
 The image is extendable, as per Docker image architecture. You need to create your own `Dockerfile`.
 
-For example, here is how to add `radicale-imap` and `RadicaleInfCloud` to the image.
+For example, here is how to add [radicale-imap](https://gitlab.com/comzeradd/radicale-imap) (authenticate by email) and [RadicaleInfCloud](https://www.inf-it.com/open-source/clients/infcloud/) (an alternative UI) to the image.
 
 First, create a `Dockerfile.extended` (pick the name you want) with this content:
 
