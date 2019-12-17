@@ -25,6 +25,7 @@ deploy:
   - provider: script
     on:
       tags: true
+      condition: $TRAVIS_TAG != latest
     script: ci/build-push.sh
     skip_cleanup: true
   # Deploy latest

@@ -179,7 +179,8 @@ To run the tests (your user will need to be a member of the `docker` group)
 
 ## Releasing
 
-Create a Git tag, eg. 2.1.11.0, push it and Travis will build the images and publish them on Docker hub.
+1. Create a Git tag, eg. `2.1.11.0`, push it and Travis will build the images and publish them on Docker hub
+1. Update the `latest` tag
 
 ## Contributors
 
