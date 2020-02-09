@@ -119,9 +119,17 @@ filesystem_folder = /data/collections
 
 [logging]
 
-# Threshold for the logger
-# Value: debug | info | warning | error | critical
-#level = warning
+# Logging configuration file
+# If no config is given, simple information is printed on the standard output
+# For more information about the syntax of the configuration file, see:
+# http://docs.python.org/library/logging.config.html
+#config =
+
+# Set the default logging level to debug
+#debug = False
+
+# Store all environment variables (including those set in the shell)
+#full_environment = False
 
 # Don't include passwords in logs
 #mask_passwords = True
