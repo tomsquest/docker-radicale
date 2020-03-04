@@ -1,9 +1,14 @@
 FROM alpine:3.10
 
 ARG COMMIT_ID
-ARG VERSION=2.1.11
-ARG UID=2999
-ARG GID=2999
+ARG VERSION
+ARG PUID
+ARG PGID
+
+ENV COMMIT_ID ${COMMIT_ID}
+ENV VERSION ${VERSION:-2.1.11}
+ENV PUID ${PUID:-2999}
+ENV PGID ${PGID:-2999}
 
 LABEL maintainer="Thomas Queste <tom@tomsquest.com>" \
       org.label-schema.name="Radicale Docker Image" \
@@ -30,8 +35,8 @@ RUN apk add --no-cache --virtual=build-dependencies \
     && python3 -m pip install --upgrade pip \
     && python3 -m pip install radicale==$VERSION passlib[bcrypt] \
     && apk del --purge build-dependencies \
-    && addgroup -g $GID radicale \
-    && adduser -D -s /bin/false -H -u $UID -G radicale radicale \
+    && addgroup -g $PGID radicale \
+    && adduser -D -s /bin/false -H -u $PUID -G radicale radicale \
     && mkdir -p /config /data \
     && chmod -R 770 /data \
     && chown -R radicale:radicale /data
