@@ -4,7 +4,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased]
+## [2.1.11.5] - 2020-03-09
+
+### Added
+
+- #68 : Can use environment variable instead of build arguments. This is a workaround for a bug in Synology, but it also
+makes this image more flexible
+
+### Changed
+
+- #65 : Use the appropriate logging config from Radicale released branch (the config has changed on master and is
+not appropriate for release `2.1.11`)
+
+### Removed
 
 ## [2.1.11.4] - 2019-10-16
 
