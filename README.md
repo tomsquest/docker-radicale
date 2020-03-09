@@ -23,6 +23,10 @@ Enhanced Docker image for <a href="http://radicale.org">Radicale</a>, the CalDAV
 * :sparkles: **Enhanced**: add Git for [versioning](http://radicale.org/versioning/), Bcrypt for [authentication](http://radicale.org/setup/#authentication)
 * :building_construction: **Multi-architecture**: run on amd64, arm (RaspberryPI...) and others 
 
+## Changelog
+
+:page_with_curl: See [CHANGELOG.md](CHANGELOG.md)
+
 ## Version, Tags and Multi-architecture
 
 **Latest tag**: ![latest tag](https://img.shields.io/github/tag/tomsquest/docker-radicale.svg)
@@ -106,10 +110,6 @@ Then, build and run it:
 docker build -t radicale-extended -f Dockerfile.extended .
 docker run --name radicale-extended -p 5232:5232 radicale-extended
 ```
-
-## Changelog
-
-See [CHANGELOG.md](CHANGELOG.md)
 
 ## Custom User/Group ID for the data volume
 
