@@ -17,7 +17,6 @@ install:
 
 script:
   - export PIPENV_IGNORE_VIRTUALENVS=1
-  - pipenv check
   - pipenv run pytest -v
 
 deploy:
