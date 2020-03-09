@@ -156,7 +156,7 @@ But **beware**, the `--read-only` run flag cannot be used in this case. Using cu
 You can build the image with custom user and group Ids and still use the `--read-only` flag.  
 But, you will have to clone this repo, do a local build and keep up with changes of this image.
 
-Usage: `docker build --build-arg=UID=5000 --build-arg=GID=5001 ...` 
+Usage: `docker build --build-arg=PUID=5000 --build-arg=PGID=5001 ...` 
 
 ## Custom configuration
 
