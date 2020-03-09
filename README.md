@@ -147,7 +147,7 @@ sudo adduser --gid 2999 --uid 2999 --shell /bin/false --disabled-password --no-c
 #### Option 2. Custom User/Group at run
 
 The user and group Ids used in the image can be overridden when the container is run.  
-This is done with the `UID` and `GID` env variables, eg. `docker run -e UID=123 -e GID=456 ...`.
+This is done with the `PUID` and `PGID` env variables, eg. `docker run -e PUID=123 -e PGID=456 ...`.
 
 But **beware**, the `--read-only` run flag cannot be used in this case. Using custom UID/GID tries to modify the filesystem at runtime but this is made impossible by the `--read-only` flag.
 
