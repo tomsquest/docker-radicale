@@ -184,6 +184,7 @@ To run the tests (your user will need to be a member of the `docker` group)
 
 ## Contributors
 
+* [adzero](https://github.com/adzero): override build args with environment variables
 * [Robert Beal](https://github.com/robertbeal): fixed/configurable userId, versioning...
 * [Loader23](https://github.com/Loader23): config volume idea
 * [Waja](https://github.com/waja): less layers is more, InfCloud integration (UI for Radicale) 
