@@ -2,12 +2,12 @@
 
 set -e
 
-if [ -n "$PGID" ]; then
-    groupmod -o -g "$PGID" radicale
+if [ -n "$GID" ]; then
+    groupmod -o -g "$GID" radicale
 fi
 
-if [ -n "$PUID" ]; then
-    usermod -o -u "$PUID" radicale
+if [ -n "$UID" ]; then
+    usermod -o -u "$UID" radicale
 fi
 
 # Re-set permission to the `radicale` user if current user is root
