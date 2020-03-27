@@ -1,0 +1,25 @@
+#!/bin/bash
+
+## 1. SETUP / SSH:
+# ssh-keygen -t rsa -f /path-on-host-to-docker-volume-for-radicale-data/.ssh/id_rsa
+#
+## 2. SETUP / GIT:
+# cd /path-on-host-to-docker-volume-for-radicale-data/collections/
+# git init
+# git remote add origin git@hostname.com:my-user/my-repository.git
+#
+## 3. SETUP / ACCESS RIGHTS:
+# cd /path-on-host-to-docker-volume-for-radicale-data/collections/
+# chown -R your-docker-radicale-user.your-docker-radicale-group .git*
+
+## 4. RUN / ENV
+export HOME=/data/
+cd /data/collections/
+
+## 5. RUN / GIT:
+git config  --global user.email "radicale@my-host"
+git config  --global user.name  "Radicale"
+git config core.sshCommand "ssh -i /data/.ssh/id_rsa -F /dev/null -o UserKnownHostsFile=/data/.ssh/known_hosts -o StrictHostKeyChecking=no"
+git add -A
+git commit -m "Changes `date +'%F %H:%m'`"
+git push origin master
