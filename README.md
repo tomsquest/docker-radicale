@@ -183,6 +183,20 @@ To run the tests (your user will need to be a member of the `docker` group)
 1. Create a Git tag, eg. `2.1.11.0`, push it and Travis will build the images and publish them on Docker hub
 1. Update the `latest` tag
 
+Example instructions :
+
+```bash
+# Next release
+git tag 2.1.11.6
+git push origin 2.1.11.6
+
+# latest tag
+git push --delete origin latest
+git tag -d latest
+git tag latest
+git push origin latest
+```
+
 ## Contributors
 
 * [adzero](https://github.com/adzero): override build args with environment variables
