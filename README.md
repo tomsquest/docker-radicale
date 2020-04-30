@@ -66,8 +66,7 @@ docker run -d --name radicale \
 docker run -d --name radicale \
     -p 127.0.0.1:5232:5232 \
     --read-only \
-    --init \
-    --security-opt="no-new-privileges:true" \
+    --init \    --security-opt="no-new-privileges:true" \
     --cap-drop ALL \
     --cap-add CHOWN \
     --cap-add SETUID \
@@ -144,19 +143,21 @@ sudo addgroup --gid 2999 radicale
 sudo adduser --gid 2999 --uid 2999 --shell /bin/false --disabled-password --no-create-home radicale
 ```
 
-#### Option 2. Custom User/Group at run
+#### Option 2. Custom User/Group at run time
 
 The user and group Ids used in the image can be overridden when the container is run.  
-This is done with the `PUID` and `PGID` env variables, eg. `docker run -e PUID=123 -e PGID=456 ...`.
+This is done with the `UID` and `GID` env variables, eg. `docker run -e UID=123 -e GID=456 ...`.
 
-But **beware**, the `--read-only` run flag cannot be used in this case. Using custom UID/GID tries to modify the filesystem at runtime but this is made impossible by the `--read-only` flag.
+:warning: The **`--read-only`** run flag cannot be used in this case. Using custom UID/GID tries to modify the filesystem at runtime but this is made **impossible** by the `--read-only` flag.
 
-#### Option 3. Custom User/Group at build
+#### Option 3. Custom User/Group at build time
 
 You can build the image with custom user and group Ids and still use the `--read-only` flag.  
 But, you will have to clone this repo, do a local build and keep up with changes of this image.
 
-Usage: `docker build --build-arg=PUID=5000 --build-arg=PGID=5001 ...` 
+Usage: `docker build --build-arg=BUILD_UID=5000 --build-arg=BUILD_GID=5001 ...`.
+
+`BUILD_UID` and `BUILD_GID` are also supported as environment variables to work around a problem on some Synology NAS. See this PR#68.
 
 ## Custom configuration
 
