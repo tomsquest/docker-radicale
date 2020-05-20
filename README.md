@@ -27,28 +27,9 @@ Enhanced Docker image for <a href="http://radicale.org">Radicale</a>, the CalDAV
 
 :page_with_curl: See [CHANGELOG.md](CHANGELOG.md)
 
-## Version, Tags and Multi-architecture
+## Latest version
 
 **Latest tag**: ![latest tag](https://img.shields.io/github/tag/tomsquest/docker-radicale.svg)
-
-Starting from 2.1.11.3, this image has a manifest which allow you to just pull the image without supplying the
- architecture. The command `docker pull tomsquest/docker-radicale` should pull the correct image.
-
-Else, the image is also tagged with this scheme:
-
-Version number = Architecture + '.' + Radicale version + '.' + increment number
-
-Example: those tags were created for Radicale 2.1.11:
-- `tomsquest/docker-radicale:386.2.1.11.0`
-- `tomsquest/docker-radicale:amd64.2.1.11.0`
-- `tomsquest/docker-radicale:arm.2.1.11.0`
-- `tomsquest/docker-radicale:arm64.2.1.11.0`
-
-The last number is ours, incremented on changes. For example, 2.1.11.**2** made the /config readonly (this is
- specific to
- this image).
-
-Additionally, Docker Hub automatically build and publish this image as `tomsquest/docker-radicale`.
 
 ## Running
 
@@ -60,13 +41,14 @@ docker run -d --name radicale \
     tomsquest/docker-radicale
 ```
 
-**Production-grade** instruction:
+**Production-grade** instruction (secured, safe...):
 
 ```
 docker run -d --name radicale \
     -p 127.0.0.1:5232:5232 \
     --read-only \
-    --init \    --security-opt="no-new-privileges:true" \
+    --init \    
+    --security-opt="no-new-privileges:true" \
     --cap-drop ALL \
     --cap-add CHOWN \
     --cap-add SETUID \
@@ -169,6 +151,27 @@ To customize Radicale configuration, either:
   1. set `filesystem_folder = /data/collections`
 
 Then mount your custom config volume when running the container: `-v /my_custom_config_directory:/config`.
+
+## Multi-architecture
+
+Starting from 2.1.11.3, this image has a manifest which allow you to just pull the image **without** supplying the
+ architecture. The command `docker pull tomsquest/docker-radicale` will pull the correct image for your architecture.
+
+Else, the image is also tagged with this scheme:
+
+Version number = Architecture + '.' + Radicale version + '.' + This image increment number
+
+Example: those tags were created for Radicale 2.1.12:
+- `tomsquest/docker-radicale:386.2.1.12.0`
+- `tomsquest/docker-radicale:amd64.2.1.12.0`
+- `tomsquest/docker-radicale:arm.2.1.12.0`
+- `tomsquest/docker-radicale:arm64.2.1.12.0`
+
+The last number is ours, incremented on changes. 
+
+For example, 2.1.11.**2** made the /config readonly (this is specific to this image).
+
+Additionally, Docker Hub automatically build and [publish this image as `tomsquest/docker-radicale`](https://hub.docker.com/r/tomsquest/docker-radicale/).
 
 ## Contributing
 

@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+
+## [2.1.12.0] - 2020-05-20
+
+### Changed
+
+- Update Radicale to [version 2.1.12](https://github.com/Kozea/Radicale/blob/2.1.12/NEWS.md)
+
 ## [2.1.11.6] - 2020-04-30
 
 ### Changed
