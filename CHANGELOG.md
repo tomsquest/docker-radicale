@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [2.1.12.1] - 2020-06-03
+
+### Added
+
+- [#77](https://github.com/tomsquest/docker-radicale/pull/77): add pytz as a dependency. pytz is used by vobject and
+ thus Radicale to correctly parse timezone. Timezone are required with recurring events and daylight savings.
 
 ## [2.1.12.0] - 2020-05-20
 
