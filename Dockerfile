@@ -34,6 +34,7 @@ RUN apk add --no-cache --virtual=build-dependencies \
         shadow \
         su-exec \
         tzdata \
+        py3-tz \
     && python3 -m pip install --upgrade pip \
     && python3 -m pip install radicale==$VERSION passlib[bcrypt] \
     && apk del --purge build-dependencies \
