@@ -193,14 +193,11 @@ Example instructions :
 
 ```bash
 # Next release
-git tag 2.1.11.6
-git push origin 2.1.11.6
+git tag 2.1.11.0
+git push origin 2.1.11.0
 
 # latest tag
-git push --delete origin latest
-git tag -d latest
-git tag latest
-git push origin latest
+git push --delete origin latest && git tag -d latest && git tag latest && git push origin latest
 ```
 
 ## Contributors
