@@ -48,7 +48,7 @@ docker run -d --name radicale \
 docker run -d --name radicale \
     -p 127.0.0.1:5232:5232 \
     --read-only \
-    --init \    
+    --init \
     --security-opt="no-new-privileges:true" \
     --cap-drop ALL \
     --cap-add CHOWN \
