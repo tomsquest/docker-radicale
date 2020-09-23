@@ -95,6 +95,25 @@ docker build -t radicale-extended -f Dockerfile.extended .
 docker run --name radicale-extended -p 5232:5232 radicale-extended
 ```
 
+## Using Radicale's hook for git operations
+
+Radicale supports a hook which is executed after each change to the CalDAV/CardDAV files.
+This hook can be used to keep a versions of your CalDAV/CardDAV files through git.
+
+To enable this feature, you need to provide the following environment variables:
+- `GIT_REPOSITORY`: The URL of your repository with a valid username and password or a personal access token. For example: `https://user:pass@github.com/user/repo`.
+- `GIT_USERNAME`: The username to use for commits 
+- `GIT_EMAIL`: The email to use for commits
+
+And enable the hook in the configuration file:
+
+```
+[storage]
+hook = git add -A && (git diff --cached --quiet || git commit -m "Changes by "%(user)s) && git push origin master
+```
+
+*Note: If you don't enable the hook, Radicale will only read from the git repository.*
+
 ## Custom User/Group ID for the data volume
 
 You will certainly mount a volume to keep Radicale data between restart/upgrade of the container.
@@ -202,6 +221,7 @@ git push --delete origin latest && git tag -d latest && git tag latest && git pu
 
 ## Contributors
 
+* [Dylan Van Assche](https://github.com/DylanVanAssche): Hook to read/write to a Git repo
 * [adzero](https://github.com/adzero): override build args with environment variables
 * [Robert Beal](https://github.com/robertbeal): fixed/configurable userId, versioning...
 * [Loader23](https://github.com/Loader23): config volume idea
