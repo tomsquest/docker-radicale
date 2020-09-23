@@ -104,6 +104,7 @@ To enable this feature, you need to provide the following environment variables:
 - `GIT_REPOSITORY`: The URL of your repository with a valid username and password or a personal access token. For example: `https://user:pass@github.com/user/repo`.
 - `GIT_USERNAME`: The username to use for commits 
 - `GIT_EMAIL`: The email to use for commits
+
 And enable the hook in the configuration file:
 
 ```
