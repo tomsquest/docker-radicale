@@ -1,10 +1,10 @@
-FROM alpine:3.10
+FROM alpine:3.12
 
 ARG COMMIT_ID
 ENV COMMIT_ID ${COMMIT_ID}
 
 ARG VERSION
-ENV VERSION ${VERSION:-2.1.12}
+ENV VERSION ${VERSION:-3.0.6}
 
 ARG BUILD_UID
 ENV BUILD_UID ${BUILD_UID:-2999}
@@ -23,18 +23,19 @@ LABEL maintainer="Thomas Queste <tom@tomsquest.com>" \
 
 RUN apk add --no-cache --virtual=build-dependencies \
         gcc \
-        libffi-dev \
         musl-dev \
+        libffi-dev \
         python3-dev \
     && apk add --no-cache \
-        wget \
         curl \
         git \
-        python3 \
         shadow \
         su-exec \
         tzdata \
+        wget \
+        python3 \
         py3-tz \
+        py3-pip \
     && python3 -m pip install --upgrade pip \
     && python3 -m pip install radicale==$VERSION passlib[bcrypt] \
     && apk del --purge build-dependencies \

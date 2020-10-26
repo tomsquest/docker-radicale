@@ -20,8 +20,8 @@ Enhanced Docker image for <a href="http://radicale.org">Radicale</a>, the CalDAV
 ## Features
 
 * :closed_lock_with_key: **Secured**: run as a normal user, not root
-* :sparkles: **Enhanced**: add Git for [versioning](http://radicale.org/versioning/), Bcrypt for [authentication
-](http://radicale.org/setup/#authentication), Pytz for timezone conversion
+* :fire: **Safe**: the container is read-only, with only access to its data dir, and without extraneous privileges
+* :sparkles: **Batteries included**: can use Git for [versioning](https://radicale.org/3.0.html#tutorials/versioning-with-git) using [only environment variables](https://github.com/tomsquest/docker-radicale/#using-radicales-hook-for-git-operations), Pytz for proper timezone conversion
 * :building_construction: **Multi-architecture**: run on amd64, arm (RaspberryPI...) and others 
 
 ## Changelog
@@ -42,7 +42,21 @@ docker run -d --name radicale \
     tomsquest/docker-radicale
 ```
 
-**Production-grade** instruction (secured, safe...):
+**Basic** instruction:
+
+1. create the folders to store the data and the config: `mkdir -p /radicale/{data,config}`
+1. copy the [config file](https://raw.githubusercontent.com/tomsquest/docker-radicale/master/config) into the config folder: `cp config /radicale/config/config`
+1. Then run the container:
+
+```
+docker run -d --name radicale \
+    -p 5232:5232 \
+    tomsquest/docker-radicale \
+    -v /radicale/data:/data \
+    -v /radicale/config:/config:ro \
+```
+
+:rocket: **Production-grade** instruction (secured, safe...):
 
 ```
 docker run -d --name radicale \
@@ -183,21 +197,21 @@ Else, the image is also tagged with this scheme:
 
 Version number = Architecture + '.' + Radicale version + '.' + This image increment number
 
-Example: those tags were created for Radicale 2.1.12:
-- `tomsquest/docker-radicale:386.2.1.12.0`
-- `tomsquest/docker-radicale:amd64.2.1.12.0`
-- `tomsquest/docker-radicale:arm.2.1.12.0`
-- `tomsquest/docker-radicale:arm64.2.1.12.0`
+Example: those tags were created for Radicale 3.0.6:
+- `tomsquest/docker-radicale:386.3.0.6.0`
+- `tomsquest/docker-radicale:amd64.3.0.6.0`
+- `tomsquest/docker-radicale:arm.3.0.6.0`
+- `tomsquest/docker-radicale:arm64.3.0.6.0`
 
-The last number is ours, incremented on changes. 
+The last number is **ours**, and it is incremented on new release. 
 
 For example, 2.1.11.**2** made the /config readonly (this is specific to this image).
 
-Additionally, Docker Hub automatically build and [publish this image as `tomsquest/docker-radicale`](https://hub.docker.com/r/tomsquest/docker-radicale/).
+Additionally, Docker Hub automatically builds and [publish this image as `tomsquest/docker-radicale`](https://hub.docker.com/r/tomsquest/docker-radicale/).
 
 ## Contributing
 
-To run the tests (your user will need to be a member of the `docker` group)
+To run the tests:
 
 1. `pip install pipenv`
 1. `pipenv install -d`
@@ -205,15 +219,15 @@ To run the tests (your user will need to be a member of the `docker` group)
 
 ## Releasing
 
-1. Create a Git tag, eg. `2.1.11.0`, push it and Travis will build the images and publish them on Docker hub
+1. Create a Git tag, eg. `3.0.6.0`, push it and Travis will build the images and publish them on Docker hub
 1. Update the `latest` tag
 
 Example instructions :
 
 ```bash
 # Next release
-git tag 2.1.11.0
-git push origin 2.1.11.0
+git tag 3.0.6.0
+git push origin 3.0.6.0
 
 # latest tag
 git push --delete origin latest && git tag -d latest && git tag latest && git push origin latest
