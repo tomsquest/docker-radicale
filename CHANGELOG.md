@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
-- :sparkles: First version base on Radicale 3 ([version 3.0.6](https://github.com/Kozea/Radicale/blob/3.0.x/NEWS.md#306) exactly)
+- :sparkles: First version based on Radicale 3 ([version 3.0.6](https://github.com/Kozea/Radicale/blob/3.0.x/NEWS.md#306) exactly)
 
 ## [2.1.12.1] - 2020-06-03
 
