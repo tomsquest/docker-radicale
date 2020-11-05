@@ -40,15 +40,6 @@ hosts = 0.0.0.0:5232
 # TCP traffic between Radicale and a reverse proxy
 #certificate_authority =
 
-# SSL Protocol used. See python's ssl module for available values
-#protocol = PROTOCOL_TLSv1_2
-
-# Available ciphers. See python's ssl module for available ciphers
-#ciphers =
-
-# Reverse DNS to resolve client address in logs
-#dns_lookup = True
-
 
 [encoding]
 
@@ -69,10 +60,9 @@ hosts = 0.0.0.0:5232
 #htpasswd_filename = /etc/radicale/users
 
 # Htpasswd encryption method
-# Value: plain | sha1 | ssha | crypt | bcrypt | md5
-# Only bcrypt can be considered secure.
-# bcrypt and md5 require the passlib library to be installed.
-#htpasswd_encryption = bcrypt
+# Value: plain | bcrypt | md5
+# bcrypt requires the installation of radicale[bcrypt].
+#htpasswd_encryption = md5
 
 # Incorrect authentication delay (seconds)
 #delay = 1
@@ -112,24 +102,15 @@ filesystem_folder = /data/collections
 [web]
 
 # Web interface backend
-# Value: none | internal | radicale_infcloud
-# (See also https://github.com/Unrud/RadicaleInfCloud)
+# Value: none | internal
 #type = internal
 
 
 [logging]
 
-# Logging configuration file
-# If no config is given, simple information is printed on the standard output
-# For more information about the syntax of the configuration file, see:
-# http://docs.python.org/library/logging.config.html
-#config =
-
-# Set the default logging level to debug
-#debug = False
-
-# Store all environment variables (including those set in the shell)
-#full_environment = False
+# Threshold for the logger
+# Value: debug | info | warning | error | critical
+#level = warning
 
 # Don't include passwords in logs
 #mask_passwords = True
