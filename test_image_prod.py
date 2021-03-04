@@ -12,8 +12,7 @@ def host(request):
         '--init',
         '--read-only',
         '--security-opt=no-new-privileges:true',
-        # Not able to use cap-drop=all and make the container start
-        # '--cap-drop', 'ALL', '--cap-add', 'SYS_ADMIN', '--cap-add', 'CHOWN', '--cap-add', 'SETUID', '--cap-add', 'SETGID', '--cap-add', 'KILL',
+        '--cap-drop', 'ALL', '--cap-add', 'SYS_ADMIN', '--cap-add', 'CHOWN', '--cap-add', 'SETUID', '--cap-add', 'SETGID', '--cap-add', 'KILL',
         '--pids-limit', '50',
         '--memory', '256M',
         'radicale-under-test'
@@ -52,7 +51,7 @@ def test_config_readonly(host):
     config_file = '/config/config'
     assert host.file(config_file).user == 'root'
     assert host.file(config_file).group == 'root'
-    assert host.file(config_file).mode == 0o664
+    assert host.file(config_file).mode == 0o644
 
 
 def test_data_folder_writable(host):

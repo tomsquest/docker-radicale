@@ -41,7 +41,7 @@ def test_config_readonly(host):
     config_file = '/config/config'
     assert host.file(config_file).user == 'root'
     assert host.file(config_file).group == 'root'
-    assert host.file(config_file).mode == 0o664
+    assert host.file(config_file).mode == 0o644
 
 def test_data_folder_writable(host):
     folder = '/data'
