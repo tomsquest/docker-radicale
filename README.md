@@ -237,6 +237,7 @@ git push --delete origin latest && git tag -d latest && git tag latest && git pu
 
 ## Contributors
 
+* [Bernard Kerckenaere](https://github.com/bernieke): Check for read-only container, ...
 * [Dylan Van Assche](https://github.com/DylanVanAssche): Hook to read/write to a Git repo
 * [adzero](https://github.com/adzero): override build args with environment variables
 * [Robert Beal](https://github.com/robertbeal): fixed/configurable userId, versioning...
