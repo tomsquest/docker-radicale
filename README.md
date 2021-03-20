@@ -21,7 +21,7 @@ Enhanced Docker image for <a href="http://radicale.org">Radicale</a>, the CalDAV
 
 * :closed_lock_with_key: **Secured**: run as a normal user, not root
 * :fire: **Safe**: the container is read-only, with only access to its data dir, and without extraneous privileges
-* :sparkles: **Batteries included**: can use Git for [versioning](https://radicale.org/3.0.html#tutorials/versioning-with-git) using [only environment variables](https://github.com/tomsquest/docker-radicale/#using-radicales-hook-for-git-operations), Pytz for proper timezone conversion
+* :sparkles: **Batteries included**: git included for [versioning](https://github.com/tomsquest/docker-radicale/#using-radicales-hook-for-git-operations) and Pytz for proper timezone conversion
 * :building_construction: **Multi-architecture**: run on amd64, arm (RaspberryPI...) and others 
 
 ## Changelog
@@ -113,11 +113,15 @@ docker run --name radicale-extended -p 5232:5232 radicale-extended
 
 Radicale supports a hook which is executed after each change to the CalDAV/CardDAV files.
 This hook can be used to keep a versions of your CalDAV/CardDAV files through git.
+Details in the [official documentation](https://radicale.org/3.0.html#tutorials/versioning-with-git).
 
-To enable this feature, you need to provide the following environment variables:
-- `GIT_REPOSITORY`: The URL of your repository with a valid username and password or a personal access token. For example: `https://user:pass@github.com/user/repo`.
-- `GIT_USERNAME`: The username to use for commits 
-- `GIT_EMAIL`: The email to use for commits
+To enable this feature, you need to create and configure the git repository in the data volume:
+
+```shell
+git clone <repository-url> /radicale/data/collections
+git -C /radicale/data/collections config user.name "Your name"
+git -C /radicale/data/collections config user.email "Your email"
+```
 
 And enable the hook in the configuration file:
 
@@ -125,8 +129,6 @@ And enable the hook in the configuration file:
 [storage]
 hook = git add -A && (git diff --cached --quiet || git commit -m "Changes by "%(user)s) && git push origin master
 ```
-
-*Note: If you don't enable the hook, Radicale will only read from the git repository.*
 
 ## Custom User/Group ID for the data volume
 
