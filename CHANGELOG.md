@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [3.0.6.1] - 2021-03-20
+
+### Removed
+
+- Remove automatic git repository cloning using environment variables. This was not perfectly working (it would try to clone each time for instance).
+To ease maintenance, this feature was removed in favor of a manual step (you clone the repo yourself in the data volume).
+
 ## [3.0.6.0] - 2020-10-26
 
 ### Changed
