@@ -5,7 +5,7 @@ import testinfra
 
 
 @pytest.fixture(scope='session')
-def host(request):
+def host():
     subprocess.check_call(['docker', 'build', '-t', 'radicale-under-test', '.'])
     docker_id = subprocess.check_output([
         'docker', 'run', '-d',
@@ -13,7 +13,12 @@ def host(request):
         '--read-only',
         '--security-opt=no-new-privileges:true',
         # Not able to use cap-drop=all and make the container start
-        # '--cap-drop', 'ALL', '--cap-add', 'SYS_ADMIN', '--cap-add', 'CHOWN', '--cap-add', 'SETUID', '--cap-add', 'SETGID', '--cap-add', 'KILL',
+        # '--cap-drop', 'ALL',
+        # '--cap-add', 'SYS_ADMIN',
+        # '--cap-add', 'CHOWN',
+        # '--cap-add', 'SETUID',
+        # '--cap-add', 'SETGID',
+        # '--cap-add', 'KILL',
         '--pids-limit', '50',
         '--memory', '256M',
         'radicale-under-test'

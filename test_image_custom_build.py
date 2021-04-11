@@ -3,7 +3,7 @@ import subprocess
 import testinfra
 
 @pytest.fixture(scope='session')
-def host(request):
+def host():
     subprocess.check_call(
         ['docker', 'build', '-t', 'radicale-under-test',
          '--build-arg', 'VERSION=3.0.6',
