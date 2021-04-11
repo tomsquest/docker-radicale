@@ -23,10 +23,13 @@ if [ -n "$UID" ] || [ -n "$GID" ]; then
     fi
 fi
 
-# Re-set permission to the `radicale` user if current user is root
-# This avoids permission denied if the data volume is mounted by root
-if [ "$1" = 'radicale' ] && [ "$(id -u)" = '0' ]; then
+# If requested and running as root, mutate the ownership of bind-mounts
+if [ "$(id -u)" = "0" ] && [ "$TAKE_FILE_OWNERSHIP" = "true" ]; then
     chown -R radicale:radicale /data
+fi
+
+# Run radicale as the "radicale" user or any other command if provided
+if [ "$1" = "radicale" ]; then
     exec su-exec radicale "$@"
 else
     exec "$@"

@@ -79,7 +79,28 @@ docker run -d --name radicale \
     tomsquest/docker-radicale
 ```
   
-Note: On the Linux Kernel capabilities, `CHOWN`, `SETUID` and `SETGID` are for fixing the permission of the mounted volume. `KILL` is to allow Radicale to exit.
+Note on capabilities:
+- `CHOWN` is used to restore the permission of the `data` directory. Skip it if not chowning (see below)
+- `SETUID` and `SETGID` are used to changed the `UID` and `GID` of the user if asked. Skip them if not changing UID/GID (see below)
+- `KILL` is to allow Radicale to exit, and is always required.
+
+## Volumes versus Bind-Mounts
+
+This section is related to the error message `chown: /data: Permission denied`.
+
+With [Docker volumes](https://docs.docker.com/storage/volumes/), and not [bind-mounts](https://docs.docker.com/storage/bind-mounts/) like shown in the examples above, 
+you may need to disable the container trying to make the `data` directory writable.
+
+This is done with the `TAKE_FILE_OWNERSHIP` environment variable.  
+The variable will tell the container to perform or skip the `chown` instruction.  
+The default value is `true`: the container will try to make the `data` directory writable to the `radicale` user.  
+
+To disable the `chown`, declare the variable like this:
+
+```
+docker run -d --name radicale tomsquest/docker-radicale \
+    -e "TAKE_FILE_OWNERSHIP=false"
+```
 
 ## Running with Docker compose
 
@@ -133,7 +154,7 @@ hook = git add -A && (git diff --cached --quiet || git commit -m "Changes by "%(
 ## Custom User/Group ID for the data volume
 
 You will certainly mount a volume to keep Radicale data between restart/upgrade of the container.
-But sharing files from the host and the container can be problematic.
+But sharing files from the host, and the container can be problematic.
 The reason is that `radicale` user **in** the container does not match the user running the container **on** the host.
 
 To solve this, this image offers four options (see below for details):
@@ -237,7 +258,7 @@ git push --delete origin latest && git tag -d latest && git tag latest && git pu
 
 ## Contributors
 
-* [Bernard Kerckenaere](https://github.com/bernieke): Check for read-only container, ...
+* [Bernard Kerckenaere](https://github.com/bernieke): Check for read-only container, and help for volumes versus bind-mounts
 * [Dylan Van Assche](https://github.com/DylanVanAssche): Hook to read/write to a Git repo
 * [adzero](https://github.com/adzero): override build args with environment variables
 * [Robert Beal](https://github.com/robertbeal): fixed/configurable userId, versioning...
