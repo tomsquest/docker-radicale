@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [3.0.6.2] - 2021-04-17
+
+### Added
+
+- [#91](https://github.com/tomsquest/docker-radicale/pull/91): add `TAKE_FILE_OWNERSHIP` environment variable to disable chown.
+This allows user using volumes, not bind-mount volumes, to skip the `chown` applied to files in `/data`
+
 ## [3.0.6.1] - 2021-03-20
 
 ### Removed
