@@ -81,7 +81,7 @@ docker run -d --name radicale \
   
 Note on capabilities:
 - `CHOWN` is used to restore the permission of the `data` directory. Skip it if not chowning (see below)
-- `SETUID` and `SETGID` are used to changed the `UID` and `GID` of the user if asked. Skip them if not changing UID/GID (see below)
+- `SETUID` and `SETGID` are used to run radicale as the less privileged `radicale` user (with su-exec)
 - `KILL` is to allow Radicale to exit, and is always required.
 
 ## Volumes versus Bind-Mounts
