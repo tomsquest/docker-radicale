@@ -12,6 +12,9 @@ ENV BUILD_UID ${BUILD_UID:-2999}
 ARG BUILD_GID
 ENV BUILD_GID ${BUILD_GID:-2999}
 
+ARG TAKE_FILE_OWNERSHIP
+ENV TAKE_FILE_OWNERSHIP ${TAKE_FILE_OWNERSHIP:-true}
+
 LABEL maintainer="Thomas Queste <tom@tomsquest.com>" \
       org.label-schema.name="Radicale Docker Image" \
       org.label-schema.description="Enhanced Docker image for Radicale, the CalDAV/CardDAV server" \
