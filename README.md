@@ -111,15 +111,18 @@ It can be [extended](https://docs.docker.com/compose/production/#modify-your-com
 
 The image is extendable, as per Docker image architecture. You need to create your own `Dockerfile`.
 
-For example, here is how to add [radicale-imap](https://gitlab.com/comzeradd/radicale-imap) (authenticate by email) 
+For example, here is how to add [RadicaleIMAP](https://github.com/Unrud/RadicaleIMAP) (authenticate by email) 
 and [RadicaleInfCloud](https://www.inf-it.com/open-source/clients/infcloud/) (an alternative UI) to the image.
+
+Please note that the [radicale-imap](https://gitlab.com/comzeradd/radicale-imap) plugin is not compatible with
+Radicale 3.0 anymore!
 
 First, create a `Dockerfile.extended` (pick the name you want) with this content:
 
 ```dockerfile
 FROM tomsquest/docker-radicale
 
-RUN python3 -m pip install radicale-imap
+RUN python3 -m pip install git+https://github.com/Unrud/RadicaleIMAP
 RUN python3 -m pip install git+https://github.com/Unrud/RadicaleInfCloud
 ```
 
