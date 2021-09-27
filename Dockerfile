@@ -1,4 +1,4 @@
-FROM alpine:3.12
+FROM alpine:3.14
 
 ARG COMMIT_ID
 ENV COMMIT_ID ${COMMIT_ID}
@@ -39,6 +39,7 @@ RUN apk add --no-cache --virtual=build-dependencies \
         python3 \
         py3-tz \
         py3-pip \
+        upx     \
     && python3 -m pip install --upgrade pip \
     && python3 -m pip install radicale==$VERSION passlib[bcrypt] \
     && apk del --purge build-dependencies \
@@ -46,8 +47,10 @@ RUN apk add --no-cache --virtual=build-dependencies \
     && adduser -D -s /bin/false -H -u $BUILD_UID -G radicale radicale \
     && mkdir -p /config /data \
     && chmod -R 770 /data \
-    && chown -R radicale:radicale /data
-
+    && chown -R radicale:radicale /data \
+    && rm -fr /root/.cache \
+    && upx --lzma /bin/busybox \
+    && apk del git upx 
 COPY config /config/config
 
 HEALTHCHECK --interval=30s --retries=3 CMD curl --fail http://localhost:5232 || exit 1
