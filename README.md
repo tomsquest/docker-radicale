@@ -21,7 +21,7 @@ Enhanced Docker image for <a href="http://radicale.org">Radicale</a>, the CalDAV
 
 * :closed_lock_with_key: **Secured**: run as a normal user, not root
 * :fire: **Safe**: the container is read-only, with only access to its data dir, and without extraneous privileges
-* :sparkles: **Batteries included**: git included for [versioning](https://github.com/tomsquest/docker-radicale/#using-radicales-hook-for-git-operations) and Pytz for proper timezone conversion
+* :sparkles: **Batteries included**: git included for [versioning](https://github.com/tomsquest/docker-radicale/#versioning-with-git) and Pytz for proper timezone conversion
 * :building_construction: **Multi-architecture**: run on amd64, arm (RaspberryPI...) and others 
 
 ## Changelog
