@@ -133,6 +133,16 @@ docker build -t radicale-extended -f Dockerfile.extended .
 docker run --name radicale-extended -p 5232:5232 radicale-extended
 ```
 
+## Versioning with Git
+
+Radicale supports a hook which is executed after each change to the CalDAV/CardDAV files.
+This hook can be used to keep a versions of your CalDAV/CardDAV files through git.
+
+This image provides `git` to support this feature. 
+
+Refer to the [official documentation of Radicale](https://radicale.org/3.0.html#tutorials/versioning-with-git) 
+for the details.
+
 ## Custom User/Group ID for the data volume
 
 You will certainly mount a volume to keep Radicale data between restart/upgrade of the container.
