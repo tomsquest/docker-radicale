@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [3.0.6.3] - 20201-10-12
+
+## Changed
+
+- [#97](https://github.com/tomsquest/docker-radicale/pull/97): upgraded to Alpine 3.14 and reduce image size by removing `/root/.cache`
+
 ## [3.0.6.2] - 2021-04-17
 
 ### Added
