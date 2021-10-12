@@ -46,7 +46,8 @@ RUN apk add --no-cache --virtual=build-dependencies \
     && adduser -D -s /bin/false -H -u $BUILD_UID -G radicale radicale \
     && mkdir -p /config /data \
     && chmod -R 770 /data \
-    && chown -R radicale:radicale /data
+    && chown -R radicale:radicale /data \
+    && rm -fr /root/.cache
 
 COPY config /config/config
 
