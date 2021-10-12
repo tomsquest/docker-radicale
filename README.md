@@ -253,9 +253,13 @@ git push --delete origin latest && git tag -d latest && git tag latest && git pu
 * [Thomas](https://github.com/symgryph): reduce image size (/root/.cache) and Alpine upgrade
 * [Bernard Kerckenaere](https://github.com/bernieke): check for read-only container, and help for volumes versus bind-mounts
 * [Dylan Van Assche](https://github.com/DylanVanAssche): hook to read/write to a Git repo
-* [adzero](https://github.com/adzero): override build args with environment variables
+* [Adzero](https://github.com/adzero): override build args with environment variables
 * [Robert Beal](https://github.com/robertbeal): fixed/configurable userId, versioning...
 * [Loader23](https://github.com/Loader23): config volume idea
 * [Waja](https://github.com/waja): less layers is more, InfCloud integration (UI for Radicale) 
 * [Christian Burmeister](https://github.com/christianbur): add tzdata to be able to specify timezone 
+* [Silas Lenz](https://github.com/silaslenz): add pytz for recurring events
+* [Enno Richter](https://github.com/elohmeier): bcrypt support 
+* [Andrew u frank](https://github.com/andrewufrank): house-cleaning of whitespaces in doc 
+* [Marcus Kimpenhaus](https://github.com/kimpenhaus): fix for Alpine and https 
 * [Thomas Queste](https://github.com/tomsquest): initial image
