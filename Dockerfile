@@ -1,4 +1,4 @@
-FROM alpine:3.12
+FROM alpine:3.14
 
 ARG COMMIT_ID
 ENV COMMIT_ID ${COMMIT_ID}
