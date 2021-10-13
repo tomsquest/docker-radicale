@@ -5,7 +5,7 @@
 <h1 align="center">Docker-Radicale</h1>
 
 <p align="center">
-<a href="https://travis-ci.org/tomsquest/docker-radicale"><img src="https://travis-ci.org/tomsquest/docker-radicale.svg?branch=master" alt="Build Status" /></a>
+<a href="https://app.travis-ci.com/tomsquest/docker-radicale"><img src="https://app.travis-ci.com/tomsquest/docker-radicale.svg?branch=master" alt="Build Status" /></a>
 <a href="https://github.com/tomsquest/docker-radicale/tags"><img src="https://img.shields.io/github/tag/tomsquest/docker-radicale.svg" alt="GitHub tag" /></a>
 <a href="https://hub.docker.com/r/tomsquest/docker-radicale/"><img src="https://img.shields.io/docker/pulls/tomsquest/docker-radicale.svg" alt="Pulls" /></a>
 <a href="https://hub.docker.com/r/tomsquest/docker-radicale/"><img src="https://img.shields.io/docker/stars/tomsquest/docker-radicale.svg" alt="Stars" /></a>
@@ -18,10 +18,10 @@ Enhanced Docker image for <a href="http://radicale.org">Radicale</a>, the CalDAV
 
 ## Features
 
-* :closed_lock_with_key: **Secured**: run as a normal user, not root
-* :fire: **Safe**: the container is read-only, with only access to its data dir, and without extraneous privileges
-* :sparkles: **Batteries included**: git included for [versioning](https://github.com/tomsquest/docker-radicale/#versioning-with-git) and Pytz for proper timezone conversion
-* :building_construction: **Multi-architecture**: run on amd64, arm (RaspberryPI...) and others 
+* :closed_lock_with_key: **Secured**: the container is read-only, with only access to its data dir, and without extraneous privileges
+* :building_construction: **Multi-architecture**: run on amd64, arm (RaspberryPI...) and others
+* :fire: **Safe**: run as a normal user (not root)
+* :sparkles: **Batteries included**: git included for [versioning](https://github.com/tomsquest/docker-radicale/#versioning-with-git) and Pytz/tz-data for proper timezone handling
 
 ## Changelog
 
@@ -29,11 +29,13 @@ Enhanced Docker image for <a href="http://radicale.org">Radicale</a>, the CalDAV
 
 ## Latest version
 
-**Latest tag**: ![latest tag](https://img.shields.io/github/tag/tomsquest/docker-radicale.svg)
+![latest tag](https://img.shields.io/github/tag/tomsquest/docker-radicale.svg)
 
 ## Running
 
-**Minimal** instruction:
+### Option 1: **Minimal**
+
+The container will run and be reachable on port 5232.
 
 ```
 docker run -d --name radicale \
@@ -41,11 +43,9 @@ docker run -d --name radicale \
     tomsquest/docker-radicale
 ```
 
-**Basic** instruction:
+### Option 2: **Basic** instruction
 
-1. create the folders to store the data and the config: `mkdir -p /radicale/{data,config}`
-1. copy the [config file](https://raw.githubusercontent.com/tomsquest/docker-radicale/master/config) into the config folder: `cp config /radicale/config/config`
-1. Then run the container:
+The container will put its data in `/radicale/data`, and read the config from `/radicale/config`.
 
 ```
 docker run -d --name radicale \
@@ -55,13 +55,21 @@ docker run -d --name radicale \
     -v /radicale/config:/config:ro \
 ```
 
-:rocket: **Production-grade** instruction (secured, safe...):
+**HOW-TO init the volumes:**
+
+1. create the folders to store the data and the config: `mkdir -p /radicale/{data,config}`
+1. copy the [config file](https://raw.githubusercontent.com/tomsquest/docker-radicale/master/config) into the config folder: `cp config /radicale/config/config`
+1. Then run the container
+
+### Option 3: **Recommended, Production-grade** instruction (secured, safe...) :rocket:
+
+This is the most secured instruction:
 
 ```
 docker run -d --name radicale \
     -p 127.0.0.1:5232:5232 \
-    --read-only \
     --init \
+    --read-only \
     --security-opt="no-new-privileges:true" \
     --cap-drop ALL \
     --cap-add CHOWN \
@@ -77,18 +85,19 @@ docker run -d --name radicale \
     -v ~/radicale/config:/config:ro \
     tomsquest/docker-radicale
 ```
-  
+
+A [Docker compose file](docker-compose.yml) is included.
+
 Note on capabilities:
-- `CHOWN` is used to restore the permission of the `data` directory. Skip it if not chowning (see below)
-- `SETUID` and `SETGID` are used to run radicale as the less privileged `radicale` user (with su-exec)
-- `KILL` is to allow Radicale to exit, and is always required.
+- `CHOWN` is used to restore the permission of the `data` directory. Remove this if you do not need the `chown` to be run (see [below](#volumes-versus-bind-mounts))
+- `SETUID` and `SETGID` are used to run radicale as the less privileged `radicale` user (with su-exec), and are required.
+- `KILL` is to allow Radicale to exit, and is required.
 
 ## Volumes versus Bind-Mounts
 
 This section is related to the error message `chown: /data: Permission denied`.
 
-With [Docker volumes](https://docs.docker.com/storage/volumes/), and not [bind-mounts](https://docs.docker.com/storage/bind-mounts/) like shown in the examples above, 
-you may need to disable the container trying to make the `data` directory writable.
+With [Docker volumes](https://docs.docker.com/storage/volumes/), and not [bind-mounts](https://docs.docker.com/storage/bind-mounts/) like shown in the examples above, you may need to disable the container trying to make the `data` directory writable.
 
 This is done with the `TAKE_FILE_OWNERSHIP` environment variable.  
 The variable will tell the container to perform or skip the `chown` instruction.  
@@ -104,7 +113,11 @@ docker run -d --name radicale tomsquest/docker-radicale \
 ## Running with Docker compose
 
 A [Docker compose file](docker-compose.yml) is included. 
-It can be [extended](https://docs.docker.com/compose/production/#modify-your-compose-file-for-production). 
+It can also be [extended](https://docs.docker.com/compose/production/#modify-your-compose-file-for-production). 
+
+## Multi-architecture
+
+The correct image type for your architecture will be automatically selected by Docker.
 
 ## Extending the image
 
@@ -202,14 +215,13 @@ To customize Radicale configuration, either:
 
 Then mount your custom config volume when running the container: `-v /my_custom_config_directory:/config`.
 
-## Multi-architecture
+## Tags
 
-Starting from 2.1.11.3, this image has a manifest which allow you to just pull the image **without** supplying the
- architecture. The command `docker pull tomsquest/docker-radicale` will pull the correct image for your architecture.
+The image is also tagged with this scheme:
 
-Else, the image is also tagged with this scheme:
-
+```
 Version number = Architecture + '.' + Radicale version + '.' + This image increment number
+```
 
 Example: those tags were created for Radicale 3.0.6:
 - `tomsquest/docker-radicale:386.3.0.6.0`
@@ -218,10 +230,7 @@ Example: those tags were created for Radicale 3.0.6:
 - `tomsquest/docker-radicale:arm64.3.0.6.0`
 
 The last number is **ours**, and it is incremented on new release. 
-
 For example, 2.1.11.**2** made the /config readonly (this is specific to this image).
-
-Additionally, Docker Hub automatically builds and [publish this image as `tomsquest/docker-radicale`](https://hub.docker.com/r/tomsquest/docker-radicale/).
 
 ## Contributing
 
