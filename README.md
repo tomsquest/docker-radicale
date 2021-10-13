@@ -33,35 +33,16 @@ Enhanced Docker image for <a href="http://radicale.org">Radicale</a>, the CalDAV
 
 ## Running
 
-### Option 1: **Minimal**
-
-The container will run and be reachable on port 5232.
+### Option 1: **Basic** instruction
 
 ```
 docker run -d --name radicale \
     -p 5232:5232 \
+    -v ~/radicale/data:/data \
     tomsquest/docker-radicale
 ```
 
-### Option 2: **Basic** instruction
-
-The container will put its data in `/radicale/data`, and read the config from `/radicale/config`.
-
-```
-docker run -d --name radicale \
-    -p 5232:5232 \
-    tomsquest/docker-radicale \
-    -v /radicale/data:/data \
-    -v /radicale/config:/config:ro \
-```
-
-**HOW-TO init the volumes:**
-
-1. create the folders to store the data and the config: `mkdir -p /radicale/{data,config}`
-1. copy the [config file](https://raw.githubusercontent.com/tomsquest/docker-radicale/master/config) into the config folder: `cp config /radicale/config/config`
-1. Then run the container
-
-### Option 3: **Recommended, Production-grade** instruction (secured, safe...) :rocket:
+### Option 2: **Recommended, Production-grade** instruction (secured, safe...) :rocket:
 
 This is the most secured instruction:
 
@@ -82,7 +63,6 @@ docker run -d --name radicale \
     --health-interval=30s \
     --health-retries=3 \
     -v ~/radicale/data:/data \
-    -v ~/radicale/config:/config:ro \
     tomsquest/docker-radicale
 ```
 
@@ -92,6 +72,21 @@ Note on capabilities:
 - `CHOWN` is used to restore the permission of the `data` directory. Remove this if you do not need the `chown` to be run (see [below](#volumes-versus-bind-mounts))
 - `SETUID` and `SETGID` are used to run radicale as the less privileged `radicale` user (with su-exec), and are required.
 - `KILL` is to allow Radicale to exit, and is required.
+
+## Custom configuration
+
+To customize Radicale configuration, first get the config file:
+
+* (Recommended) use this repository preconfigured [config file](config),
+* Or, use [the original Radicale config file](https://raw.githubusercontent.com/Kozea/Radicale/master/config) and:
+  1. set `hosts = 0.0.0.0:5232`
+  1. set `filesystem_folder = /data/collections`
+
+Then:
+1. create a config directory (eg. `mkdir -p /my_custom_config_directory`)
+2. copy your config file into the config folder (eg. `cp config /my_custom_config_directory/config`)
+3. mount your custom config volume when running the container: `-v /my_custom_config_directory:/config:ro`.
+The `:ro` at the end make the volume read-only, and is more secured.
 
 ## Volumes versus Bind-Mounts
 
@@ -203,17 +198,6 @@ But, you will have to clone this repo, do a local build and keep up with changes
 Usage: `docker build --build-arg=BUILD_UID=5000 --build-arg=BUILD_GID=5001 ...`.
 
 `BUILD_UID` and `BUILD_GID` are also supported as environment variables to work around a problem on some Synology NAS. See this PR#68.
-
-## Custom configuration
-
-To customize Radicale configuration, either: 
-
-* Recommended: use this repository preconfigured [config file](config),
-* Use the original [config file](https://raw.githubusercontent.com/Kozea/Radicale/master/config) and:
-  1. set `hosts = 0.0.0.0:5232`
-  1. set `filesystem_folder = /data/collections`
-
-Then mount your custom config volume when running the container: `-v /my_custom_config_directory:/config`.
 
 ## Tags
 
