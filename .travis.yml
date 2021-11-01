@@ -11,7 +11,6 @@ addons:
       - docker-ce
 
 install:
-  - echo "$DOCKER_PWD" | docker login -u "$DOCKER_USER" --password-stdin
   - pip install pipenv
   - pipenv sync --dev
 
@@ -20,7 +19,7 @@ script:
   - pipenv run pytest -v
 
 deploy:
-  # Deploy tag
+  # Deploy tag except "latest"
   - provider: script
     on:
       tags: true
