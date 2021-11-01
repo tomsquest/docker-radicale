@@ -8,8 +8,6 @@ echo "$DOCKER_PWD" | docker login -u "$DOCKER_USER" --password-stdin
 # Require to build docker image of other architectures
 docker run --rm --privileged multiarch/qemu-user-static:register --reset
 
-archs=(amd64 386 arm arm64)
-
 if [ -z "$TRAVIS_TAG" ]
 then
   DOCKERFILE_SUFFIX=""
@@ -20,11 +18,12 @@ else
 fi
 
 archs=(amd64 386 arm arm64)
+
 for arch in "${archs[@]}"
 do
   case "$arch" in
     amd64 ) base_image="alpine:3.14" ;;
-    i386  ) base_image="balenalib/i386-alpine:3.14" ;;
+    386   ) base_image="balenalib/i386-alpine:3.14" ;;
     arm   ) base_image="balenalib/armv7hf-alpine:3.14" ;;
     arm64 ) base_image="balenalib/aarch64-alpine:3.14" ;;
   esac
@@ -49,11 +48,11 @@ docker manifest create tomsquest/docker-radicale:$DOCKER_TAG \
   tomsquest/docker-radicale:arm64$DOCKERFILE_SUFFIX
 
 docker manifest annotate tomsquest/docker-radicale:$DOCKER_TAG \
-  tomsquest/docker-radicale:amd64$DOCKERFILE_SUFFIX   --arch amd64
+  tomsquest/docker-radicale:amd64$DOCKERFILE_SUFFIX --arch amd64
 docker manifest annotate tomsquest/docker-radicale:$DOCKER_TAG \
-  tomsquest/docker-radicale:386$DOCKERFILE_SUFFIX    --arch 386
+  tomsquest/docker-radicale:386$DOCKERFILE_SUFFIX --arch 386
 docker manifest annotate tomsquest/docker-radicale:$DOCKER_TAG \
-  tomsquest/docker-radicale:arm$DOCKERFILE_SUFFIX     --arch arm
+  tomsquest/docker-radicale:arm$DOCKERFILE_SUFFIX --arch arm
 docker manifest annotate tomsquest/docker-radicale:$DOCKER_TAG \
   tomsquest/docker-radicale:arm64$DOCKERFILE_SUFFIX --arch arm64
 
