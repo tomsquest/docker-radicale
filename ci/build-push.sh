@@ -23,7 +23,7 @@ archs=(amd64 386 arm arm64)
 for arch in "${archs[@]}"
 do
   case "$arch" in
-    amd64 ) base_image="balenalib/amd64-alpine:3.14" ;;
+    amd64 ) base_image="alpine:3.14" ;;
     i386  ) base_image="balenalib/i386-alpine:3.14" ;;
     arm   ) base_image="balenalib/armv7hf-alpine:3.14" ;;
     arm64 ) base_image="balenalib/aarch64-alpine:3.14" ;;
