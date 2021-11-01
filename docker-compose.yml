@@ -27,4 +27,3 @@ services:
     restart: unless-stopped
     volumes:
       - ~/radicale/data:/data
-      - ~/radicale/config:/config:ro
