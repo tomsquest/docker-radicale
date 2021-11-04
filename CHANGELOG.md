@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [3.0.6.4] - 20201-11-04
+
+## Changed
+
+- [#103](https://github.com/tomsquest/docker-radicale/pull/103): Drop support for `i386` and `arm` architectures (keep `amd64` and `arm64`). Support for this two architectures have been removed, as `i386` was not working for quite some time due to a bug in the build script (so, as no one noticed, certainly no one was using it), and I was unable to find a base alpine image that works for `arm`. Anyway, we keep the two majors architecture: `amd64` and `arm64`.
+
 ## [3.0.6.3] - 20201-10-12
 
 ## Changed
@@ -15,14 +21,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - [#91](https://github.com/tomsquest/docker-radicale/pull/91): add `TAKE_FILE_OWNERSHIP` environment variable to disable chown.
-This allows user using volumes, not bind-mount volumes, to skip the `chown` applied to files in `/data`
+  This allows user using volumes, not bind-mount volumes, to skip the `chown` applied to files in `/data`
 
 ## [3.0.6.1] - 2021-03-20
 
 ### Removed
 
 - Remove automatic git repository cloning using environment variables. This was not perfectly working (it would try to clone each time for instance).
-To ease maintenance, this feature was removed in favor of a manual step (you clone the repo yourself in the data volume).
+  To ease maintenance, this feature was removed in favor of a manual step (you clone the repo yourself in the data volume).
 
 ## [3.0.6.0] - 2020-10-26
 
@@ -35,7 +41,7 @@ To ease maintenance, this feature was removed in favor of a manual step (you clo
 ### Added
 
 - [#77](https://github.com/tomsquest/docker-radicale/pull/77): add pytz as a dependency. pytz is used by vobject and
- thus Radicale to correctly parse timezone. Timezone are required with recurring events and daylight savings.
+  thus Radicale to correctly parse timezone. Timezone are required with recurring events and daylight savings.
 
 ## [2.1.12.0] - 2020-05-20
 
