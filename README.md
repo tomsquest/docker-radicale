@@ -19,8 +19,8 @@ Enhanced Docker image for <a href="http://radicale.org">Radicale</a>, the CalDAV
 ## Features
 
 * :closed_lock_with_key: **Secured**: the container is read-only, with only access to its data dir, and without extraneous privileges
-* :building_construction: **Multi-architecture**: run on amd64 and arm64 (RaspberryPI...)
 * :fire: **Safe**: run as a normal user (not root)
+* :building_construction: **Multi-architecture**: run on amd64 and arm64 (RaspberryPI...)
 * :sparkles: **Batteries included**: git included for [versioning](https://github.com/tomsquest/docker-radicale/#versioning-with-git) and Pytz/tz-data for proper timezone handling
 
 ## Changelog
@@ -158,39 +158,42 @@ The reason is that `radicale` user **in** the container does not match the user 
 
 To solve this, this image offers four options (see below for details):
 
-- Option 0. Do nothing, permission will be fixed by the container itself
-- Option 1. Create a user/group with id `2999` on the host
-- Option 2. Specify a custom user/group id on `docker run`
-- Option 3. Build the image with a custom user/group
+- Option 0: Do nothing, permission will be fixed by the container itself
+- Option 1: Create a user/group with id `2999` on the host
+- Option 2: Force the user/group ids on `docker run`
+- Option 3: Build the image with a custom user/group
 
-#### Option 0. Do nothing, the container will fix the permission itself
+### Option 0: Do nothing, permission will be fixed by the container itself
 
-When running the container with a /data volume (eg. `-v /mydata/radicale:/data`), the container entrypoint will automatically fix the permissions on `/data`. 
+When running the container with a /data volume (eg. `-v ~/radicale/data:/data`), the container entrypoint will automatically fix the permissions on `/data`. 
 
-This option is OK but not optimal:
-- Ok for the container, as inside it the radicale user can read and write its data
+This option is OK, but not optimal:
+- Ok for the container, as inside the container, the `radicale` user can read and write its data
 - But on the host, the data directory will then be owned by the user/group 2999:2999
 
-#### Option 1. User/Group 2999 on the host
+### Option 1: Create a user/group with id `2999` on the host
 
-The image creates a user and a group with Id `2999`.  
+The image creates a user and a group with Id `2999` in the container.  
 You can create an user/group on your host matching this Id.
 
 Example:
 
 ```bash
+# On your host
 sudo addgroup --gid 2999 radicale
 sudo adduser --gid 2999 --uid 2999 --shell /bin/false --disabled-password --no-create-home radicale
 ```
 
-#### Option 2. Custom User/Group at run time
+### Option 2: Force the user/group ids on `docker run`
 
-The user and group Ids used in the image can be overridden when the container is run.  
-This is done with the `UID` and `GID` env variables, eg. `docker run -e UID=123 -e GID=456 ...`.
+The user and group Ids used in the container can be overridden when the container is run.  
+This is done with the `UID` and `GID` env variables, eg. `docker run -e UID=123 -e GID=456 ...`.  
+This will force all operations to be run with this UID/GID.
 
-:warning: The **`--read-only`** run flag cannot be used in this case. Using custom UID/GID tries to modify the filesystem at runtime but this is made **impossible** by the `--read-only` flag.
+:warning: The **`--read-only`** run flag cannot be used in this case. 
+Using custom UID/GID tries to modify the filesystem at runtime but this is made **impossible** by the `--read-only` flag.
 
-#### Option 3. Custom User/Group at build time
+### Option 3: Build the image with a custom user/group
 
 You can build the image with custom user and group Ids and still use the `--read-only` flag.  
 But, you will have to clone this repo, do a local build and keep up with changes of this image.
@@ -201,17 +204,15 @@ Usage: `docker build --build-arg=BUILD_UID=5000 --build-arg=BUILD_GID=5001 ...`.
 
 ## Tags
 
-The image is also tagged with this scheme:
+The image is tagged with this scheme:
 
 ```
 Version number = Architecture + '.' + Radicale version + '.' + This image increment number
 ```
 
-Example: those tags were created for Radicale 3.0.6:
-- `tomsquest/docker-radicale:386.3.0.6.0`
-- `tomsquest/docker-radicale:amd64.3.0.6.0`
-- `tomsquest/docker-radicale:arm.3.0.6.0`
-- `tomsquest/docker-radicale:arm64.3.0.6.0`
+Example:
+- `tomsquest/docker-radicale:amd64.3.0.6.3`
+- `tomsquest/docker-radicale:arm64.3.0.6.3`
 
 The last number is **ours**, and it is incremented on new release. 
 For example, 2.1.11.**2** made the /config readonly (this is specific to this image).
@@ -226,7 +227,7 @@ To run the tests:
 
 ## Releasing
 
-1. Create a Git tag, eg. `3.0.6.0`, push it and Travis will build the images and publish them on Docker hub
+1. Create a Git tag, eg. `3.0.6.0`, push it and the CI will build the images and publish them on Docker hub
 1. Update the `latest` tag
 
 Example instructions :
