@@ -8,8 +8,6 @@ echo "$DOCKER_PWD" | docker login -u "$DOCKER_USER" --password-stdin
 # Require to build docker image of other architectures
 docker run --rm --privileged multiarch/qemu-user-static:register --reset
 
-archs=(amd64 386 arm arm64)
-
 if [ -z "$TRAVIS_TAG" ]
 then
   DOCKERFILE_SUFFIX=""
