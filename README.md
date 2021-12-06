@@ -243,6 +243,7 @@ git push --delete origin latest && git tag -d latest && git tag latest && git pu
 
 ## Contributors
 
+* [Jake Mayeux](https://github.com/jakemayeux): change "data" folder to `./data` instead of `~/radicale/data` in docker-compose.yml and doc
 * [Thomas](https://github.com/symgryph): reduce image size (/root/.cache) and Alpine upgrade
 * [Bernard Kerckenaere](https://github.com/bernieke): check for read-only container, and help for volumes versus bind-mounts
 * [Dylan Van Assche](https://github.com/DylanVanAssche): hook to read/write to a Git repo
