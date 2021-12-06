@@ -26,4 +26,4 @@ services:
       retries: 3
     restart: unless-stopped
     volumes:
-      - ~/radicale/data:/data
+      - ./data:/data
