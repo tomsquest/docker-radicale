@@ -38,7 +38,7 @@ Enhanced Docker image for <a href="http://radicale.org">Radicale</a>, the CalDAV
 ```
 docker run -d --name radicale \
     -p 5232:5232 \
-    -v ~/radicale/data:/data \
+    -v ./data:/data \
     tomsquest/docker-radicale
 ```
 
@@ -62,7 +62,7 @@ docker run -d --name radicale \
     --health-cmd="curl --fail http://localhost:5232 || exit 1" \
     --health-interval=30s \
     --health-retries=3 \
-    -v ~/radicale/data:/data \
+    -v ./data:/data \
     tomsquest/docker-radicale
 ```
 
@@ -165,7 +165,7 @@ To solve this, this image offers four options (see below for details):
 
 ### Option 0: Do nothing, permission will be fixed by the container itself
 
-When running the container with a /data volume (eg. `-v ~/radicale/data:/data`), the container entrypoint will automatically fix the permissions on `/data`. 
+When running the container with a /data volume (eg. `-v ./data:/data`), the container entrypoint will automatically fix the permissions on `/data`.
 
 This option is OK, but not optimal:
 - Ok for the container, as inside the container, the `radicale` user can read and write its data
