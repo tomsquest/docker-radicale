@@ -243,6 +243,7 @@ git push --delete origin latest && git tag -d latest && git tag latest && git pu
 
 ## Contributors
 
+* [hecd](https://github.com/hecd): fix to run su-exec only when the actual user is root
 * [Jake Mayeux](https://github.com/jakemayeux): change "data" folder to `./data` instead of `~/radicale/data` in docker-compose.yml and doc
 * [Thomas](https://github.com/symgryph): reduce image size (/root/.cache) and Alpine upgrade
 * [Bernard Kerckenaere](https://github.com/bernieke): check for read-only container, and help for volumes versus bind-mounts

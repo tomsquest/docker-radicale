@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [3.0.6.5] - 20201-12-14
+
+## Fixed
+
+- [#107](https://github.com/tomsquest/docker-radicale/pull/107): this fix allows running the container with `--user`. Before that, `su-exec` (to run as `radicale` user) was always running whatever the current user.
+
 ## [3.0.6.4] - 20201-11-04
 
 ## Changed
