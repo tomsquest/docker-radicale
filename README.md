@@ -233,11 +233,11 @@ To run the tests:
 Example instructions :
 
 ```bash
-# Next release
-git tag 3.0.6.0
-git push origin 3.0.6.0
-
-# latest tag
+# Update local tags
+git fetch --all --tags
+# Create tag
+TAG=3.0.6.0 && git tag $TAG && git push origin $TAG
+# Update latest tag
 git push --delete origin latest && git tag -d latest && git tag latest && git push origin latest
 ```
 
