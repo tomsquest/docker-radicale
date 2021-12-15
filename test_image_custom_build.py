@@ -37,12 +37,6 @@ def test_user(host):
     assert host.user(user).shell == '/bin/false'
     assert 'radicale L ' in host.check_output('passwd --status radicale')
 
-def test_config_readonly(host):
-    config_file = '/config/config'
-    assert host.file(config_file).user == 'root'
-    assert host.file(config_file).group == 'root'
-    assert host.file(config_file).mode == 0o664
-
 def test_data_folder_writable(host):
     folder = '/data'
     assert host.file(folder).user == 'radicale'
