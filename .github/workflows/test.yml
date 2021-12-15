@@ -11,6 +11,7 @@ jobs:
       with:
         python-version: '3.8'
         cache: 'pipenv'
-    - run: pipenv install
-    - name: test
+    - name: Install dependencies
+      run: pipenv sync --dev
+    - name: Test
       run: pipenv run pytest -v
