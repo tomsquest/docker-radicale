@@ -1,24 +1,20 @@
 #!/bin/bash
 
-set -eo pipefail
+set -euo pipefail
 
-# Login to Docker
-echo "$DOCKER_PWD" | docker login -u "$DOCKER_USER" --password-stdin
+TAG=${GITHUB_REF#refs/tags/}
+COMMIT_ID=$(git rev-parse --short "$GITHUB_SHA")
+echo "TAG: $TAG"
+echo "COMMIT_ID: $COMMIT_ID"
 
-# Require to build docker image of other architectures
-docker run --rm --privileged multiarch/qemu-user-static:register --reset
-
-if [ -z "$TRAVIS_TAG" ]
+if [ -z "$TAG" ] || [ "$TAG" = "latest" ]
 then
-  DOCKERFILE_SUFFIX=""
-  DOCKER_TAG="latest"
+  DOCKER_IMAGE_SUFFIX=""
 else
-  DOCKERFILE_SUFFIX=".$TRAVIS_TAG"
-  DOCKER_TAG="$TRAVIS_TAG"
+  DOCKER_IMAGE_SUFFIX=".$TAG"
 fi
 
 archs=(amd64 arm64)
-
 for arch in "${archs[@]}"
 do
   case "$arch" in
@@ -29,23 +25,23 @@ do
   sed "1cFROM $base_image" Dockerfile > "Dockerfile.$arch"
 
   docker build \
-    --build-arg COMMIT_ID=$TRAVIS_COMMIT \
-    -t tomsquest/docker-radicale:$arch$DOCKERFILE_SUFFIX \
+    --build-arg COMMIT_ID=$COMMIT_ID \
+    -t tomsquest/docker-radicale:$arch$DOCKER_IMAGE_SUFFIX \
     --file Dockerfile.$arch .
 
-  docker push tomsquest/docker-radicale:$arch$DOCKERFILE_SUFFIX
+  docker push tomsquest/docker-radicale:$arch$DOCKER_IMAGE_SUFFIX
 done
 
 # Docker Manifest is experimental, need to enable it manually
 export DOCKER_CLI_EXPERIMENTAL=enabled
 
-docker manifest create tomsquest/docker-radicale:$DOCKER_TAG \
-  tomsquest/docker-radicale:amd64$DOCKERFILE_SUFFIX \
-  tomsquest/docker-radicale:arm64$DOCKERFILE_SUFFIX
+docker manifest create tomsquest/docker-radicale:$TAG \
+  tomsquest/docker-radicale:amd64$DOCKER_IMAGE_SUFFIX \
+  tomsquest/docker-radicale:arm64$DOCKER_IMAGE_SUFFIX
 
-docker manifest annotate tomsquest/docker-radicale:$DOCKER_TAG \
-  tomsquest/docker-radicale:amd64$DOCKERFILE_SUFFIX --arch amd64
-docker manifest annotate tomsquest/docker-radicale:$DOCKER_TAG \
-  tomsquest/docker-radicale:arm64$DOCKERFILE_SUFFIX --arch arm64
+docker manifest annotate tomsquest/docker-radicale:$TAG \
+  tomsquest/docker-radicale:amd64$DOCKER_IMAGE_SUFFIX --arch amd64
+docker manifest annotate tomsquest/docker-radicale:$TAG \
+  tomsquest/docker-radicale:arm64$DOCKER_IMAGE_SUFFIX --arch arm64
 
-docker manifest push tomsquest/docker-radicale:$DOCKER_TAG
+docker manifest push tomsquest/docker-radicale:$TAG
