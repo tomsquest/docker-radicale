@@ -16,5 +16,5 @@ fi
 
 docker buildx build --push \
   --build-arg COMMIT_ID=$COMMIT_ID \
-  --tag tomsquest/dcoker-radicale:$DOCKER_IMAGE_SUFFIX \
+  --tag tomsquest/docker-radicale:$DOCKER_IMAGE_SUFFIX \
   --platform linux/amd64,linux/arm/v7,linux/arm64 .
