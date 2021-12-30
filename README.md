@@ -19,7 +19,7 @@ Enhanced Docker image for <a href="http://radicale.org">Radicale</a>, the CalDAV
 
 * :closed_lock_with_key: **Secured**: the container is read-only, with only access to its data dir, and without extraneous privileges
 * :fire: **Safe**: run as a normal user (not root)
-* :building_construction: **Multi-architecture**: run on amd64 and arm64 (RaspberryPI...)
+* :building_construction: **Multi-architecture**: run on amd64, arm64 and armv7 (Raspberry Pi, ...)
 * :sparkles: **Batteries included**: git included for [versioning](https://github.com/tomsquest/docker-radicale/#versioning-with-git) and Pytz/tz-data for proper timezone handling
 
 ## Changelog
@@ -111,7 +111,7 @@ It can also be [extended](https://docs.docker.com/compose/production/#modify-you
 
 ## Multi-architecture
 
-The correct image type for your architecture will be automatically selected by Docker, whether it is amd64 or arm64 (RaspberryPI).
+The correct image type for your architecture will be automatically selected by Docker, whether it is amd64, arm64 or armv7 (Raspberry Pi).
 
 ## Extending the image
 
