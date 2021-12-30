@@ -6,7 +6,7 @@ import testinfra
 def host():
     subprocess.check_call(
         ['docker', 'build', '-t', 'radicale-under-test',
-         '--build-arg', 'VERSION=3.0.6',
+         '--build-arg', 'VERSION=3.1.0',
          '--build-arg', 'BUILD_UID=6666',
          '--build-arg', 'BUILD_GID=7777',
          '.'
@@ -28,7 +28,7 @@ def test_port(host):
     assert host.socket('tcp://0.0.0.0:5232').is_listening
 
 def test_version(host):
-    assert host.check_output('radicale --version') == '3.0.6'
+    assert host.check_output('radicale --version') == '3.1.0'
 
 def test_user(host):
     user = 'radicale'
