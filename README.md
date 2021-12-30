@@ -242,6 +242,7 @@ git push --delete origin latest && git tag -d latest && git tag latest && git pu
 
 ## Contributors
 
+* [flixhsw](https://github.com/flixhsw): support armv7 (Raspberry) and simplify the CI using Docker Buildx
 * [hecd](https://github.com/hecd): fix to run su-exec only when the actual user is root
 * [Jake Mayeux](https://github.com/jakemayeux): change "data" folder to `./data` instead of `~/radicale/data` in docker-compose.yml and doc
 * [Thomas](https://github.com/symgryph): reduce image size (/root/.cache) and Alpine upgrade
