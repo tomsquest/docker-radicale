@@ -25,6 +25,4 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm/v7,linux/arm64
           push: true
-          tags: |
-            tomsquest/docker-radicale:latest
-            tomsquest/docker-radicale:${{github.ref_name}}
+          tags: tomsquest/docker-radicale:${{github.ref_name}}
