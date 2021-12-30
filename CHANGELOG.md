@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [3.0.6.6] - 20201-12-30
+
+### Added
+
+- [#111](https://github.com/tomsquest/docker-radicale/pull/111): We now provide a RaspberryPI-compatible image. We now build the image for amd64, armv7, and arm64. 
+
 ## [3.0.6.5] - 20201-12-14
 
 ## Fixed
