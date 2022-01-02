@@ -15,7 +15,7 @@
 # IPv4 syntax: address:port
 # IPv6 syntax: [address]:port
 # For example: 0.0.0.0:9999, [::]:9999
-#hosts = 127.0.0.1:5232
+#hosts = localhost:5232
 hosts = 0.0.0.0:5232
 
 # Max parallel connections
@@ -84,7 +84,7 @@ hosts = 0.0.0.0:5232
 [storage]
 
 # Storage backend
-# Value: multifilesystem
+# Value: multifilesystem | multifilesystem_nolock
 #type = multifilesystem
 
 # Folder for storing local collections, created if not present
