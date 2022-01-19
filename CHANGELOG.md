@@ -4,31 +4,37 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [3.1.1.0] - 2022-01-19
+
+## Changed
+
+- [#116](https://github.com/tomsquest/docker-radicale/pull/116): Upgrade to [Radicale 3.1.1](https://github.com/Kozea/Radicale/blob/4822807c4d0ab8863aa600354315d99eeeef1209/CHANGELOG.md#311) 
+
 ## [3.1.0.0] - 2022-01-02
 
-### Added
+### Changed
 
 - [#113](https://github.com/tomsquest/docker-radicale/pull/113): Upgrade to [Radicale 3.1.0](https://github.com/Kozea/Radicale/blob/master/NEWS.md#310)
 
-## [3.0.6.6] - 20201-12-30
+## [3.0.6.6] - 2021-12-30
 
 ### Added
 
 - [#111](https://github.com/tomsquest/docker-radicale/pull/111): We now provide a RaspberryPI-compatible image. We now build the image for amd64, armv7, and arm64. 
 
-## [3.0.6.5] - 20201-12-14
+## [3.0.6.5] - 2021-12-14
 
 ## Fixed
 
 - [#107](https://github.com/tomsquest/docker-radicale/pull/107): this fix allows running the container with `--user`. Before that, `su-exec` (to run as `radicale` user) was always running whatever the current user.
 
-## [3.0.6.4] - 20201-11-04
+## [3.0.6.4] - 2021-11-04
 
 ## Changed
 
 - [#103](https://github.com/tomsquest/docker-radicale/pull/103): Drop support for `i386` and `arm` architectures (keep `amd64` and `arm64`). Support for this two architectures have been removed, as `i386` was not working for quite some time due to a bug in the build script (so, as no one noticed, certainly no one was using it), and I was unable to find a base alpine image that works for `arm`. Anyway, we keep the two majors architecture: `amd64` and `arm64`.
 
-## [3.0.6.3] - 20201-10-12
+## [3.0.6.3] - 2021-10-12
 
 ## Changed
 
