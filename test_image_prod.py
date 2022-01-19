@@ -42,7 +42,7 @@ def test_port(host):
 
 
 def test_version(host):
-    assert host.check_output('radicale --version') == '3.1.0'
+    assert host.check_output('radicale --version') == '3.1.1'
 
 
 def test_user(host):
