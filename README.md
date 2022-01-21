@@ -15,6 +15,34 @@
 Enhanced Docker image for <a href="http://radicale.org">Radicale</a>, the CalDAV/CardDAV server.
 </p>
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of contents**
+
+- [Features](#features)
+- [Changelog](#changelog)
+- [Latest version](#latest-version)
+- [Running](#running)
+  - [Option 1: **Basic** instruction](#option-1-basic-instruction)
+  - [Option 2: **Recommended, Production-grade** instruction (secured, safe...) :rocket:](#option-2-recommended-production-grade-instruction-secured-safe-rocket)
+- [Custom configuration](#custom-configuration)
+- [Volumes versus Bind-Mounts](#volumes-versus-bind-mounts)
+- [Running with Docker compose](#running-with-docker-compose)
+- [Multi-architecture](#multi-architecture)
+- [Extending the image](#extending-the-image)
+- [Versioning with Git](#versioning-with-git)
+- [Custom User/Group ID for the data volume](#custom-usergroup-id-for-the-data-volume)
+  - [Option 0: Do nothing, permission will be fixed by the container itself](#option-0-do-nothing-permission-will-be-fixed-by-the-container-itself)
+  - [Option 1: Create a user/group with id `2999` on the host](#option-1-create-a-usergroup-with-id-2999-on-the-host)
+  - [Option 2: Force the user/group ids on `docker run`](#option-2-force-the-usergroup-ids-on-docker-run)
+  - [Option 3: Build the image with a custom user/group](#option-3-build-the-image-with-a-custom-usergroup)
+- [Tags](#tags)
+- [Contributing](#contributing)
+- [Releasing](#releasing)
+- [Contributors](#contributors)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Features
 
 * :closed_lock_with_key: **Secured**: the container is read-only, with only access to its data dir, and without extraneous privileges
