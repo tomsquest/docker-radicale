@@ -32,6 +32,7 @@ RUN apk add --no-cache --virtual=build-dependencies \
     && apk add --no-cache \
         curl \
         git \
+        openssh \
         shadow \
         su-exec \
         tzdata \
