@@ -179,8 +179,7 @@ This hook can be used to keep a versions of your CalDAV/CardDAV files through gi
 
 This image provides `git` to support this feature. 
 
-Refer to the [official documentation of Radicale](https://radicale.org/3.0.html#tutorials/versioning-with-git) 
-for the details.
+Refer to the [official documentation of Radicale](https://radicale.org/v3.html#versioning-with-git) for the details.
 
 ## Custom User/Group ID for the data volume
 
