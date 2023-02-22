@@ -261,6 +261,7 @@ To run the tests:
 1. Create a Git tag, eg. `3.0.6.0`, push it and the CI will build the images and publish them on Docker hub
 2. Update the `latest` tag
 3. Create release on GitHub (`Draft a new release` > pick the tag > `Generate release notes` > `Publish release`)
+4. Update `CHANGELOG.md`
 
 Example instructions :
 
