@@ -275,6 +275,7 @@ git push --delete origin latest && git tag -d latest && git tag latest && git pu
 
 ## Contributors
 
+* [Jauder Ho](https://github.com/jauderho): update alpine to 3.17.2
 * [Greylinux](https://github.com/Greylinux): running with podman
 * [Tionis](https://github.com/tionis): add openssh for git ssh remotes
 * [flixhsw](https://github.com/flixhsw): support armv7 (Raspberry) and simplify the CI using Docker Buildx
