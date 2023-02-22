@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## Changed
 
 - [Update alpine to 3.17.2](https://github.com/tomsquest/docker-radicale/pull/127)
+- [Drop support for arm/v7](https://github.com/tomsquest/docker-radicale/pull/128)
 
 ## [3.1.8.0] - 2022-07-19
 
