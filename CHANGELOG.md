@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [3.1.8.3] - 2023-07-16
+
+## Changed
+
+- [Update alpine to 3.18.2](https://github.com/tomsquest/docker-radicale/pull/132)
+
 ## [3.1.8.2] - 2023-04-18
 
 ## Changed
