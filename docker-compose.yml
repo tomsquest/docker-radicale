@@ -20,6 +20,11 @@ services:
       - SETGID
       - CHOWN
       - KILL
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          pids: 50
     healthcheck:
       test: curl -f http://127.0.0.1:5232 || exit 1
       interval: 30s
