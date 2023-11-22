@@ -135,8 +135,9 @@ docker run -d --name radicale tomsquest/docker-radicale \
 
 ## Running with Docker compose
 
-A [Docker compose file](docker-compose.yml) is included. 
-It can also be [extended](https://docs.docker.com/compose/production/#modify-your-compose-file-for-production).
+A [Docker compose file](docker-compose.yml) is included.  
+It can also be [extended](https://docs.docker.com/compose/production/#modify-your-compose-file-for-production).  
+Make sure you have Docker compose version 2 or higher.
 
 ## Running with Podman
 
