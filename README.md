@@ -37,6 +37,7 @@ Enhanced Docker image for <a href="http://radicale.org">Radicale</a>, the CalDAV
   - [Option 1: Create a user/group with id `2999` on the host](#option-1-create-a-usergroup-with-id-2999-on-the-host)
   - [Option 2: Force the user/group ids on `docker run`](#option-2-force-the-usergroup-ids-on-docker-run)
   - [Option 3: Build the image with a custom user/group](#option-3-build-the-image-with-a-custom-usergroup)
+- [Podman](#podman)
 - [Tags](#tags)
 - [Contributing](#contributing)
 - [Releasing](#releasing)
@@ -233,6 +234,10 @@ But, you will have to clone this repo, do a local build and keep up with changes
 Usage: `docker build --build-arg=BUILD_UID=5000 --build-arg=BUILD_GID=5001 ...`.
 
 `BUILD_UID` and `BUILD_GID` are also supported as environment variables to work around a problem on some Synology NAS. See this PR#68.
+
+## Podman
+
+[@strauss115](https://github.com/strauss115) has made [some instructions](https://github.com/tomsquest/docker-radicale/issues/122#issuecomment-1874607285) to run the image with Podman.
 
 ## Tags
 
