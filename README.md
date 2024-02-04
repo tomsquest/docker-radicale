@@ -28,7 +28,6 @@ Enhanced Docker image for <a href="http://radicale.org">Radicale</a>, the CalDAV
 - [Custom configuration](#custom-configuration)
 - [Volumes versus Bind-Mounts](#volumes-versus-bind-mounts)
 - [Running with Docker compose](#running-with-docker-compose)
-- [Running with Podman](#running-with-podman)
 - [Multi-architecture](#multi-architecture)
 - [Extending the image](#extending-the-image)
 - [Versioning with Git](#versioning-with-git)
@@ -37,8 +36,8 @@ Enhanced Docker image for <a href="http://radicale.org">Radicale</a>, the CalDAV
   - [Option 1: Create a user/group with id `2999` on the host](#option-1-create-a-usergroup-with-id-2999-on-the-host)
   - [Option 2: Force the user/group ids on `docker run`](#option-2-force-the-usergroup-ids-on-docker-run)
   - [Option 3: Build the image with a custom user/group](#option-3-build-the-image-with-a-custom-usergroup)
-- [Podman](#podman)
 - [Tags](#tags)
+- [Running with Podman](#running-with-podman)
 - [Contributing](#contributing)
 - [Releasing](#releasing)
 - [Contributors](#contributors)
@@ -140,10 +139,6 @@ A [Docker compose file](docker-compose.yml) is included.
 It can also be [extended](https://docs.docker.com/compose/production/#modify-your-compose-file-for-production).  
 Make sure you have Docker compose version 2 or higher.
 
-## Running with Podman
-
-[Greylinux](https://github.com/Greylinux) has written [some instructions](https://github.com/tomsquest/docker-radicale/issues/122#issuecomment-1361240992) to run the image with Podman.
-
 ## Multi-architecture
 
 The correct image type for your architecture will be automatically selected by Docker, whether it is amd64 or arm64.
@@ -235,10 +230,6 @@ Usage: `docker build --build-arg=BUILD_UID=5000 --build-arg=BUILD_GID=5001 ...`.
 
 `BUILD_UID` and `BUILD_GID` are also supported as environment variables to work around a problem on some Synology NAS. See this PR#68.
 
-## Podman
-
-[@strauss115](https://github.com/strauss115) has made [some instructions](https://github.com/tomsquest/docker-radicale/issues/122#issuecomment-1874607285) to run the image with Podman.
-
 ## Tags
 
 The image is tagged with this scheme:
@@ -253,6 +244,12 @@ Example:
 
 The last number is **ours**, and it is incremented on new release. 
 For example, 2.1.11.**2** made the /config readonly (this is specific to this image).
+
+## Running with Podman
+
+Two users have given the instructions they used to run the image with Podman:
+- [@greylinux's instructions](https://github.com/tomsquest/docker-radicale/issues/122#issuecomment-1361240992)
+- [@strauss115's instructions](https://github.com/tomsquest/docker-radicale/issues/122#issuecomment-1874607285)
 
 ## Contributing
 
