@@ -38,6 +38,7 @@ Enhanced Docker image for <a href="http://radicale.org">Radicale</a>, the CalDAV
   - [Option 3: Build the image with a custom user/group](#option-3-build-the-image-with-a-custom-usergroup)
 - [Tags](#tags)
 - [Running with Podman](#running-with-podman)
+- [Running behind Caddy](#running-behind-caddy)
 - [Contributing](#contributing)
 - [Releasing](#releasing)
 - [Contributors](#contributors)
@@ -250,6 +251,23 @@ For example, 2.1.11.**2** made the /config readonly (this is specific to this im
 Two users have given the instructions they used to run the image with Podman:
 - [@greylinux's instructions](https://github.com/tomsquest/docker-radicale/issues/122#issuecomment-1361240992)
 - [@strauss115's instructions](https://github.com/tomsquest/docker-radicale/issues/122#issuecomment-1874607285)
+
+## Running behind Caddy
+
+[Caddy](https://caddyserver.com) is sitting in front of all my self-hosted services, like Radicale.  
+It brings https and security (basic authentication).
+
+The following Caddyfile works for me. Note that I don't use Radicale authentication, I have only one user.
+
+```caddyfile
+radicale.yourdomain.com {
+    reverse_proxy 127.0.0.1:5232
+
+    basicauth {
+        tom pas$w0rd
+    }
+}
+```
 
 ## Contributing
 
