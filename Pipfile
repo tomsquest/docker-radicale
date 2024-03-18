@@ -6,8 +6,8 @@ name = "pypi"
 [packages]
 
 [dev-packages]
-testinfra = "*"
 pytest = "*"
+pytest-testinfra = "*"
 
 [requires]
 python_version = "3.11"
