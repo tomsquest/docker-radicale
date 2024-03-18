@@ -28,7 +28,7 @@ def test_port(host):
     assert host.socket('tcp://0.0.0.0:5232').is_listening
 
 def test_version(host):
-    assert host.check_output('radicale --version') == '3.0.0'
+    assert host.check_output('/app/venv/bin/radicale --version') == '3.0.0'
 
 def test_user(host):
     user = 'radicale'
