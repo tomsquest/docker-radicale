@@ -29,7 +29,7 @@ if [ "$(id -u)" = "0" ] && [ "$TAKE_FILE_OWNERSHIP" = "true" ]; then
 fi
 
 # Run radicale as the "radicale" user or any other command if provided
-if [ "$(id -u)" = "0" ] && [ "$1" = "/app/venv/bin/radicale" ]; then
+if [ "$(id -u)" = "0" ] && [ "$1" = "/venv/bin/radicale" ]; then
     exec su-exec radicale "$@"
 else
     exec "$@"
