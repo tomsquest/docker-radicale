@@ -1,4 +1,4 @@
-FROM alpine:3.18.2
+FROM alpine:3.19.1
 
 ARG COMMIT_ID
 ENV COMMIT_ID ${COMMIT_ID}
@@ -40,8 +40,8 @@ RUN apk add --no-cache --virtual=build-dependencies \
         python3 \
         py3-tz \
         py3-pip \
-    && python3 -m pip install --upgrade pip \
-    && python3 -m pip install radicale==$VERSION passlib[bcrypt] \
+    && python -m venv /venv \
+    && /venv/bin/pip install --no-cache-dir radicale==$VERSION passlib[bcrypt] \
     && apk del --purge build-dependencies \
     && addgroup -g $BUILD_GID radicale \
     && adduser -D -s /bin/false -H -u $BUILD_UID -G radicale radicale \
@@ -58,4 +58,4 @@ EXPOSE 5232
 
 COPY docker-entrypoint.sh /usr/local/bin
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["radicale", "--config", "/config/config"]
+CMD ["/venv/bin/radicale", "--config", "/config/config"]
