@@ -159,8 +159,8 @@ First, create a `Dockerfile.extended` (pick the name you want) with this content
 ```dockerfile
 FROM tomsquest/docker-radicale
 
-RUN python3 -m pip install git+https://github.com/Unrud/RadicaleIMAP
-RUN python3 -m pip install git+https://github.com/Unrud/RadicaleInfCloud
+RUN /venv/bin/pip install git+https://github.com/Unrud/RadicaleIMAP
+RUN /venv/bin/pip install git+https://github.com/Unrud/RadicaleInfCloud
 ```
 
 Then, build and run it:
