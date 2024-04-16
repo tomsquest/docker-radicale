@@ -26,6 +26,7 @@ Enhanced Docker image for <a href="http://radicale.org">Radicale</a>, the CalDAV
   - [Option 1: **Basic** instruction](#option-1-basic-instruction)
   - [Option 2: **Recommended, Production-grade** instruction (secured, safe...) :rocket:](#option-2-recommended-production-grade-instruction-secured-safe-rocket)
 - [Custom configuration](#custom-configuration)
+- [Authentication configuration](#authentication-configuration)
 - [Volumes versus Bind-Mounts](#volumes-versus-bind-mounts)
 - [Running with Docker compose](#running-with-docker-compose)
 - [Multi-architecture](#multi-architecture)
@@ -116,6 +117,45 @@ Then:
 2. copy your config file into the config folder (eg. `cp config /my_custom_config_directory/config`)
 3. mount your custom config volume when running the container: `-v /my_custom_config_directory:/config:ro`.
 The `:ro` at the end make the volume read-only, and is more secured.
+
+## Authentication configuration
+
+This section shows a basic example of configuring authentication for Radicale using htpasswd with bcrypt algorithm.  
+To learn more, refer to [the offical Radicale document](https://radicale.org/v3.html#auth).
+
+First, we need to configure Radicale to use htpasswd authentication and specify htpasswd file's location.  
+Create a `config` file inside `config` directory. It will be located at `./config/config`.
+
+```
+[server]
+hosts = 0.0.0.0:5232
+
+[auth]
+type = htpasswd
+htpasswd_filename = /config/users
+htpasswd_encryption = bcrypt
+
+[storage]
+filesystem_folder = /data/collections
+```
+
+Next, create a `user` file inside `config` directory. It will be located at `./config/users`).  
+Each line contains the username and bcrypt-hashed password, separated by a colon (`:`).
+
+```
+john:$2a$10$l1Se4qIaRlfOnaC1pGt32uNe/Dr61r4JrZQCNnY.kTx2KgJ70GPSm
+sarah:$2a$10$lKEHYHjrZ.QHpWQeB/feWe/0m4ZtckLI.cYkVOITW8/0xoLCp1/Wy
+```
+
+Finally, create and run the container using the appropriate volume mount.
+In this example, both files are stored in the same directory (`./config`).
+
+```bash
+docker run -d --name radicale tomsquest/docker-radicale \
+    -p 5232:5232 \
+    -v ./data:/data \
+    -v ./config:/config \
+```
 
 ## Volumes versus Bind-Mounts
 
