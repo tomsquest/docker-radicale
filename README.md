@@ -337,6 +337,7 @@ git push --delete origin latest && git tag -d latest && git tag latest && git pu
 
 ## Contributors
 
+* [SalaryTheft](https://github.com/SalaryTheft): add section about Authentication configuration
 * [Dillbyrne](https://github.com/dillbyrne): update alpine
 * [Jauder Ho](https://github.com/jauderho): update alpine
 * [Greylinux](https://github.com/Greylinux): running with podman
