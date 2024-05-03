@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-Enhanced Docker image for <a href="http://radicale.org">Radicale</a>, the CalDAV/CardDAV server.
+Enhanced Docker image for <a href="https://radicale.org">Radicale</a>, the CalDAV/CardDAV server.
 </p>
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -110,11 +110,11 @@ To customize Radicale configuration, first get the config file:
 * (Recommended) use this repository preconfigured [config file](config),
 * Or, use [the original Radicale config file](https://raw.githubusercontent.com/Kozea/Radicale/master/config) and:
   1. set `hosts = 0.0.0.0:5232`
-  1. set `filesystem_folder = /data/collections`
+  2. set `filesystem_folder = /data/collections`
 
 Then:
 1. create a config directory (eg. `mkdir -p /my_custom_config_directory`)
-2. copy your config file into the config folder (eg. `cp config /my_custom_config_directory/config`)
+2. copy your config file into the config folder (e.g. `cp config /my_custom_config_directory/config`)
 3. mount your custom config volume when running the container: `-v /my_custom_config_directory:/config:ro`.
 The `:ro` at the end make the volume read-only, and is more secured.
 
@@ -182,7 +182,7 @@ Make sure you have Docker compose version 2 or higher.
 
 ## Multi-architecture
 
-The correct image type for your architecture will be automatically selected by Docker, whether it is amd64 or arm64.
+Docker will automatically select the correct image type for your architecture, whether it is amd64 or arm64.
 
 ## Extending the image
 
@@ -222,7 +222,7 @@ Refer to the [official documentation of Radicale](https://radicale.org/v3.html#v
 ## Custom User/Group ID for the data volume
 
 You will certainly mount a volume to keep Radicale data between restart/upgrade of the container.
-But sharing files from the host, and the container can be problematic.
+But sharing files from the host and the container can be problematic.
 The reason is that `radicale` user **in** the container does not match the user running the container **on** the host.
 
 To solve this, this image offers four options (see below for details):
@@ -234,7 +234,7 @@ To solve this, this image offers four options (see below for details):
 
 ### Option 0: Do nothing, permission will be fixed by the container itself
 
-When running the container with a /data volume (eg. `-v ./data:/data`), the container entrypoint will automatically fix the permissions on `/data`.
+When running the container with a /data volume (e.g. `-v ./data:/data`), the container entrypoint will automatically fix the permissions on `/data`.
 
 This option is OK, but not optimal:
 - Ok for the container, as inside the container, the `radicale` user can read and write its data
@@ -242,8 +242,8 @@ This option is OK, but not optimal:
 
 ### Option 1: Create a user/group with id `2999` on the host
 
-The image creates a user and a group with Id `2999` in the container.  
-You can create an user/group on your host matching this Id.
+The image creates a user and a group with id `2999` in the container.  
+You can create a user/group on your host matching this id.
 
 Example:
 
@@ -255,8 +255,8 @@ sudo adduser --gid 2999 --uid 2999 --shell /bin/false --disabled-password --no-c
 
 ### Option 2: Force the user/group ids on `docker run`
 
-The user and group Ids used in the container can be overridden when the container is run.  
-This is done with the `UID` and `GID` env variables, eg. `docker run -e UID=123 -e GID=456 ...`.  
+The user and group ids used in the container can be overridden when the container is run.  
+This is done with the `UID` and `GID` env variables, e.g. `docker run -e UID=123 -e GID=456 ...`.  
 This will force all operations to be run with this UID/GID.
 
 :warning: The **`--read-only`** run flag cannot be used in this case. 
@@ -264,8 +264,8 @@ Using custom UID/GID tries to modify the filesystem at runtime but this is made 
 
 ### Option 3: Build the image with a custom user/group
 
-You can build the image with custom user and group Ids and still use the `--read-only` flag.  
-But, you will have to clone this repo, do a local build and keep up with changes of this image.
+You can build the image with custom user and group ids and still use the `--read-only` flag.  
+But you will have to clone this repo, do a local build and keep up with changes of this image.
 
 Usage: `docker build --build-arg=BUILD_UID=5000 --build-arg=BUILD_GID=5001 ...`.
 
@@ -314,12 +314,12 @@ radicale.yourdomain.com {
 To run the tests:
 
 1. `pip install pipenv`
-1. `pipenv install -d`
-1. `pytest -v`
+2. `pipenv install -d`
+3. `pytest -v`
 
 ## Releasing
 
-1. Create a Git tag, eg. `3.0.6.0`, push it and the CI will build the images and publish them on Docker hub
+1. Create a Git tag, e.g. `3.0.6.0`, push it and the CI will build the images and publish them on Docker hub
 2. Update the `latest` tag
 3. Create release on GitHub (`Draft a new release` > pick the tag > `Generate release notes` > `Publish release`)
 4. Update `CHANGELOG.md`
