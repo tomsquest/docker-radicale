@@ -121,10 +121,10 @@ The `:ro` at the end make the volume read-only, and is more secured.
 ## Authentication configuration
 
 This section shows a basic example of configuring authentication for Radicale using htpasswd with bcrypt algorithm.  
-To learn more, refer to [the offical Radicale document](https://radicale.org/v3.html#auth).
+To learn more, refer to [the official Radicale document](https://radicale.org/v3.html#auth).
 
 First, we need to configure Radicale to use htpasswd authentication and specify htpasswd file's location.  
-Create a `config` file inside `config` directory. It will be located at `./config/config`.
+Create a `config` file inside the `config` directory (resulting in the path `config/config`).
 
 ```
 [server]
@@ -139,7 +139,7 @@ htpasswd_encryption = bcrypt
 filesystem_folder = /data/collections
 ```
 
-Next, create a `user` file inside `config` directory. It will be located at `./config/users`).  
+Next, create a `users` file inside the `config` directory (resulting in the path `config/users`).  
 Each line contains the username and bcrypt-hashed password, separated by a colon (`:`).
 
 ```
@@ -351,7 +351,7 @@ git push --delete origin latest && git tag -d latest && git tag latest && git pu
 * [Adzero](https://github.com/adzero): override build args with environment variables
 * [Robert Beal](https://github.com/robertbeal): fixed/configurable userId, versioning...
 * [Loader23](https://github.com/Loader23): config volume idea
-* [Waja](https://github.com/waja): less layers is more, InfCloud integration (UI for Radicale) 
+* [Waja](https://github.com/waja): fewer layers is more, InfCloud integration (UI for Radicale) 
 * [Christian Burmeister](https://github.com/christianbur): add tzdata to be able to specify timezone 
 * [Silas Lenz](https://github.com/silaslenz): add pytz for recurring events
 * [Enno Richter](https://github.com/elohmeier): bcrypt support 
