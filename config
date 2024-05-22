@@ -14,7 +14,8 @@
 # CalDAV server hostnames separated by a comma
 # IPv4 syntax: address:port
 # IPv6 syntax: [address]:port
-# For example: 0.0.0.0:9999, [::]:9999
+# Hostname syntax (using "getaddrinfo" to resolve to IPv4/IPv6 adress(es)): hostname:port
+# For example: 0.0.0.0:9999, [::]:9999, localhost:9999
 #hosts = localhost:5232
 hosts = 0.0.0.0:5232
 
@@ -60,8 +61,8 @@ hosts = 0.0.0.0:5232
 #htpasswd_filename = /etc/radicale/users
 
 # Htpasswd encryption method
-# Value: plain | bcrypt | md5
-# bcrypt requires the installation of radicale[bcrypt].
+# Value: plain | bcrypt | md5 | sha256 | sha512 | autodetect
+# bcrypt requires the installation of 'bcrypt' module.
 #htpasswd_encryption = md5
 
 # Incorrect authentication delay (seconds)
@@ -69,6 +70,9 @@ hosts = 0.0.0.0:5232
 
 # Message displayed in the client when a password is needed
 #realm = Radicale - Password Required
+
+# Сonvert username to lowercase, must be true for case-insensitive auth providers
+#lc_username = False
 
 
 [rights]
@@ -79,6 +83,9 @@ hosts = 0.0.0.0:5232
 
 # File for rights management from_file
 #file = /etc/radicale/rights
+
+# Permit delete of a collection (global)
+#permit_delete_collection = True
 
 
 [storage]
@@ -95,7 +102,7 @@ filesystem_folder = /data/collections
 #max_sync_token_age = 2592000
 
 # Command that is run after changes to storage
-# Example: ([ -d .git ] || git init) && git add -A && (git diff --cached --quiet || git commit -m "Changes by "%(user)s)
+# Example: ([ -d .git ] || git init) && git add -A && (git diff --cached --quiet || git commit -m "Changes by \"%(user)s\"")
 #hook =
 
 
@@ -110,7 +117,7 @@ filesystem_folder = /data/collections
 
 # Threshold for the logger
 # Value: debug | info | warning | error | critical
-#level = warning
+#level = info
 
 # Don't include passwords in logs
 #mask_passwords = True
@@ -120,3 +127,12 @@ filesystem_folder = /data/collections
 
 # Additional HTTP headers
 #Access-Control-Allow-Origin = *
+
+[hook]
+
+# Hook types
+# Value: none | rabbitmq
+#type = none
+#rabbitmq_endpoint =
+#rabbitmq_topic =
+#rabbitmq_queue_type = classic
