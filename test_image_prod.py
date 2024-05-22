@@ -1,6 +1,5 @@
-import subprocess
-
 import pytest
+import subprocess
 import testinfra
 
 
