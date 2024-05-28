@@ -30,6 +30,7 @@ Enhanced Docker image for <a href="https://radicale.org">Radicale</a>, the CalDA
 - [Volumes versus Bind-Mounts](#volumes-versus-bind-mounts)
 - [Running with Docker compose](#running-with-docker-compose)
 - [Multi-architecture](#multi-architecture)
+- [Unraid](#unraid)
 - [Extending the image](#extending-the-image)
 - [Versioning with Git](#versioning-with-git)
 - [Custom User/Group ID for the data volume](#custom-usergroup-id-for-the-data-volume)
@@ -184,6 +185,10 @@ Make sure you have Docker compose version 2 or higher.
 
 Docker will automatically select the correct image type for your architecture, whether it is amd64 or arm64.
 
+## Unraid
+
+This image is compatible with Unraid, and you can find it in the [Community App store](https://unraid.net/community/apps?q=radicale#r).
+
 ## Extending the image
 
 The image is extendable, as per Docker image architecture. You need to create your own `Dockerfile`.
@@ -337,6 +342,7 @@ git push --delete origin latest && git tag -d latest && git tag latest && git pu
 
 ## Contributors
 
+* [Nate Harris](https://github.com/nwithan8): add image to Unraid community app store
 * [SalaryTheft](https://github.com/SalaryTheft): add section about Authentication configuration
 * [Dillbyrne](https://github.com/dillbyrne): update alpine
 * [Jauder Ho](https://github.com/jauderho): update alpine
