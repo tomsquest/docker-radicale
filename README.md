@@ -326,8 +326,8 @@ To run the tests:
 
 1. Create a Git tag, e.g. `3.0.6.0`, push it and the CI will build the images and publish them on Docker hub
 2. Update the `latest` tag
+4. Update `CHANGELOG.md` (after, or in the PR)
 3. Create release on GitHub (`Draft a new release` > pick the tag > `Generate release notes` > `Publish release`)
-4. Update `CHANGELOG.md`
 
 Example instructions :
 
@@ -338,6 +338,8 @@ git fetch --all --tags
 TAG=3.0.6.0 && git tag $TAG && git push origin $TAG
 # Update latest tag
 git push --delete origin latest && git tag -d latest && git tag latest && git push origin latest
+# Draft a new release
+# https://github.com/tomsquest/docker-radicale/releases/new
 ```
 
 ## Contributors
