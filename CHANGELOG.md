@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [3.2.3.1] - 2024-09-18
+
+## Fixed
+
+- [move pytz from global (alpine) to python venv](https://github.com/tomsquest/docker-radicale/pull/160)
+
 ## [3.2.3.0] - 2024-08-30
 
 ## Changed
