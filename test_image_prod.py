@@ -51,7 +51,7 @@ def test_port(host):
 
 
 def test_version(host):
-    assert host.check_output("/venv/bin/radicale --version") == "3.2.3"
+    assert host.check_output("/venv/bin/radicale --version") == "3.3.0"
 
 
 def test_user(host):
