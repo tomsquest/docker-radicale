@@ -344,6 +344,7 @@ git push --delete origin latest && git tag -d latest && git tag latest && git pu
 
 ## Contributors
 
+* [Emil Miller](https://github.com/realcharmer): update to Radicale 3.3.0
 * [Nate Harris](https://github.com/nwithan8): add image to Unraid community app store
 * [SalaryTheft](https://github.com/SalaryTheft): add section about Authentication configuration
 * [Dillbyrne](https://github.com/dillbyrne): update alpine
