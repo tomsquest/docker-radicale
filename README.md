@@ -155,7 +155,7 @@ In this example, both files are stored in the same directory (`./config`).
 docker run -d --name radicale tomsquest/docker-radicale \
     -p 5232:5232 \
     -v ./data:/data \
-    -v ./config:/config \
+    -v ./config:/config
 ```
 
 ## Volumes versus Bind-Mounts
