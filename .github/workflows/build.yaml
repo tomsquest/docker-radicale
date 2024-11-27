@@ -1,5 +1,11 @@
 name: build
-on: [ push, pull_request, workflow_dispatch ]
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [opened, reopened, synchronize]
+  push:
+    branches:
+      - main
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
