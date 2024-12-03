@@ -5,7 +5,7 @@ on:
     types: [opened, reopened, synchronize]
   push:
     branches:
-      - main
+      - master
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
