@@ -1,7 +1,5 @@
-# Can be enhanced with additional compose file 
+# Can be enhanced with an additional compose file
 # See also https://docs.docker.com/compose/production/#modify-your-compose-file-for-production
-
-version: '3.7'
 
 services:
   radicale:
