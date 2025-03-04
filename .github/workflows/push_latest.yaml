@@ -33,4 +33,4 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           tags: tomsquest/docker-radicale:latest
-          push: false
+          push: true
