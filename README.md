@@ -21,7 +21,9 @@ Enhanced Docker image for <a href="https://radicale.org">Radicale</a>, the CalDA
 
 - [Features](#features)
 - [Changelog](#changelog)
-- [Latest version](#latest-version)
+- [Versions](#versions)
+  - [Tags scheme](#tags-scheme)
+- [Architecture](#architecture)
 - [Running](#running)
   - [Option 1: **Basic** instruction](#option-1-basic-instruction)
   - [Option 2: **Recommended, Production-grade** instruction (secured, safe...) :rocket:](#option-2-recommended-production-grade-instruction-secured-safe-rocket)
@@ -29,7 +31,6 @@ Enhanced Docker image for <a href="https://radicale.org">Radicale</a>, the CalDA
 - [Authentication configuration](#authentication-configuration)
 - [Volumes versus Bind-Mounts](#volumes-versus-bind-mounts)
 - [Running with Docker compose](#running-with-docker-compose)
-- [Multi-architecture](#multi-architecture)
 - [Unraid](#unraid)
 - [Extending the image](#extending-the-image)
 - [Versioning with Git](#versioning-with-git)
@@ -38,7 +39,6 @@ Enhanced Docker image for <a href="https://radicale.org">Radicale</a>, the CalDA
   - [Option 1: Create a user/group with id `2999` on the host](#option-1-create-a-usergroup-with-id-2999-on-the-host)
   - [Option 2: Force the user/group ids on `docker run`](#option-2-force-the-usergroup-ids-on-docker-run)
   - [Option 3: Build the image with a custom user/group](#option-3-build-the-image-with-a-custom-usergroup)
-- [Tags](#tags)
 - [Running with Podman](#running-with-podman)
 - [Running behind Caddy](#running-behind-caddy)
 - [Contributing](#contributing)
@@ -61,9 +61,39 @@ Enhanced Docker image for <a href="https://radicale.org">Radicale</a>, the CalDA
 
 :page_with_curl: See [CHANGELOG.md](CHANGELOG.md)
 
-## Latest version
+## Versions
 
-![latest tag](https://img.shields.io/github/tag/tomsquest/docker-radicale.svg)
+The image is pushed in two versions:
+- `latest`: the image is based on `alpine:3`, so it will contains all the security patches when built, and is push **daily** ⏱️
+- "tagged": whenever [Radicale](https://radicale.org) is updated, the image is updated in the following days to use the latest version of Radicale
+
+**TL;DR**:
+- use `tomsquest/docker-radicale:latest` for the latest version of Radicale
+- use `tomsquest/docker-radicale:$version` for the latest tagged Radicale
+
+Latest version: ![latest version](https://img.shields.io/github/tag/tomsquest/docker-radicale.svg)
+
+### Tags scheme
+
+The image is tagged with this scheme:
+
+```
+Version number = Radicale version + '.' + This image increment number
+```
+
+Example: `tomsquest/docker-radicale:3.4.1.1`
+
+The last number is **ours**, and it is incremented on new release.
+
+As an example, version 2.1.11.**2** was based on Radicale 2.1.11, but featured a readonly `/config` dir (and this change was specific to this image, not Radicale).
+
+## Architecture
+
+The image is built for two architectures:
+- `amd64`: for your usual server
+- `arm64`: for Raspberry Pi
+
+When you run the image, Docker will automatically select the correct image architecture.
 
 ## Running
 
@@ -184,10 +214,6 @@ A [Docker compose file](docker-compose.yml) is included.
 It can also be [extended](https://docs.docker.com/compose/production/#modify-your-compose-file-for-production).  
 Make sure you have Docker compose version 2 or higher.
 
-## Multi-architecture
-
-Docker will automatically select the correct image type for your architecture, whether it is amd64 or arm64.
-
 ## Unraid
 
 This image is compatible with Unraid, and you can find it in the [Community App store](https://unraid.net/community/apps?q=radicale#r).
@@ -279,21 +305,6 @@ Usage: `docker build --build-arg=BUILD_UID=5000 --build-arg=BUILD_GID=5001 ...`.
 
 `BUILD_UID` and `BUILD_GID` are also supported as environment variables to work around a problem on some Synology NAS. See this PR#68.
 
-## Tags
-
-The image is tagged with this scheme:
-
-```
-Version number = Architecture + '.' + Radicale version + '.' + This image increment number
-```
-
-Example:
-- `tomsquest/docker-radicale:amd64.3.0.6.3`
-- `tomsquest/docker-radicale:arm64.3.0.6.3`
-
-The last number is **ours**, and it is incremented on new release. 
-For example, 2.1.11.**2** made the /config readonly (this is specific to this image).
-
 ## Running with Podman
 
 Two users have given the instructions they used to run the image with Podman:
@@ -327,7 +338,7 @@ To run the tests:
 
 ## Releasing
 
-1. Create a Git tag, e.g. `3.0.6.0`, push it and the CI will build the images and publish them on Docker hub
+1. Create a Git tag, e.g. `1.2.3.4`, push it and the CI will build the images and publish them on Docker hub
 2. Update the `latest` tag
 4. Update `CHANGELOG.md` (after, or in the PR)
 3. Create release on GitHub (`Draft a new release` > pick the tag > `Generate release notes` > `Publish release`)
@@ -338,7 +349,7 @@ Example instructions :
 # Update local tags
 git fetch --all --tags
 # Create tag
-TAG=3.0.6.0 && git tag $TAG && git push origin $TAG
+TAG=1.2.3.4 && git tag $TAG && git push origin $TAG
 # Update latest tag
 git push --delete origin latest && git tag -d latest && git tag latest && git push origin latest
 # Draft a new release
