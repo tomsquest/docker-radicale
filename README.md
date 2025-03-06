@@ -22,7 +22,7 @@ Enhanced Docker image for <a href="https://radicale.org">Radicale</a>, the CalDA
 - [Features](#features)
 - [Changelog](#changelog)
 - [Versions](#versions)
-  - [Tags scheme](#tags-scheme)
+  - [Version Tag Format](#version-tag-format)
 - [Architecture](#architecture)
 - [Running](#running)
   - [Option 1: **Basic** instruction](#option-1-basic-instruction)
@@ -63,29 +63,22 @@ Enhanced Docker image for <a href="https://radicale.org">Radicale</a>, the CalDA
 
 ## Versions
 
-The image is pushed in two versions:
-- `latest`: the image is based on `alpine:3`, so it will contains all the security patches when built, and is push **daily** ⏱️
-- "tagged": whenever [Radicale](https://radicale.org) is updated, the image is updated in the following days to use the latest version of Radicale
+Two image versions are available:
 
-**TL;DR**:
-- use `tomsquest/docker-radicale:latest` for the latest version of Radicale
-- use `tomsquest/docker-radicale:$version` for the latest tagged Radicale
+- **`latest`**: Based on `alpine:3` with daily automated builds to include the most recent security patches
+- **Version tags** (e.g., `3.4.1.1`): Specific Radicale versions with image updates
 
-Latest version: ![latest version](https://img.shields.io/github/tag/tomsquest/docker-radicale.svg)
+**Which should you use?**
+- Use `tomsquest/docker-radicale:latest` for always-updated security patches
+- Use `tomsquest/docker-radicale:$version` for stability with a specific Radicale version
 
-### Tags scheme
+### Version Tag Format
 
-The image is tagged with this scheme:
+Version tags follow this format: `[Radicale version].[Image revision]`
 
-```
-Version number = Radicale version + '.' + This image increment number
-```
-
-Example: `tomsquest/docker-radicale:3.4.1.1`
-
-The last number is **ours**, and it is incremented on new release.
-
-As an example, version 2.1.11.**2** was based on Radicale 2.1.11, but featured a readonly `/config` dir (and this change was specific to this image, not Radicale).
+For example, in `3.4.1.1`:
+- `3.4.1` is the Radicale version
+- The final `.1` is our image revision number (incremented for image-specific updates)
 
 ## Architecture
 
