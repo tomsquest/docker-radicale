@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [3.5.0.1] - 2025-03-16
+
+## Fixed
+
+- [fix: auth is set to deny all by default, setting it to none](https://github.com/tomsquest/docker-radicale/pull/183)
+
+Radicale 3.5.0 defaults to denyall as the auth type, meaning no access to Radicale until a proper auth type is setup. This PR set the auth type to none as it was in previous released.
+
 ## [3.5.0.0] - 2025-03-16
 
 ## Changed
