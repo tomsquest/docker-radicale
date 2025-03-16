@@ -12,7 +12,7 @@ def host():
             "-t",
             "radicale-under-test",
             "--build-arg",
-            "VERSION=3.2.0",
+            "VERSION=3.4.1",
             "--build-arg",
             "BUILD_UID=6666",
             "--build-arg",
@@ -44,7 +44,7 @@ def test_port(host):
 
 
 def test_version(host):
-    assert host.check_output("/venv/bin/radicale --version") == "3.2.0"
+    assert host.check_output("/venv/bin/radicale --version") == "3.4.1"
 
 
 def test_user(host):
