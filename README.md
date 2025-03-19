@@ -27,6 +27,7 @@ Enhanced Docker image for <a href="https://radicale.org">Radicale</a>, the CalDA
 - [Running](#running)
   - [Option 1: **Basic** instruction](#option-1-basic-instruction)
   - [Option 2: **Recommended, Production-grade** instruction (secured, safe...) :rocket:](#option-2-recommended-production-grade-instruction-secured-safe-rocket)
+  - [Docker Compose](#docker-compose)
 - [Custom configuration](#custom-configuration)
 - [Authentication configuration](#authentication-configuration)
 - [Volumes versus Bind-Mounts](#volumes-versus-bind-mounts)
@@ -123,21 +124,24 @@ docker run -d --name radicale \
     tomsquest/docker-radicale
 ```
 
-A [Docker compose file](docker-compose.yml) is included.
-
 Note on capabilities:
 - `CHOWN` is used to restore the permission of the `data` directory. Remove this if you do not need the `chown` to be run (see [below](#volumes-versus-bind-mounts))
 - `SETUID` and `SETGID` are used to run radicale as the less privileged `radicale` user (with su-exec), and are required.
 - `KILL` is to allow Radicale to exit, and is required.
 
+### Docker Compose
+
+A [Docker compose file](docker-compose.yml) is included.
+
 ## Custom configuration
 
-To customize Radicale configuration, first get the config file:
+To change Radicale configuration, first get the config file:
 
-* (Recommended) use this repository preconfigured [config file](config),
+* (Recommended) use this preconfigured [config file](config) from this repository,
 * Or, use [the original Radicale config file](https://raw.githubusercontent.com/Kozea/Radicale/master/config) and:
   1. set `hosts = 0.0.0.0:5232`
   2. set `filesystem_folder = /data/collections`
+  3. set `[auth] type = none`
 
 Then:
 1. create a config directory (eg. `mkdir -p /my_custom_config_directory`)
@@ -181,7 +185,7 @@ In this example, both files are stored in the same directory (`./config`).
 docker run -d --name radicale tomsquest/docker-radicale \
     -p 5232:5232 \
     -v ./data:/data \
-    -v ./config:/config
+    -v ./config:/config:ro
 ```
 
 ## Volumes versus Bind-Mounts
@@ -343,11 +347,11 @@ Example instructions :
 git fetch --all --tags
 # Create tag
 TAG=1.2.3.4 && git tag $TAG && git push origin $TAG
-# Update latest tag
-git push --delete origin latest && git tag -d latest && git tag latest && git push origin latest
 # Draft a new release
-# https://github.com/tomsquest/docker-radicale/releases/new
+xdg-open https://github.com/tomsquest/docker-radicale/releases/new
 ```
+
+Note: the `latest` tag is generated automatically on each push (and daily).
 
 ## Contributors
 
