@@ -38,6 +38,8 @@ RUN apk add --no-cache --virtual=build-dependencies \
         tzdata \
         wget \
         python3 \
+        py3-dateutil \
+        py3-vobject \
         py3-pip \
     && python -m venv /venv \
     && /venv/bin/pip install --no-cache-dir radicale==$VERSION passlib[bcrypt] pytz ldap3 \
