@@ -1,0 +1,13 @@
+[project]
+name = "docker-radicale"
+version = "0.1.0"
+description = ""
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+    "pytest-testinfra>=10.2.2",
+]
