@@ -329,9 +329,8 @@ radicale.yourdomain.com {
 
 To run the tests:
 
-1. `pip install pipenv`
-2. `pipenv install -d`
-3. `pipenv run pytest -v`
+1. `uv sync`
+2. `uv run pytest -v`
 
 ## Releasing
 

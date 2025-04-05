@@ -14,13 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: pipx install pipenv
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-          cache: 'pipenv'
-      - run: pipenv sync --dev
-      - run: pipenv run pytest -v
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --all-extras --dev
+      - run: uv run pytest -v
   build:
     runs-on: ubuntu-latest
     needs: test
