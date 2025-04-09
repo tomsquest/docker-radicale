@@ -76,6 +76,9 @@ type = none
 ## Expiration time of caching failed logins in seconds
 #cache_failed_logins_expiry = 90
 
+# Ignore modifyTimestamp and createTimestamp attributes. Required e.g. for Authentik LDAP server
+#ldap_ignore_attribute_create_modify_timestamp = false
+
 # URI to the LDAP server
 #ldap_uri = ldap://localhost
 
@@ -223,10 +226,13 @@ filesystem_folder = /data/collections
 
 # Command that is run after changes to storage, default is emtpy
 #  Supported placeholders:
-#   %(user): logged-in user
+#   %(user)s: logged-in user
+#   %(cwd)s : current working directory
+#   %(path)s: full path of item
 #  Command will be executed with base directory defined in filesystem_folder
 #  For "git" check DOCUMENTATION.md for bootstrap instructions
-# Example: git add -A && (git diff --cached --quiet || git commit -m "Changes by \"%(user)s\"")
+# Example(test): echo \"user=%(user)s path=%(path)s cwd=%(cwd)s\"
+# Example(git): git add -A && (git diff --cached --quiet || git commit -m "Changes by \"%(user)s\"")
 #hook =
 
 # Create predefined user collections
