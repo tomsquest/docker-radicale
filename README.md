@@ -23,7 +23,7 @@ Enhanced Docker image for <a href="https://radicale.org">Radicale</a>, the CalDA
 - [Changelog](#changelog)
 - [Versions](#versions)
   - [Version Tag Format](#version-tag-format)
-- [Architecture](#architecture)
+- [Architectures](#architectures)
 - [Running](#running)
   - [Option 1: **Basic** instruction](#option-1-basic-instruction)
   - [Option 2: **Recommended, Production-grade** instruction (secured, safe...) :rocket:](#option-2-recommended-production-grade-instruction-secured-safe-rocket)
@@ -34,6 +34,7 @@ Enhanced Docker image for <a href="https://radicale.org">Radicale</a>, the CalDA
 - [Running with Docker compose](#running-with-docker-compose)
 - [Unraid](#unraid)
 - [Extending the image](#extending-the-image)
+  - [Birthday Calendar](#birthday-calendar)
 - [Versioning with Git](#versioning-with-git)
 - [Custom User/Group ID for the data volume](#custom-usergroup-id-for-the-data-volume)
   - [Option 0: Do nothing, permission will be fixed by the container itself](#option-0-do-nothing-permission-will-be-fixed-by-the-container-itself)
@@ -81,7 +82,7 @@ For example, in `3.4.1.1`:
 - `3.4.1` is the Radicale version
 - The final `.1` is our image revision number (incremented for image-specific updates)
 
-## Architecture
+## Architectures
 
 The image is built for two architectures:
 - `amd64`: for your usual server
@@ -240,6 +241,12 @@ Then, build and run it:
 docker build -t radicale-extended -f Dockerfile.extended .
 docker run --name radicale-extended -p 5232:5232 radicale-extended
 ```
+
+### Birthday Calendar
+
+[Christof Schulze](https://github.com/christf) provides an extended image to include [Radicale Birthday Calendar](https://github.com/iBigQ/radicale-birthday-calendar).
+
+Find its [project here](https://github.com/christf/docker-radicale-birthday) to add a birthday calendar to your Radicale instance.
 
 ## Versioning with Git
 
