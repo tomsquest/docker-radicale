@@ -68,20 +68,25 @@ Enhanced Docker image for <a href="https://radicale.org">Radicale</a>, the CalDA
 
 Two image versions are available:
 
-- **`latest`**: Based on `alpine:3` with daily automated builds to include the most recent security patches
-- **Version tags** (e.g., `3.4.1.1`): Specific Radicale versions with image updates
+- **`latest`**: Based on `alpine:3` with **daily** automated builds to include the most recent security patches
+- **Version tags** (e.g., `1.2.3.4`): Specific Radicale versions with image updates
 
 **Which should you use?**
-- Use `tomsquest/docker-radicale:latest` for always-updated security patches
+- Use `tomsquest/docker-radicale:latest` for always-updated security patches (daily build)
 - Use `tomsquest/docker-radicale:$version` for stability with a specific Radicale version
 
 ### Version Tag Format
 
 Version tags follow this format: `[Radicale version].[Image revision]`
 
-For example, in `3.4.1.1`:
-- `3.4.1` is the Radicale version
-- The final `.1` is our image revision number (incremented for image-specific updates)
+For example, in `1.2.3.4`:
+- `1.2.3` is the Radicale version
+- The final `.4` is our image revision number, incremented for image-specific updates
+
+### Latest version
+
+- `latest` is build every day
+- [Check the Releases page on GitHub](https://github.com/tomsquest/docker-radicale/releases)
 
 ## Architectures
 
