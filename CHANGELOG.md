@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [3.5.3.1] - 2025-04-27
+
+## Changed
+
+- [dd argon2-cffi dependency to support Argon2 password hash](https://github.com/tomsquest/docker-radicale/pull/194)
+
+## [3.5.3.0] - 2025-05-22
+
+## Changed
+
+- [Update to Radicale 3.5.3](https://github.com/tomsquest/docker-radicale/pull/193)
+
 ## [3.5.2.0] - 2025-04-27
 
 ## Changed
