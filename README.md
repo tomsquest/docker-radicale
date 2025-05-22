@@ -58,6 +58,7 @@ Enhanced Docker image for <a href="https://radicale.org">Radicale</a>, the CalDA
   * git and ssh included for [versioning](https://github.com/tomsquest/docker-radicale/#versioning-with-git)
   * Python ldap3 for [LDAP authentication](https://github.com/Kozea/Radicale/wiki/LDAP-authentication)
   * Python pytz for proper timezone handling
+  * Python bcript and argon2 for password hashing
 
 ## Changelog
 
