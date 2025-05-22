@@ -150,8 +150,9 @@ type = none
 #htpasswd_filename = /etc/radicale/users
 
 # Htpasswd encryption method
-# Value: plain | bcrypt | md5 | sha256 | sha512 | autodetect
+# Value: plain | bcrypt | md5 | sha256 | sha512 | argon2 | autodetect
 # bcrypt requires the installation of 'bcrypt' module.
+# argon2 requires the installation of 'argon2-cffi' module.
 #htpasswd_encryption = autodetect
 
 # Enable caching of htpasswd file based on size and mtime_ns
@@ -185,6 +186,8 @@ type = none
 # Permit overwrite of a collection (global)
 #permit_overwrite_collection = True
 
+# URL Decode the given username (when URL-encoded by the client - useful for iOS devices when using email address)
+# urldecode_username = False
 
 [storage]
 
