@@ -43,7 +43,7 @@ RUN apk add --no-cache --virtual=build-dependencies \
     && /venv/bin/pip install --no-cache-dir radicale==$VERSION passlib[bcrypt] argon2-cffi pytz ldap3 \
     && apk del --purge build-dependencies \
     && addgroup -g $BUILD_GID radicale \
-    && adduser -D -s /bin/false -H -u $BUILD_UID -G radicale radicale \
+    && adduser -D -s /bin/false -u $BUILD_UID -G radicale radicale \
     && mkdir -p /config /data \
     && chmod -R 770 /data \
     && chown -R radicale:radicale /data \
