@@ -4,7 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [3.5.3.1] - 2025-04-27
+## [3.5.4.0] - 2025-05-26
+
+## Changed
+
+- [Update to Radicale 3.5.4](https://github.com/tomsquest/docker-radicale/pull/196)
+
+## [3.5.3.1] - 2025-05-22
 
 ## Changed
 
