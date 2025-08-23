@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [3.5.5.0] - 2025-08-23
+
+## Changed
+
+- [Update to Radicale 3.5.5](https://github.com/tomsquest/docker-radicale/pull/199)
+
 ## [3.5.4.0] - 2025-05-26
 
 ## Changed
@@ -83,7 +89,7 @@ Radicale 3.5.0 defaults to denyall as the auth type, meaning no access to Radica
 ## Changed
 
 - [Update to Radicale 3.3.1](https://github.com/tomsquest/docker-radicale/pull/168)
- 
+
 ## [3.3.0.0] - 2024-10-14
 
 ## Changed
@@ -204,7 +210,7 @@ Radicale 3.5.0 defaults to denyall as the auth type, meaning no access to Radica
 
 ## Changed
 
-- [#116](https://github.com/tomsquest/docker-radicale/pull/116): Upgrade to [Radicale 3.1.1](https://github.com/Kozea/Radicale/blob/4822807c4d0ab8863aa600354315d99eeeef1209/CHANGELOG.md#311) 
+- [#116](https://github.com/tomsquest/docker-radicale/pull/116): Upgrade to [Radicale 3.1.1](https://github.com/Kozea/Radicale/blob/4822807c4d0ab8863aa600354315d99eeeef1209/CHANGELOG.md#311)
 
 ## [3.1.0.0] - 2022-01-02
 
@@ -216,7 +222,7 @@ Radicale 3.5.0 defaults to denyall as the auth type, meaning no access to Radica
 
 ### Added
 
-- [#111](https://github.com/tomsquest/docker-radicale/pull/111): We now provide a RaspberryPI-compatible image. We now build the image for amd64, armv7, and arm64. 
+- [#111](https://github.com/tomsquest/docker-radicale/pull/111): We now provide a RaspberryPI-compatible image. We now build the image for amd64, armv7, and arm64.
 
 ## [3.0.6.5] - 2021-12-14
 
