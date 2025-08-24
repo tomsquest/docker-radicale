@@ -23,6 +23,7 @@ hosts = 0.0.0.0:5232
 #max_connections = 8
 
 # Max size of request body (bytes)
+# In case of using a reverse proxy in front of check also there related option
 #max_content_length = 100000000
 
 # Socket timeout (seconds)
@@ -236,9 +237,12 @@ filesystem_folder = /data/collections
 #   %(user)s: logged-in user
 #   %(cwd)s : current working directory
 #   %(path)s: full path of item
+#   %(to_path)s: full path of destination item (only set on MOVE request)
+#   %(request)s: request method
 #  Command will be executed with base directory defined in filesystem_folder
 #  For "git" check DOCUMENTATION.md for bootstrap instructions
 # Example(test): echo \"user=%(user)s path=%(path)s cwd=%(cwd)s\"
+# Example(test/json): echo \"hook-json {'user':'%(user)s', 'cwd':'%(cwd)s', 'path':'%(path)s', 'request':'%(request)s', 'to_path':'%(to_path)s'}\"
 # Example(git): git add -A && (git diff --cached --quiet || git commit -m "Changes by \"%(user)s\"")
 #hook =
 
@@ -274,6 +278,12 @@ filesystem_folder = /data/collections
 # Value: debug | info | warning | error | critical
 #level = info
 
+# do not filter debug messages starting with 'TRACE'
+#trace_on_debug = False
+
+# filter debug messages starting with 'TRACE/<TOKEN>'
+#trace_filter = ""
+
 # Don't include passwords in logs
 #mask_passwords = True
 
@@ -307,15 +317,33 @@ filesystem_folder = /data/collections
 [hook]
 
 # Hook types
-# Value: none | rabbitmq
+# Value: none | rabbitmq | email
 #type = none
+
+# dry-run (do not really trigger hook action)
+#dryrun = False
+
+# hook: rabbitmq
 #rabbitmq_endpoint =
 #rabbitmq_topic =
 #rabbitmq_queue_type = classic
+
+# hook: email
+#smtp_server = localhost
+#smtp_port = 25
+#smtp_security = starttls
+#smtp_ssl_verify_mode = REQUIRED
+#smtp_username =
+#smtp_password =
+#from_email =
+#mass_email = False
+#new_or_added_to_event_template =
+#deleted_or_removed_from_event_template =
+#updated_event_template =
 
 
 [reporting]
 
 # When returning a free-busy report, limit the number of returned
-# occurences per event to prevent DOS attacks.
+# occurences per event to prevent DoS attacks.
 #max_freebusy_occurrence = 10000
