@@ -367,7 +367,8 @@ Note: the `latest` tag is generated automatically on each push (and daily).
 
 ## Contributors
 
-* [Emil Miller](https://github.com/realcharmer): update to Radicale 3.3.0
+* [Oscar Carlsson](https://github.com/oscarcarlsson): update Radicale to 3.5.5
+* [Emil Miller](https://github.com/realcharmer): update Radicale to 3.3.0
 * [Nate Harris](https://github.com/nwithan8): add image to Unraid community app store
 * [SalaryTheft](https://github.com/SalaryTheft): add section about Authentication configuration
 * [Dillbyrne](https://github.com/dillbyrne): update alpine
