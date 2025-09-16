@@ -26,6 +26,7 @@ fi
 # If requested and running as root, mutate the ownership of bind-mounts
 if [ "$(id -u)" = "0" ] && [ "$TAKE_FILE_OWNERSHIP" = "true" ]; then
     chown -R radicale:radicale /data
+    chown -R radicale:radicale /config
 fi
 
 # Run radicale as the "radicale" user or any other command if provided
