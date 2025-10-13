@@ -2,6 +2,9 @@
 
 set -e
 
+# Create config from environment variables if provided
+create-config-from-env.py
+
 # Change uid/gid of radicale if vars specified
 if [ -n "$UID" ] || [ -n "$GID" ]; then
     if [ ! "$UID" = "$(id radicale -u)" ] || [ ! "$GID" = "$(id radicale -g)" ]; then
