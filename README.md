@@ -347,16 +347,11 @@ To run the tests:
 
 ## Releasing
 
-1. Create a Git tag, e.g. `1.2.3.4`, push it and the CI will build the images and publish them on Docker hub
-2. Update the `latest` tag
-4. Update `CHANGELOG.md` (after, or in the PR)
-3. Create release on GitHub (`Draft a new release` > pick the tag > `Generate release notes` > `Publish release`)
-
-Example instructions :
-
 ```bash
 # Update local tags
 git fetch --all --tags
+# Update `CHANGELOG.md` (after the PR is merged)
+...
 # Create tag
 TAG=1.2.3.4 && git tag $TAG && git push origin $TAG
 # Draft a new release
