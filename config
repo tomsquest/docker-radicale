@@ -183,6 +183,9 @@ type = none
 # Strip domain name from username
 #strip_domain = False
 
+# URL Decode the given username (when URL-encoded by the client - useful for iOS devices when using email address)
+#urldecode_username = False
+
 
 [rights]
 
@@ -199,8 +202,6 @@ type = none
 # Permit overwrite of a collection (global)
 #permit_overwrite_collection = True
 
-# URL Decode the given username (when URL-encoded by the client - useful for iOS devices when using email address)
-# urldecode_username = False
 
 [storage]
 
@@ -243,6 +244,9 @@ filesystem_folder = /data/collections
 
 # Skip broken item instead of triggering an exception
 #skip_broken_item = True
+
+# Strict preconditions check on PUT
+#strict_preconditions = False
 
 # Command that is run after changes to storage, default is emtpy
 #  Supported placeholders:
