@@ -142,6 +142,10 @@ A [Docker compose file](docker-compose.yml) is included.
 
 ## Custom configuration
 
+There are two ways to configure Radicale: using a configuration file or using environment variables.
+
+### Option 1: Configuration file
+
 To change Radicale configuration, first get the config file:
 
 * (Recommended) use this preconfigured [config file](config) from this repository,
@@ -155,6 +159,36 @@ Then:
 2. copy your config file into the config folder (e.g. `cp config /my_custom_config_directory/config`)
 3. mount your custom config volume when running the container: `-v /my_custom_config_directory:/config:ro`.
 The `:ro` at the end make the volume read-only, and is more secured.
+
+### Option 2: Environment variables
+
+You can configure Radicale using environment variables without needing to create or mount a configuration file.
+Environment variables follow the pattern: `RADICALE_CONFIG_<SECTION>_<KEY>=value`
+
+For example, to set the logging level and storage type:
+
+```bash
+docker run -d --name radicale \
+    -p 5232:5232 \
+    -e "RADICALE_CONFIG_LOGGING_LEVEL=info" \
+    -e "RADICALE_CONFIG_STORAGE_TYPE=multifilesystem" \
+    -v ./data:/data \
+    tomsquest/docker-radicale
+```
+
+The environment variable names are case-insensitive and underscores in the key name represent spaces or underscores in the actual config parameter.
+For example:
+- `RADICALE_CONFIG_SERVER_HOSTS=0.0.0.0:5232` sets `hosts` in the `[server]` section
+- `RADICALE_CONFIG_AUTH_TYPE=htpasswd` sets `type` in the `[auth]` section
+- `RADICALE_CONFIG_STORAGE_FILESYSTEM_FOLDER=/data/collections` sets `filesystem_folder` in the `[storage]` section
+
+**How it works:**
+- If you provide any `RADICALE_CONFIG_*` environment variables, the container will automatically create or update the configuration file at startup
+- Existing configuration files will be updated (not overwritten), so you can combine both methods
+- If a configuration file already exists, environment variables will override the values in the file
+- If no `RADICALE_CONFIG_*` variables are provided, the container will use the existing config file as-is
+
+**Advanced:** You can change the config file location using the `RADICALE_CONFIG_FILE` environment variable (default: `/config/config`).
 
 ## Authentication configuration
 
