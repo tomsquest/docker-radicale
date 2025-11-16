@@ -49,12 +49,13 @@ RUN apk add --no-cache --virtual=build-dependencies \
     && chown -R radicale:radicale /data \
     && rm -fr /root/.cache
 
-COPY config /config/config
-
 HEALTHCHECK --interval=30s --retries=3 CMD curl --fail http://localhost:5232 || exit 1
 VOLUME /config /data
 EXPOSE 5232
 
+COPY config /config/config
+COPY update_config_from_env.py /usr/local/bin
 COPY docker-entrypoint.sh /usr/local/bin
+
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["/venv/bin/radicale", "--config", "/config/config"]
