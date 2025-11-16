@@ -27,12 +27,14 @@ if [ -n "$UID" ] || [ -n "$GID" ]; then
 fi
 
 # Update config from Env
-# Fail gracefully if running with --read-only
-if [ "$IS_READONLY" = "true" ]; then
-    echo "Environment variable-based config update is disabled because the container is running with --read-only."
-    echo "If you need to update config from environment variables, remove the --read-only flag."
-else
-    /venv/bin/python /usr/local/bin/update_config_from_env.py
+# Only run if some env vars are defined
+if env | grep -q "^RADICALE_"; then
+    # Fail gracefully if read-only
+    if [ "$IS_READONLY" = "true" ]; then
+        echo "Environment variable-based config update is disabled because the container is running with --read-only."
+    else
+        /venv/bin/python /usr/local/bin/update_config_from_env.py
+    fi
 fi
 
 # If requested and running as root, mutate the ownership of bind-mounts
