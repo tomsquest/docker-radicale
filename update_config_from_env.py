@@ -54,5 +54,4 @@ def update_config_from_env(config_path: str):
 
 
 if __name__ == "__main__":
-    config_path = os.environ.get("RADICALE_CONFIG", "/config/config")
-    update_config_from_env(config_path)
+    update_config_from_env("/config/config")
