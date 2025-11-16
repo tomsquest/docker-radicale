@@ -28,6 +28,9 @@ if [ "$(id -u)" = "0" ] && [ "$TAKE_FILE_OWNERSHIP" = "true" ]; then
     chown -R radicale:radicale /data
 fi
 
+# Update configuration from environment variables
+/venv/bin/python /usr/local/bin/update_config_from_env.py
+
 # Run radicale as the "radicale" user or any other command if provided
 if [ "$(id -u)" = "0" ] && [ "$1" = "/venv/bin/radicale" ]; then
     exec su-exec radicale "$@"

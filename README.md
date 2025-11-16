@@ -17,30 +17,31 @@ Enhanced Docker image for <a href="https://radicale.org">Radicale</a>, the CalDA
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 ## Table of contents
 
 - [Features](#features)
 - [Changelog](#changelog)
 - [Versions](#versions)
-  - [Version Tag Format](#version-tag-format)
+    - [Version Tag Format](#version-tag-format)
 - [Architectures](#architectures)
 - [Running](#running)
-  - [Option 1: **Basic** instruction](#option-1-basic-instruction)
-  - [Option 2: **Recommended, Production-grade** instruction (secured, safe...) :rocket:](#option-2-recommended-production-grade-instruction-secured-safe-rocket)
-  - [Docker Compose](#docker-compose)
+    - [Option 1: **Basic** instruction](#option-1-basic-instruction)
+    - [Option 2: **Recommended, Production-grade** instruction (secured, safe...) :rocket:](#option-2-recommended-production-grade-instruction-secured-safe-rocket)
+    - [Docker Compose](#docker-compose)
 - [Custom configuration](#custom-configuration)
 - [Authentication configuration](#authentication-configuration)
 - [Volumes versus Bind-Mounts](#volumes-versus-bind-mounts)
 - [Running with Docker compose](#running-with-docker-compose)
 - [Unraid](#unraid)
 - [Extending the image](#extending-the-image)
-  - [Birthday Calendar](#birthday-calendar)
+    - [Birthday Calendar](#birthday-calendar)
 - [Versioning with Git](#versioning-with-git)
 - [Custom User/Group ID for the data volume](#custom-usergroup-id-for-the-data-volume)
-  - [Option 0: Do nothing, permission will be fixed by the container itself](#option-0-do-nothing-permission-will-be-fixed-by-the-container-itself)
-  - [Option 1: Create a user/group with id `2999` on the host](#option-1-create-a-usergroup-with-id-2999-on-the-host)
-  - [Option 2: Force the user/group ids on `docker run`](#option-2-force-the-usergroup-ids-on-docker-run)
-  - [Option 3: Build the image with a custom user/group](#option-3-build-the-image-with-a-custom-usergroup)
+    - [Option 0: Do nothing, permission will be fixed by the container itself](#option-0-do-nothing-permission-will-be-fixed-by-the-container-itself)
+    - [Option 1: Create a user/group with id `2999` on the host](#option-1-create-a-usergroup-with-id-2999-on-the-host)
+    - [Option 2: Force the user/group ids on `docker run`](#option-2-force-the-usergroup-ids-on-docker-run)
+    - [Option 3: Build the image with a custom user/group](#option-3-build-the-image-with-a-custom-usergroup)
 - [Running with Podman](#running-with-podman)
 - [Running behind Caddy](#running-behind-caddy)
 - [Contributing](#contributing)
@@ -54,11 +55,12 @@ Enhanced Docker image for <a href="https://radicale.org">Radicale</a>, the CalDA
 * :closed_lock_with_key: **Secured**: the container is read-only, with only access to its data dir, and without extraneous privileges
 * :fire: **Safe**: run as a normal user (not root)
 * :building_construction: **Multi-architecture**: run on amd64 and arm64
-* :sparkles: **Batteries included**: 
-  * git and ssh included for [versioning](https://github.com/tomsquest/docker-radicale/#versioning-with-git)
-  * Python ldap3 for [LDAP authentication](https://github.com/Kozea/Radicale/wiki/LDAP-authentication)
-  * Python pytz for proper timezone handling
-  * Python bcrypt and argon2 for password hashing
+* :gear: **Easy configuration**: configure Radicale using environment variables (e.g., `RADICALE_SERVER_HOSTS=0.0.0.0:5232`)
+* :sparkles: **Batteries included**:
+    * git and ssh included for [versioning](https://github.com/tomsquest/docker-radicale/#versioning-with-git)
+    * Python ldap3 for [LDAP authentication](https://github.com/Kozea/Radicale/wiki/LDAP-authentication)
+    * Python pytz for proper timezone handling
+    * Python bcrypt and argon2 for password hashing
 
 ## Changelog
 
@@ -72,6 +74,7 @@ Two image versions are available:
 - **Version tags** (e.g., `1.2.3.4`): Specific Radicale versions with image updates
 
 **Which should you use?**
+
 - Use `tomsquest/docker-radicale:latest` for always-updated security patches (daily build)
 - Use `tomsquest/docker-radicale:$version` for stability with a specific Radicale version
 
@@ -80,6 +83,7 @@ Two image versions are available:
 Version tags follow this format: `[Radicale version].[Image revision]`
 
 For example, in `1.2.3.4`:
+
 - `1.2.3` is the Radicale version
 - The final `.4` is our image revision number, incremented for image-specific updates
 
@@ -91,6 +95,7 @@ For example, in `1.2.3.4`:
 ## Architectures
 
 The image is built for two architectures:
+
 - `amd64`: for your usual server
 - `arm64`: for Raspberry Pi
 
@@ -132,6 +137,7 @@ docker run -d --name radicale \
 ```
 
 Note on capabilities:
+
 - `CHOWN` is used to restore the permission of the `data` directory. Remove this if you do not need the `chown` to be run (see [below](#volumes-versus-bind-mounts))
 - `SETUID` and `SETGID` are used to run radicale as the less privileged `radicale` user (with su-exec), and are required.
 - `KILL` is to allow Radicale to exit, and is required.
@@ -142,19 +148,46 @@ A [Docker compose file](docker-compose.yml) is included.
 
 ## Custom configuration
 
+You can configure Radicale in two ways:
+
+### Option 1: Using environment variables (recommended for simple configurations)
+
+You can configure Radicale using environment variables without mounting a config file. Environment variables starting with `RADICALE_` will automatically update the configuration file at container startup.
+
+The format is: `RADICALE_SECTION_KEY=value`
+
+Examples:
+
+```bash
+docker run -d --name radicale \
+    -p 5232:5232 \
+    -e RADICALE_SERVER_HOSTS=0.0.0.0:5232 \
+    -e RADICALE_AUTH_TYPE=none \
+    -e RADICALE_STORAGE_FILESYSTEM_FOLDER=/data/collections \
+    -v ./data:/data \
+    tomsquest/docker-radicale
+```
+
+⚠️ Note: Respect the exact case for values (e.g., `none`, not `None`, `True` not `true`). Double-check the [config file](config) for correct casing.
+
+### Option 2: Using a custom config file
+
 To change Radicale configuration, first get the config file:
 
-* (Recommended) use this preconfigured [config file](config) from this repository,
+* use this preconfigured [config file](config) from this repository,
 * Or, use [the original Radicale config file](https://raw.githubusercontent.com/Kozea/Radicale/master/config) and:
-  1. set `hosts = 0.0.0.0:5232`
-  2. set `filesystem_folder = /data/collections`
-  3. set `[auth] type = none`
+    1. set `hosts = 0.0.0.0:5232`
+    2. set `filesystem_folder = /data/collections`
+    3. set `[auth] type = none`
 
 Then:
+
 1. create a config directory (eg. `mkdir -p /my_custom_config_directory`)
 2. copy your config file into the config folder (e.g. `cp config /my_custom_config_directory/config`)
 3. mount your custom config volume when running the container: `-v /my_custom_config_directory:/config:ro`.
-The `:ro` at the end make the volume read-only, and is more secured.
+   The `:ro` at the end make the volume read-only, and is more secured.
+
+**Note**: Environment variables will override values in the config file if both are present.
 
 ## Authentication configuration
 
@@ -203,7 +236,7 @@ With [Docker volumes](https://docs.docker.com/storage/volumes/), and not [bind-m
 
 This is done with the `TAKE_FILE_OWNERSHIP` environment variable.  
 The variable will tell the container to perform or skip the `chown` instruction.  
-The default value is `true`: the container will try to make the `data` directory writable to the `radicale` user.  
+The default value is `true`: the container will try to make the `data` directory writable to the `radicale` user.
 
 To disable the `chown`, declare the variable like this:
 
@@ -226,7 +259,7 @@ This image is compatible with Unraid, and you can find it in the [Community App 
 
 The image is extendable, as per Docker image architecture. You need to create your own `Dockerfile`.
 
-For example, here is how to add [RadicaleIMAP](https://github.com/Unrud/RadicaleIMAP) (authenticate by email) 
+For example, here is how to add [RadicaleIMAP](https://github.com/Unrud/RadicaleIMAP) (authenticate by email)
 and [RadicaleInfCloud](https://www.inf-it.com/open-source/clients/infcloud/) (an alternative UI) to the image.
 
 Please note that the [radicale-imap](https://gitlab.com/comzeradd/radicale-imap) plugin is not compatible with
@@ -259,7 +292,7 @@ Find its [project here](https://github.com/christf/docker-radicale-birthday) to 
 Radicale supports a hook which is executed after each change to the CalDAV/CardDAV files.
 This hook can be used to keep a versions of your CalDAV/CardDAV files through git.
 
-This image provides `git` to support this feature. 
+This image provides `git` to support this feature.
 
 Refer to the [official documentation of Radicale](https://radicale.org/v3.html#versioning-with-git) for the details.
 
@@ -281,6 +314,7 @@ To solve this, this image offers four options (see below for details):
 When running the container with a /data volume (e.g. `-v ./data:/data`), the container entrypoint will automatically fix the permissions on `/data`.
 
 This option is OK, but not optimal:
+
 - Ok for the container, as inside the container, the `radicale` user can read and write its data
 - But on the host, the data directory will then be owned by the user/group 2999:2999
 
@@ -303,7 +337,7 @@ The user and group ids used in the container can be overridden when the containe
 This is done with the `UID` and `GID` env variables, e.g. `docker run -e UID=123 -e GID=456 ...`.  
 This will force all operations to be run with this UID/GID.
 
-:warning: The **`--read-only`** run flag cannot be used in this case. 
+:warning: The **`--read-only`** run flag cannot be used in this case.
 Using custom UID/GID tries to modify the filesystem at runtime but this is made **impossible** by the `--read-only` flag.
 
 ### Option 3: Build the image with a custom user/group
@@ -318,6 +352,7 @@ Usage: `docker build --build-arg=BUILD_UID=5000 --build-arg=BUILD_GID=5001 ...`.
 ## Running with Podman
 
 Two users have given the instructions they used to run the image with Podman:
+
 - [@greylinux's instructions](https://github.com/tomsquest/docker-radicale/issues/122#issuecomment-1361240992)
 - [@strauss115's instructions](https://github.com/tomsquest/docker-radicale/issues/122#issuecomment-1874607285)
 
@@ -379,10 +414,10 @@ Note: the `latest` tag is generated automatically on each push (and daily).
 * [Adzero](https://github.com/adzero): override build args with environment variables
 * [Robert Beal](https://github.com/robertbeal): fixed/configurable userId, versioning...
 * [Loader23](https://github.com/Loader23): config volume idea
-* [Waja](https://github.com/waja): fewer layers is more, InfCloud integration (UI for Radicale) 
-* [Christian Burmeister](https://github.com/christianbur): add tzdata to be able to specify timezone 
+* [Waja](https://github.com/waja): fewer layers is more, InfCloud integration (UI for Radicale)
+* [Christian Burmeister](https://github.com/christianbur): add tzdata to be able to specify timezone
 * [Silas Lenz](https://github.com/silaslenz): add pytz for recurring events
-* [Enno Richter](https://github.com/elohmeier): bcrypt support 
-* [Andrew u frank](https://github.com/andrewufrank): house-cleaning of whitespaces in doc 
-* [Marcus Kimpenhaus](https://github.com/kimpenhaus): fix for Alpine and https 
+* [Enno Richter](https://github.com/elohmeier): bcrypt support
+* [Andrew u frank](https://github.com/andrewufrank): house-cleaning of whitespaces in doc
+* [Marcus Kimpenhaus](https://github.com/kimpenhaus): fix for Alpine and https
 * [Thomas Queste](https://github.com/tomsquest): initial image
