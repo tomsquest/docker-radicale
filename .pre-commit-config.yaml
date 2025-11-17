@@ -1,0 +1,27 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-yaml
+      - id: check-toml
+  - repo: local
+    hooks:
+      - id: ruff check
+        name: ruff check
+        entry: ruff check
+        args: [ --fix ]
+        language: system
+        types: [python]
+      - id: ruff format
+        name: ruff format
+        entry: ruff format
+        language: system
+        types: [python]
+      - id: pytest
+        name: pytest
+        entry: pytest
+        language: system
+        types: [python]
+        pass_filenames: false
+        always_run: true
+
