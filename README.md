@@ -381,10 +381,9 @@ radicale.yourdomain.com {
 
 ## Contributing
 
-To run the tests:
-
 1. `uv sync`
-2. `uv run pytest -v`
+2. `uv run pre-commit install`
+3. `uv run pre-commit run --all-files`
 
 ## Releasing
 
