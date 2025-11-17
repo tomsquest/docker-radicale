@@ -48,9 +48,13 @@ def update_config_from_env(config_path: str):
         changes_made = True
 
     if changes_made:
-        with open(config_file, "w") as f:
-            config.write(f)
-        print(f"Config updated at {config_path}")
+        if os.access(config_file, os.W_OK):
+            with open(config_file, "w") as f:
+                config.write(f)
+            print(f"Config updated at {config_path}")
+        else:
+            print(
+                f"Cannot update {config_path}: Read-only filesystem. Skipping environment updates.")
 
 
 if __name__ == "__main__":
