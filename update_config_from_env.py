@@ -23,6 +23,9 @@ def update_config_from_env(config_path: str):
     if not config_file.exists():
         print(f"Error: Config file {config_path} does not exist")
         return
+    if not os.access(config_file, os.R_OK | os.W_OK):
+        print(f"Error: Config file {config_path} is not readable or writable")
+        return
 
     config = ConfigParser()
     config.read(config_file)
@@ -48,13 +51,9 @@ def update_config_from_env(config_path: str):
         changes_made = True
 
     if changes_made:
-        if os.access(config_file, os.W_OK):
-            with open(config_file, "w") as f:
-                config.write(f)
-            print(f"Config updated at {config_path}")
-        else:
-            print(
-                f"Cannot update {config_path}: Read-only filesystem. Skipping environment updates.")
+        with open(config_file, "w") as f:
+            config.write(f)
+        print(f"Config updated at {config_path}")
 
 
 if __name__ == "__main__":
