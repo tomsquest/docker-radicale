@@ -36,7 +36,7 @@ def update_config_from_env(config_path: str):
         if not env_var.startswith(ENV_PREFIX):
             continue
 
-        parts = env_var[len(ENV_PREFIX):].lower().split("_", 1)
+        parts = env_var[len(ENV_PREFIX) :].lower().split("_", 1)
         if len(parts) < 2:
             print(f"Warning: Invalid environment variable format: {env_var}")
             continue
