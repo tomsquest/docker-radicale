@@ -23,6 +23,9 @@ def update_config_from_env(config_path: str):
     if not config_file.exists():
         print(f"Error: Config file {config_path} does not exist")
         return
+    if not os.access(config_file, os.R_OK | os.W_OK):
+        print(f"Error: Config file {config_path} is not readable or writable")
+        return
 
     config = ConfigParser()
     config.read(config_file)
