@@ -1,7 +1,7 @@
 import configparser
+import subprocess
 
 import pytest
-import subprocess
 import testinfra
 
 
@@ -16,9 +16,9 @@ def host():
                 "-d",
                 "--init",
                 "-e",
-                "RADICALE_WEB_TYPE=internal",
+                "RADICALE_CONFIG_WEB_TYPE=internal",
                 "-e",
-                "RADICALE_FOO_BAR=qix",
+                "RADICALE_CONFIG_FOO_BAR=qix",
                 "radicale-under-test",
             ]
         )
