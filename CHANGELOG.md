@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [3.5.8.2] - 2025-11-19
+
+## Changed
+
+- [Avoid writing to read-only config files on Kubernetes ConfigMaps](https://github.com/tomsquest/docker-radicale/pull/212)
+- [Change env var prefix to avoid conflict from `RADICALE_` to `RADICALE_CONFIG_`](https://github.com/tomsquest/docker-radicale/pull/214)
+
 ## [3.5.8.1] - 2025-11-16
 
 ## Added
