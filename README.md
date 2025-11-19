@@ -17,33 +17,34 @@ Enhanced Docker image for <a href="https://radicale.org">Radicale</a>, the CalDA
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 ## Table of contents
 
 - [Features](#features)
 - [Changelog](#changelog)
 - [Versions](#versions)
-  - [Version Tag Format](#version-tag-format)
-  - [Latest version](#latest-version)
+    - [Version Tag Format](#version-tag-format)
+    - [Latest version](#latest-version)
 - [Architectures](#architectures)
 - [Running](#running)
-  - [Option 1: **Basic** instruction](#option-1-basic-instruction)
-  - [Option 2: **Recommended, Production-grade** instruction (secured, safe...) :rocket:](#option-2-recommended-production-grade-instruction-secured-safe-rocket)
-  - [Docker Compose](#docker-compose)
+    - [Option 1: **Basic** instruction](#option-1-basic-instruction)
+    - [Option 2: **Recommended, Production-grade** instruction (secured, safe...) :rocket:](#option-2-recommended-production-grade-instruction-secured-safe-rocket)
+    - [Docker Compose](#docker-compose)
 - [Custom configuration](#custom-configuration)
-  - [Option 1: Using environment variables (recommended for simple configurations)](#option-1-using-environment-variables-recommended-for-simple-configurations)
-  - [Option 2: Using a custom config file](#option-2-using-a-custom-config-file)
+    - [Option 1: Using environment variables (recommended for simple configurations)](#option-1-using-environment-variables-recommended-for-simple-configurations)
+    - [Option 2: Using a custom config file](#option-2-using-a-custom-config-file)
 - [Authentication configuration](#authentication-configuration)
 - [Volumes versus Bind-Mounts](#volumes-versus-bind-mounts)
 - [Running with Docker compose](#running-with-docker-compose)
 - [Unraid](#unraid)
 - [Extending the image](#extending-the-image)
-  - [Birthday Calendar](#birthday-calendar)
+    - [Birthday Calendar](#birthday-calendar)
 - [Versioning with Git](#versioning-with-git)
 - [Custom User/Group ID for the data volume](#custom-usergroup-id-for-the-data-volume)
-  - [Option 0: Do nothing, permission will be fixed by the container itself](#option-0-do-nothing-permission-will-be-fixed-by-the-container-itself)
-  - [Option 1: Create a user/group with id `2999` on the host](#option-1-create-a-usergroup-with-id-2999-on-the-host)
-  - [Option 2: Force the user/group ids on `docker run`](#option-2-force-the-usergroup-ids-on-docker-run)
-  - [Option 3: Build the image with a custom user/group](#option-3-build-the-image-with-a-custom-usergroup)
+    - [Option 0: Do nothing, permission will be fixed by the container itself](#option-0-do-nothing-permission-will-be-fixed-by-the-container-itself)
+    - [Option 1: Create a user/group with id `2999` on the host](#option-1-create-a-usergroup-with-id-2999-on-the-host)
+    - [Option 2: Force the user/group ids on `docker run`](#option-2-force-the-usergroup-ids-on-docker-run)
+    - [Option 3: Build the image with a custom user/group](#option-3-build-the-image-with-a-custom-usergroup)
 - [Running with Podman](#running-with-podman)
 - [Running behind Caddy](#running-behind-caddy)
 - [Contributing](#contributing)
@@ -402,6 +403,7 @@ Note: the `latest` tag is generated automatically on each push (and daily).
 
 ## Contributors
 
+* [Coen](https://github.com/x-real-ip): fix for non-writable config
 * [Oscar Carlsson](https://github.com/oscarcarlsson): update Radicale to 3.5.5
 * [Emil Miller](https://github.com/realcharmer): update Radicale to 3.3.0
 * [Nate Harris](https://github.com/nwithan8): add image to Unraid community app store
