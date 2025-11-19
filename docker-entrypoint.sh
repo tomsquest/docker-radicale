@@ -28,7 +28,7 @@ fi
 
 # Update config from Env
 # Only run if some env vars are defined
-if env | grep -q "^RADICALE_"; then
+if env | grep -q "^RADICALE_CONFIG_"; then
     # Fail gracefully if read-only
     if [ "$IS_READONLY" = "true" ]; then
         echo "Environment variable-based config update is disabled because the container is running with --read-only."

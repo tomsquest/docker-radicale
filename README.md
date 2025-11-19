@@ -57,7 +57,7 @@ Enhanced Docker image for <a href="https://radicale.org">Radicale</a>, the CalDA
 * :closed_lock_with_key: **Secured**: the container is read-only, with only access to its data dir, and without extraneous privileges
 * :fire: **Safe**: run as a normal user (not root)
 * :building_construction: **Multi-architecture**: run on amd64 and arm64
-* :gear: **Easy configuration**: configure Radicale using environment variables (e.g., `RADICALE_SERVER_HOSTS=0.0.0.0:5232`)
+* :gear: **Easy configuration**: configure Radicale using environment variables (e.g., `RADICALE_CONFIG_SERVER_HOSTS=0.0.0.0:5232`)
 * :sparkles: **Batteries included**:
     * git and ssh included for [versioning](https://github.com/tomsquest/docker-radicale/#versioning-with-git)
     * Python ldap3 for [LDAP authentication](https://github.com/Kozea/Radicale/wiki/LDAP-authentication)
@@ -154,18 +154,18 @@ You can configure Radicale in two ways:
 
 ### Option 1: Using environment variables (recommended for simple configurations)
 
-You can configure Radicale using environment variables without mounting a config file. Environment variables starting with `RADICALE_` will automatically update the configuration file at container startup.
+You can configure Radicale using environment variables without mounting a config file. Environment variables starting with `RADICALE_CONFIG_` will automatically update the configuration file at container startup.
 
-The format is: `RADICALE_SECTION_KEY=value`
+The format is: `RADICALE_CONFIG_SECTION_KEY=value`
 
 Examples:
 
 ```bash
 docker run -d --name radicale \
     -p 5232:5232 \
-    -e RADICALE_SERVER_HOSTS=0.0.0.0:5232 \
-    -e RADICALE_AUTH_TYPE=none \
-    -e RADICALE_STORAGE_FILESYSTEM_FOLDER=/data/collections \
+    -e RADICALE_CONFIG_SERVER_HOSTS=0.0.0.0:5232 \
+    -e RADICALE_CONFIG_AUTH_TYPE=none \
+    -e RADICALE_CONFIG_STORAGE_FILESYSTEM_FOLDER=/data/collections \
     -v ./data:/data \
     tomsquest/docker-radicale
 ```

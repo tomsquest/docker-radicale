@@ -37,10 +37,10 @@ def test_some_env_vars(tmp_path: Path, monkeypatch) -> None:
         """).strip()
     )
 
-    monkeypatch.setenv("RADICALE_SERVER_HOSTS", "0.0.0.0:5232")
-    monkeypatch.setenv("RADICALE_SERVER_SSL", "False")
-    monkeypatch.setenv("RADICALE_SERVER_TIMEOUT", "45")
-    monkeypatch.setenv("RADICALE_AUTH_TYPE", "none")
+    monkeypatch.setenv("RADICALE_CONFIG_SERVER_HOSTS", "0.0.0.0:5232")
+    monkeypatch.setenv("RADICALE_CONFIG_SERVER_SSL", "False")
+    monkeypatch.setenv("RADICALE_CONFIG_SERVER_TIMEOUT", "45")
+    monkeypatch.setenv("RADICALE_CONFIG_AUTH_TYPE", "none")
 
     update_config_from_env(str(config_file))
 
@@ -61,7 +61,7 @@ def test_new_section(tmp_path: Path, monkeypatch) -> None:
         """).strip()
     )
 
-    monkeypatch.setenv("RADICALE_MYSECTION_MYKEY", "myvalue")
+    monkeypatch.setenv("RADICALE_CONFIG_MYSECTION_MYKEY", "myvalue")
 
     update_config_from_env(str(config_file))
 
