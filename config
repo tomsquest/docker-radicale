@@ -64,7 +64,7 @@ hosts = 0.0.0.0:5232
 [auth]
 
 # Authentication method
-# Value: none | htpasswd | remote_user | http_x_remote_user | dovecot | ldap | oauth2 | pam | denyall
+# Value: none | htpasswd | remote_user | http_remote_user | http_x_remote_user | dovecot | ldap | oauth2 | pam | denyall
 #type = denyall
 type = none
 

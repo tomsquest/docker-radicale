@@ -1,5 +1,6 @@
-import pytest
 import subprocess
+
+import pytest
 import testinfra
 
 
@@ -51,7 +52,7 @@ def test_port(host):
 
 
 def test_version(host):
-    assert host.check_output("/venv/bin/radicale --version") == "3.5.8"
+    assert host.check_output("/venv/bin/radicale --version") == "3.5.9"
 
 
 def test_user(host):
