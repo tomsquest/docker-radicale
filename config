@@ -22,9 +22,14 @@ hosts = 0.0.0.0:5232
 # Max parallel connections
 #max_connections = 8
 
-# Max size of request body (bytes)
+# Max size of request body (bytes), default: 100 Mbyte
 # In case of using a reverse proxy in front of check also there related option
 #max_content_length = 100000000
+
+# Max resource size (bytes), default: 10 Mbyte
+# Limited to 80% of max_content_length to cover plain base64 encoded payload
+# Announced to clients requesting "max-resource-size" via PROPFIND
+#max_ressource_size = 10000000
 
 # Socket timeout (seconds)
 #timeout = 30
@@ -315,6 +320,9 @@ filesystem_folder = /data/collections
 # Log request content on level=debug
 #request_content_on_debug = False
 
+# Log response header on level=debug
+#response_header_on_debug = False
+
 # Log response content on level=debug
 #response_content_on_debug = False
 
@@ -323,6 +331,26 @@ filesystem_folder = /data/collections
 
 # Log storage cache actions on level=debug
 #storage_cache_actions_on_debug = False
+
+# Log profiling data on level=info
+# Value: per_request | per_request_method | none
+#profiling = none
+
+# Log profiling data per request minimum duration (seconds)
+#profiling_per_request_min_duration = 3
+
+# Log profiling request header (if passing minimum duration)
+#profiling_per_request_header = False
+
+# Log profiling request XML (if passing minimum duration)
+#profiling_per_request_xml = False
+
+# Log profiling data per request method interval (seconds)
+#profiling_per_request_method_interval = 600
+
+# Log profiling top X functions (limit)
+#profiling_top_x_functions = 10
+
 
 [headers]
 
