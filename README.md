@@ -389,13 +389,13 @@ radicale.yourdomain.com {
 ## Releasing
 
 ```bash
-# Update local tags
+# 1. Update local tags
 git fetch --all --tags
-# Update `CHANGELOG.md` (after the PR is merged)
+# 2. Update `CHANGELOG.md` (after the PR is merged)
 ...
-# Create tag
+# 3. Create tag
 TAG=1.2.3.4 && git tag $TAG && git push origin $TAG
-# Draft a new release
+# 4. Draft a new release
 xdg-open https://github.com/tomsquest/docker-radicale/releases/new
 ```
 
