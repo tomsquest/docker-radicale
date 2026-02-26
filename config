@@ -103,9 +103,6 @@ type = none
 # Attribute holding the value to be used as username after authentication
 #ldap_user_attribute = cn
 
-# Use ssl on the LDAP connection (DEPRECATED - use 'ldap_security'!)
-#ldap_use_ssl = False
-
 # Encryption mode to be used. Default: none; one of: none, tls, starttls
 #ldap_security = none
 
@@ -157,6 +154,12 @@ type = none
 
 # OAuth2 token endpoint URL
 #oauth2_token_endpoint = <URL>
+
+# OAuth2 client id
+#oauth2_client_id = radicale
+
+# OAuth2 client secret (optional)
+#oauth2_client_secret =
 
 # PAM service
 #pam_serivce = radicale
@@ -271,18 +274,31 @@ filesystem_folder = /data/collections
 #
 # json format:
 #
-#  {
-#    "def-addressbook": {
+# predefined_collections = {
+#    "def-personal-addressbook": {
 #       "D:displayname": "Personal Address Book",
 #       "tag": "VADDRESSBOOK"
 #    },
-#    "def-calendar": {
+#    "def-work-addressbook": {
+#       "D:displayname": "Work Address Book",
+#       "tag": "VADDRESSBOOK"
+#    },
+#    "def-personal-calendar": {
 #       "C:supported-calendar-component-set": "VEVENT,VJOURNAL,VTODO",
 #       "D:displayname": "Personal Calendar",
 #       "tag": "VCALENDAR"
+#    },
+#    "def-birthday-calendar": {
+#       "C:supported-calendar-component-set": "VEVENT",
+#       "D:displayname": "Birthday Calendar",
+#       "tag": "VCALENDAR"
+#    },
+#    "def-work-calendar": {
+#       "C:supported-calendar-component-set": "VEVENT",
+#       "D:displayname": "Work Calendar",
+#       "tag": "VCALENDAR"
 #    }
 #  }
-#
 #predefined_collections =
 
 
