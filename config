@@ -22,6 +22,9 @@ hosts = 0.0.0.0:5232
 # Max parallel connections
 #max_connections = 8
 
+# Base delay in case of error 5xx response (seconds)
+#delay_on_error = 1
+
 # Max size of request body (bytes), default: 100 Mbyte
 # In case of using a reverse proxy in front of check also there related option
 #max_content_length = 100000000
@@ -29,7 +32,7 @@ hosts = 0.0.0.0:5232
 # Max resource size (bytes), default: 10 Mbyte
 # Limited to 80% of max_content_length to cover plain base64 encoded payload
 # Announced to clients requesting "max-resource-size" via PROPFIND
-#max_ressource_size = 10000000
+#max_resource_size = 10000000
 
 # Socket timeout (seconds)
 #timeout = 30
@@ -179,7 +182,7 @@ type = none
 # Enable caching of htpasswd file based on size and mtime_ns
 #htpasswd_cache = False
 
-# Incorrect authentication delay (seconds)
+# Incorrect or missing authentication or denied access average delay (seconds)
 #delay = 1
 
 # Message displayed in the client when a password is needed
@@ -302,6 +305,53 @@ filesystem_folder = /data/collections
 #predefined_collections =
 
 
+[sharing]
+
+# Sharing database type
+# Value: none | csv | files
+#type = none
+
+# Sharing database path for type 'csv'
+#database_path = (filesystem_folder)/collection-db/sharing.csv
+
+# Sharing database path for type 'files'
+#database_path = (filesystem_folder)/collection-db/files
+
+# Share collection by token
+#collection_by_token = false
+
+# Share collection by map
+#collection_by_map = false
+
+# Permit create of token-based sharing
+#  If False it can be explicitly granted by permissions: t
+#  If True it can be explicitly forbidden by permissions: T
+#permit_create_token = false
+
+# Permit create of map-based sharing
+#  If False it can be explicitly granted by permissions: m
+#  If True it can be explicitly forbidden by permissions: M
+#permit_create_map = false
+
+# Permit properties overlay
+#  If False it can be explicitly granted by share permissions: P
+#  If True it can be explicitly forbidden by share permissions: p
+#permit_properties_overlay = false
+
+# Enforce properties overlay on write access
+#  If False it can be explicitly enforced by share permissions: E
+#  If True it can be explicitly forbidden by share permissions: e
+#enforce_properties_overlay = true
+
+# Default permissions for token-based sharing
+#   Supported: rwEePp
+#default_permissions_create_token = rp
+
+# Default permissions for map-based sharing
+#   Supported: rwEePp
+#default_permissions_create_map = r
+
+
 [web]
 
 # Web interface backend
@@ -312,13 +362,13 @@ filesystem_folder = /data/collections
 [logging]
 
 # Threshold for the logger
-# Value: debug | info | warning | error | critical
+# Value: trace | debug | info | notice | warning | error | critical | alert
 #level = info
 
-# do not filter debug messages starting with 'TRACE'
-#trace_on_debug = False
+# Limit content of wrapped text (chars)
+#limit_content = 3000
 
-# filter debug messages starting with 'TRACE/<TOKEN>'
+# filter debug messages starting with '<TOKEN>'
 #trace_filter = ""
 
 # Don't include passwords in logs
@@ -373,6 +423,9 @@ filesystem_folder = /data/collections
 # Additional HTTP headers
 #Access-Control-Allow-Origin = *
 
+# Set CSP to disallow execution of unknown javascript
+# This may become the default in future versions, override if you need a different CSP.
+Content-Security-Policy = default-src 'self'; object-src 'none'
 
 [hook]
 
