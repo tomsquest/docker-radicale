@@ -47,7 +47,7 @@ def update_config_from_env(config_path: str):
             config.add_section(section)
 
         config.set(section, key, value)
-        print(f"Updated [{section}] {key} = {value}")
+        print(f"Updated [{section}] {key}")
         changes_made = True
 
     if changes_made:
