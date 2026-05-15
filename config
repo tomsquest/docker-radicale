@@ -400,6 +400,18 @@ filesystem_folder = /data/collections
 # Log response content on level=debug
 #response_content_on_debug = False
 
+# Log request header on level=notice with condition
+#request_header_on_notice_condition = {}
+
+# Log request content on level=notice with condition
+#request_content_on_notice_condition = {}
+
+# Log response header on level=notice with condition
+#response_header_on_notice_condition = {}
+
+# Log response content on level=notice with condition
+#response_content_on_notice_condition = {}
+
 # Log rights rule which doesn't match on level=debug
 #rights_rule_doesnt_match_on_debug = False
 
