@@ -183,9 +183,9 @@ To change Radicale configuration, first get the config file:
 
 * use this preconfigured [config file](config) from this repository,
 * Or, use [the original Radicale config file](https://raw.githubusercontent.com/Kozea/Radicale/master/config) and:
-    1. set `hosts = 0.0.0.0:5232`
-    2. set `filesystem_folder = /data/collections`
-    3. set `[auth] type = none`
+    1. in `[server]`, set `hosts = 0.0.0.0:5232`
+    2. in `[storage]`, set `filesystem_folder = /data/collections`
+    3. in `[auth]`, set `type = none`
 
 Then:
 
