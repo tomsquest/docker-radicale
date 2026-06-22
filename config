@@ -20,3 +20,12 @@ type = none
 # Folder for storing local collections, created if not present
 #filesystem_folder = /var/lib/radicale/collections
 filesystem_folder = /data/collections
+
+[headers]
+
+# Set CSP to disallow execution of unknown javascript
+# This may become the default in future versions, override if you need a different CSP.
+#
+# NOTE TOM: added this config until it becomes the default in future versions of Radicale.
+#
+Content-Security-Policy = default-src 'self'; object-src 'none'
