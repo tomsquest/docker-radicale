@@ -24,11 +24,28 @@ jobs:
           latest="${REQUESTED:-$(curl -fsSL https://pypi.org/pypi/radicale/json | jq -r '.info.version')}"
           current=$(grep -oP 'VERSION:-\K[0-9.]+' Dockerfile)
           echo "Target Radicale version: $latest, in this repo: $current"
+
+          if ! echo "$latest" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "::error::'$latest' is not a Radicale version number"
+            exit 1
+          fi
+
+          if [ "$latest" = "$current" ]; then
+            echo "Already on Radicale $current, nothing to do."
+            exit 0
+          fi
+
+          # Sorted by version, not as strings: 3.5.10 is newer than 3.5.9
+          if [ "$(printf '%s\n%s\n' "$current" "$latest" | sort -V | tail -1)" != "$latest" ]; then
+            echo "::error::Radicale $latest is older than $current. Master must not go backwards."
+            exit 1
+          fi
+
           echo "latest=$latest" >> "$GITHUB_OUTPUT"
           echo "current=$current" >> "$GITHUB_OUTPUT"
 
       - name: Bump version
-        if: steps.versions.outputs.latest != steps.versions.outputs.current
+        if: steps.versions.outputs.latest
         env:
           LATEST: ${{ steps.versions.outputs.latest }}
           CURRENT: ${{ steps.versions.outputs.current }}
@@ -50,7 +67,7 @@ jobs:
           git diff --stat
 
       - name: Open pull request
-        if: steps.versions.outputs.latest != steps.versions.outputs.current
+        if: steps.versions.outputs.latest
         uses: peter-evans/create-pull-request@v7
         with:
           # A PAT (not GITHUB_TOKEN) so that the build workflow runs on this PR

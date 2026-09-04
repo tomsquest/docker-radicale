@@ -403,7 +403,9 @@ version in the `Dockerfile`. When a new one is out, it opens a pull request upda
 tags `X.Y.Z.0`, creates the GitHub release from the `CHANGELOG.md` entry, and the tag pushes
 the image to Docker Hub.
 
-The workflow can also be run on demand from the Actions tab.
+The workflow can also be run on demand from the Actions tab, optionally with a version to
+update to, to release a version that was skipped. A version older than the one currently
+pinned is rejected: `master` must not go backwards, or `latest` would downgrade with it.
 
 ### Releasing a change to the image itself
 
