@@ -17,38 +17,40 @@ Enhanced Docker image for <a href="https://radicale.org">Radicale</a>, the CalDA
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
 ## Table of contents
 
 - [Features](#features)
 - [Changelog](#changelog)
 - [Versions](#versions)
-    - [Version Tag Format](#version-tag-format)
-    - [Latest version](#latest-version)
+  - [Version Tag Format](#version-tag-format)
+  - [Latest version](#latest-version)
 - [Architectures](#architectures)
 - [Running](#running)
-    - [Option 1: **Basic** instruction](#option-1-basic-instruction)
-    - [Option 2: **Recommended, Production-grade** instruction (secured, safe...) :rocket:](#option-2-recommended-production-grade-instruction-secured-safe-rocket)
-    - [Docker Compose](#docker-compose)
+  - [Option 1: **Basic** instruction](#option-1-basic-instruction)
+  - [Option 2: **Recommended, Production-grade** instruction (secured, safe...) :rocket:](#option-2-recommended-production-grade-instruction-secured-safe-rocket)
+  - [Docker Compose](#docker-compose)
 - [Custom configuration](#custom-configuration)
-    - [Option 1: Using environment variables (recommended for simple configurations)](#option-1-using-environment-variables-recommended-for-simple-configurations)
-    - [Option 2: Using a custom config file](#option-2-using-a-custom-config-file)
+  - [Option 1: Using environment variables (recommended for simple configurations)](#option-1-using-environment-variables-recommended-for-simple-configurations)
+  - [Option 2: Using a custom config file](#option-2-using-a-custom-config-file)
 - [Authentication configuration](#authentication-configuration)
 - [Volumes versus Bind-Mounts](#volumes-versus-bind-mounts)
 - [Running with Docker compose](#running-with-docker-compose)
 - [Unraid](#unraid)
 - [Extending the image](#extending-the-image)
-    - [Birthday Calendar](#birthday-calendar)
+  - [Birthday Calendar](#birthday-calendar)
 - [Versioning with Git](#versioning-with-git)
 - [Custom User/Group ID for the data volume](#custom-usergroup-id-for-the-data-volume)
-    - [Option 0: Do nothing, permission will be fixed by the container itself](#option-0-do-nothing-permission-will-be-fixed-by-the-container-itself)
-    - [Option 1: Create a user/group with id `2999` on the host](#option-1-create-a-usergroup-with-id-2999-on-the-host)
-    - [Option 2: Force the user/group ids on `docker run`](#option-2-force-the-usergroup-ids-on-docker-run)
-    - [Option 3: Build the image with a custom user/group](#option-3-build-the-image-with-a-custom-usergroup)
+  - [Option 0: Do nothing, permission will be fixed by the container itself](#option-0-do-nothing-permission-will-be-fixed-by-the-container-itself)
+  - [Option 1: Create a user/group with id `2999` on the host](#option-1-create-a-usergroup-with-id-2999-on-the-host)
+  - [Option 2: Force the user/group ids on `docker run`](#option-2-force-the-usergroup-ids-on-docker-run)
+  - [Option 3: Build the image with a custom user/group](#option-3-build-the-image-with-a-custom-usergroup)
 - [Running with Podman](#running-with-podman)
 - [Running behind Caddy](#running-behind-caddy)
 - [Contributing](#contributing)
 - [Releasing](#releasing)
+  - [Updating Radicale (automated)](#updating-radicale-automated)
+  - [Releasing a change to the image itself](#releasing-a-change-to-the-image-itself)
+  - [Maintenance](#maintenance)
 - [Contributors](#contributors)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -388,18 +390,37 @@ radicale.yourdomain.com {
 
 ## Releasing
 
-```bash
-# 1. Update local tags
-git fetch --all --tags
-# 2. Update `CHANGELOG.md` (after the PR is merged)
-...
-# 3. Create tag
-TAG=1.2.3.4 && git tag $TAG && git push origin $TAG
-# 4. Draft a new release
-xdg-open https://github.com/tomsquest/docker-radicale/releases/new
-```
+Versions are named after Radicale, plus a fourth digit for this image's own revisions:
+Radicale `3.8.0` is released as `3.8.0.0`, and a later fix to the image alone as `3.8.0.1`.
 
-Note: the `latest` tag is generated automatically on each push (and daily).
+### Updating Radicale (automated)
+
+Every morning, the `bump_radicale` workflow compares the latest Radicale on PyPI with the
+version in the `Dockerfile`. When a new one is out, it opens a pull request updating the
+`Dockerfile`, `test_image_prod.py` and `CHANGELOG.md`.
+
+**Merging that pull request is the whole release.** Once merged, the `tag_release` workflow
+tags `X.Y.Z.0`, creates the GitHub release from the `CHANGELOG.md` entry, and the tag pushes
+the image to Docker Hub.
+
+The workflow can also be run on demand from the Actions tab.
+
+### Releasing a change to the image itself
+
+Changes that do not update Radicale (a fix to the entrypoint, a new package...) are published
+manually, when they are worth a fixed version:
+[draft a new release](https://github.com/tomsquest/docker-radicale/releases/new) with the next
+revision as the tag, e.g. `3.8.0.1`. Creating the tag builds and pushes the image.
+
+Note: the `latest` tag is generated automatically on each push (and daily), so such a change is
+already available there beforehand.
+
+### Maintenance
+
+Both workflows authenticate with a fine-grained personal access token stored as the
+`RELEASE_TOKEN` repository secret, with `Contents` and `Pull requests` write access. A plain
+`GITHUB_TOKEN` would not do: pull requests and tags it creates do not trigger the build and
+release workflows. The token expires, and `bump_radicale` fails when it does.
 
 ## Contributors
 

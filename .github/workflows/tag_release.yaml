@@ -1,0 +1,43 @@
+name: tag_release
+on:
+  push:
+    branches:
+      - master
+concurrency:
+  group: ${{ github.workflow }}
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          # A PAT (not GITHUB_TOKEN) so that pushing the tag runs the release workflow
+          token: ${{ secrets.RELEASE_TOKEN }}
+
+      - name: Check whether this version is already released
+        id: check
+        run: |
+          tag="$(grep -oP 'VERSION:-\K[0-9.]+' Dockerfile).0"
+          if git rev-parse -q --verify "refs/tags/$tag" > /dev/null; then
+            echo "Tag $tag already exists, nothing to release."
+          else
+            echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Tag and release
+        if: steps.check.outputs.tag
+        env:
+          TAG: ${{ steps.check.outputs.tag }}
+          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        run: |
+          notes=$(awk -v tag="$TAG" '
+            $0 ~ "^## \\[" tag "\\]" { found = 1; next }
+            found && /^## \[/ { exit }
+            found { print }
+          ' CHANGELOG.md)
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag "$TAG"
+          git push origin "$TAG"
+          gh release create "$TAG" --title "$TAG" --notes "${notes:-See CHANGELOG.md}"
