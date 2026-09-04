@@ -1,0 +1,82 @@
+name: bump_radicale
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Radicale version to update to. Defaults to the latest on PyPI.'
+        required: false
+  schedule:
+    - cron: '0 6 * * *'
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compare Radicale versions
+        id: versions
+        env:
+          REQUESTED: ${{ inputs.version }}
+        run: |
+          latest="${REQUESTED:-$(curl -fsSL https://pypi.org/pypi/radicale/json | jq -r '.info.version')}"
+          current=$(grep -oP 'VERSION:-\K[0-9.]+' Dockerfile)
+          echo "Target Radicale version: $latest, in this repo: $current"
+
+          if ! echo "$latest" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "::error::'$latest' is not a Radicale version number"
+            exit 1
+          fi
+
+          if [ "$latest" = "$current" ]; then
+            echo "Already on Radicale $current, nothing to do."
+            exit 0
+          fi
+
+          # Sorted by version, not as strings: 3.5.10 is newer than 3.5.9
+          if [ "$(printf '%s\n%s\n' "$current" "$latest" | sort -V | tail -1)" != "$latest" ]; then
+            echo "::error::Radicale $latest is older than $current. Master must not go backwards."
+            exit 1
+          fi
+
+          echo "latest=$latest" >> "$GITHUB_OUTPUT"
+          echo "current=$current" >> "$GITHUB_OUTPUT"
+
+      - name: Bump version
+        if: steps.versions.outputs.latest
+        env:
+          LATEST: ${{ steps.versions.outputs.latest }}
+          CURRENT: ${{ steps.versions.outputs.current }}
+        run: |
+          sed -i "s/VERSION:-$CURRENT/VERSION:-$LATEST/" Dockerfile
+          sed -i "s/\"$CURRENT\"/\"$LATEST\"/" test_image_prod.py
+          awk -v v="$LATEST" -v d="$(date -u +%F)" '
+            !inserted && /^## \[/ {
+              print "## [" v ".0] - " d
+              print ""
+              print "## Changed"
+              print ""
+              print "- [Update to Radicale " v "](https://github.com/Kozea/Radicale/releases/tag/v" v ")"
+              print ""
+              inserted = 1
+            }
+            { print }
+          ' CHANGELOG.md > CHANGELOG.md.tmp && mv -f CHANGELOG.md.tmp CHANGELOG.md
+          git diff --stat
+
+      - name: Open pull request
+        if: steps.versions.outputs.latest
+        uses: peter-evans/create-pull-request@v7
+        with:
+          # A PAT (not GITHUB_TOKEN) so that the build workflow runs on this PR
+          token: ${{ secrets.RELEASE_TOKEN }}
+          branch: radicale-update
+          delete-branch: true
+          commit-message: 'chore: update to Radicale ${{ steps.versions.outputs.latest }}'
+          title: 'chore: update to Radicale ${{ steps.versions.outputs.latest }}'
+          body: |
+            Radicale [${{ steps.versions.outputs.latest }}](https://github.com/Kozea/Radicale/releases/tag/v${{ steps.versions.outputs.latest }}) is out (this repo is on ${{ steps.versions.outputs.current }}).
+
+            Merging this PR tags `${{ steps.versions.outputs.latest }}.0` and publishes the release.
