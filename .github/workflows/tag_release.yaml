@@ -15,29 +15,30 @@ jobs:
           # A PAT (not GITHUB_TOKEN) so that pushing the tag runs the release workflow
           token: ${{ secrets.RELEASE_TOKEN }}
 
-      - name: Check whether this version is already released
-        id: check
-        run: |
-          tag="$(grep -oP 'VERSION:-\K[0-9.]+' Dockerfile).0"
-          if git rev-parse -q --verify "refs/tags/$tag" > /dev/null; then
-            echo "Tag $tag already exists, nothing to release."
-          else
-            echo "tag=$tag" >> "$GITHUB_OUTPUT"
-          fi
-
+      # Both halves are checked on their own, so that re-running the job
+      # after a partial failure completes what is missing
       - name: Tag and release
-        if: steps.check.outputs.tag
         env:
-          TAG: ${{ steps.check.outputs.tag }}
           GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         run: |
-          notes=$(awk -v tag="$TAG" '
-            $0 ~ "^## \\[" tag "\\]" { found = 1; next }
-            found && /^## \[/ { exit }
-            found { print }
-          ' CHANGELOG.md)
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git tag "$TAG"
-          git push origin "$TAG"
-          gh release create "$TAG" --title "$TAG" --notes "${notes:-See CHANGELOG.md}"
+          TAG="$(grep -oP 'VERSION:-\K[0-9.]+' Dockerfile).0"
+
+          if git rev-parse -q --verify "refs/tags/$TAG" > /dev/null; then
+            echo "Tag $TAG already exists, nothing to tag."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git tag "$TAG"
+            git push origin "$TAG"
+          fi
+
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            echo "Release $TAG already exists, nothing to release."
+          else
+            notes=$(awk -v tag="$TAG" '
+              $0 ~ "^## \\[" tag "\\]" { found = 1; next }
+              found && /^## \[/ { exit }
+              found { print }
+            ' CHANGELOG.md)
+            gh release create "$TAG" --title "$TAG" --notes "${notes:-See CHANGELOG.md}"
+          fi
