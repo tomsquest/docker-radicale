@@ -176,8 +176,7 @@ docker run -d --name radicale \
 ⚠️ Notes:
 
 1. Setting environment variables will rewrite the config file, removing any comments.
-2. Environment variables don't work with `--read-only` containers. Use a custom config file instead (see Option 2 below).
-3. Use exact case for values (e.g., `True`, not `true`). Check the [config file](config) for correct casing.
+2. Use exact case for values (e.g., `True`, not `true`). Check the [config file](config) for correct casing.
 
 ### Option 2: Using a custom config file
 

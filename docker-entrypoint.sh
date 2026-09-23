@@ -2,38 +2,38 @@
 
 set -e
 
-# Check if container is running with --read-only
-IS_READONLY=$(grep -e "\s/\s.*\sro[\s,]" /proc/mounts > /dev/null && echo "true" || echo "false")
+# True if the file exists and can be written.
+# Workaround due to busybox `[ -w ]` checks always true for root, even on read-only mounts.
+is_writable() {
+    [ -f "$1" ] && ( : >> "$1" ) 2>/dev/null
+}
 
 # Change uid/gid of radicale if vars specified
 if [ -n "$UID" ] || [ -n "$GID" ]; then
-    if [ ! "$UID" = "$(id radicale -u)" ] || [ ! "$GID" = "$(id radicale -g)" ]; then
-        # Fail on read-only container
-        if [ "$IS_READONLY" = "true" ]; then
-            echo "You specified custom UID/GID (UID: $UID, GID: $GID)."
-            echo "UID/GID can only be changed when not running the container with --read-only."
-            echo "Please see the README.md for how to proceed and for explanations."
-            exit 1
-        fi
+    # Fail on read-only container
+    if ! is_writable /etc/passwd; then
+        echo "You specified custom UID/GID (UID: $UID, GID: $GID)."
+        echo "UID/GID can only be changed when not running the container with --read-only."
+        echo "Please see the README.md for how to proceed and for explanations."
+        exit 1
+    fi
 
-        if [ -n "$UID" ]; then
-            usermod -o -u "$UID" radicale
-        fi
+    if [ -n "$UID" ] && [ "$UID" != "$(id radicale -u)" ]; then
+        usermod -o -u "$UID" radicale
+    fi
 
-        if [ -n "$GID" ]; then
-            groupmod -o -g "$GID" radicale
-        fi
+    if [ -n "$GID" ] && [ "$GID" != "$(id radicale -g)" ]; then
+        groupmod -o -g "$GID" radicale
     fi
 fi
 
-# Update config from Env
-# Only run if some env vars are defined
+# Update config from Env if Env vars are defined
 if env | grep -q "^RADICALE_CONFIG_"; then
-    # Fail gracefully if read-only
-    if [ "$IS_READONLY" = "true" ]; then
-        echo "Environment variable-based config update is disabled because the container is running with --read-only."
-    else
+    # Skip if config is read-only
+    if is_writable /config/config; then
         /venv/bin/python /usr/local/bin/update_config_from_env.py
+    else
+        echo "Environment variable-based config update is disabled because the radicale config is not writable."
     fi
 fi
 
