@@ -425,6 +425,7 @@ release workflows. The token expires, and `bump_radicale` fails when it does.
 
 ## Contributors
 
+* [Tamás Gérczei](https://github.com/tgerczei): only install openssh client instead of the whole package
 * [Echo Nar](https://github.com/lethedata): support env config with read-only container
 * [Coen](https://github.com/x-real-ip): fix for non-writable config
 * [Oscar Carlsson](https://github.com/oscarcarlsson): update Radicale to 3.5.5
